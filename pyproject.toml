@@ -1,0 +1,74 @@
+[project]
+name = "tunetidy"
+version = "1.0.0"
+description = "理音：把网易云歌单按曲风拆成多个新歌单，本地生成整理结果，人工确认后再写回（非官方项目）。"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "xhhhz" }]
+dependencies = [
+    "typer",
+    "rich",
+    "platformdirs",
+    "httpx",
+    "cryptography",
+    "qrcode",
+    "keyring",
+    "fastapi",
+    "uvicorn",
+    "mcp>=2,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/xhhhz/tunetidy"
+Issues = "https://github.com/xhhhz/tunetidy/issues"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+tunetidy = "tunetidy.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+# 前端构建产物不提交（.gitignore 里），但要打进包里；构建前先运行 cd web && npm ci && npm run build
+artifacts = ["src/tunetidy/server/static/**"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tunetidy"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+
+[[tool.mypy.overrides]]
+module = ["qrcode", "qrcode.*"]  # 无类型存根，只用于显示二维码
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: 访问真实接口，需要用户在场并已登录"]
+addopts = "-m 'not live'"
+
+[tool.coverage.run]
+source = ["tunetidy"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

@@ -1,0 +1,8 @@
+# 只分出流行，其余归"其他"
+# 用法：uv run tunetidy analyze <歌单> --groups taxonomies/examples/pop-only.toml
+match = "primary"   # primary：纯流行；any：只要带流行标签
+other = true
+
+[[groups]]
+name = "流行"
+genres = ["流行"]

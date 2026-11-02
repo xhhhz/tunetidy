@@ -1,0 +1,36 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: uv sync
+      - run: uv run ruff format --check . && uv run ruff check .
+      - run: uv run mypy src
+      # 默认不跑 live（真实接口）测试；钥匙串由 tests/conftest.py 强制换成假实现
+      - run: >-
+          uv run pytest --cov=tunetidy.classify --cov=tunetidy.apply --cov=tunetidy.storage
+          --cov-fail-under=80
+      - name: 构建前端和安装包，检查网页文件打进了包里
+        run: |
+          cd web && npm ci && npm run build && cd ..
+          uv build
+          python -c "import sys, zipfile, glob; names = zipfile.ZipFile(glob.glob('dist/*.whl')[0]).namelist(); sys.exit(0 if 'tunetidy/server/static/index.html' in names else 'wheel 里没有前端构建产物')"

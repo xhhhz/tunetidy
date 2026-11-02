@@ -1,0 +1,14 @@
+#!/bin/sh
+# 只允许推送 main 分支和 v 开头的发版标签；其他分支和标签只留在本机，
+# 不小心 git push --all 或 --tags 时在这里拦下。
+status=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main | refs/tags/v*) ;;
+    *)
+      echo "✗ 不推送 ${remote_ref}：只允许 main 分支和 v* 发版标签" >&2
+      status=1
+      ;;
+  esac
+done
+exit $status

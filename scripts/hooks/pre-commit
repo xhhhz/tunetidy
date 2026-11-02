@@ -1,0 +1,5 @@
+#!/bin/sh
+# 本地防误提交：扫描暂存内容里是否有你的歌单 id、用户 id、昵称、Cookie（真实值只在本机读取比对）。
+# 启用：git config core.hooksPath scripts/hooks
+top=$(git rev-parse --show-toplevel) || exit 1
+exec uv run --quiet --project "$top" python "$top/scripts/hooks/personal_scan.py"

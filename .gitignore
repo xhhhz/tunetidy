@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# 登录态与凭据：绝不提交
+*.cookie
+*cookie*.json
+storage-state*
+.env
+.env.*
+
+# 原始接口录制（未脱敏，绝不提交）
+.spike-data/
+.tunetidy-spike/
+*.qr.png
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+
+# 前端构建产物：发布时构建后打进安装包，不提交
+src/tunetidy/server/static/
+
+# 本地数据库（含个人歌单数据）：绝不提交
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Claude Code 本机设置
+.claude/settings.local.json

@@ -1,0 +1,6597 @@
+{
+ "source": "music.163.com weapi /api/tag/list/get",
+ "fetched_on": "2026-10-30",
+ "count": 648,
+ "count_by_level": {
+  "1": 28,
+  "2": 278,
+  "3": 342
+ },
+ "tree": [
+  {
+   "tag_id": 1000,
+   "name": "流行",
+   "children": [
+    {
+     "tag_id": 1020,
+     "name": "华语流行",
+     "children": []
+    },
+    {
+     "tag_id": 1009,
+     "name": "粤语流行",
+     "children": []
+    },
+    {
+     "tag_id": 1032,
+     "name": "欧美流行",
+     "children": []
+    },
+    {
+     "tag_id": 1180,
+     "name": "KPop",
+     "children": []
+    },
+    {
+     "tag_id": 1034,
+     "name": "日本流行",
+     "children": []
+    },
+    {
+     "tag_id": 1321,
+     "name": "闽南语流行",
+     "children": []
+    },
+    {
+     "tag_id": 291120,
+     "name": "草原流行",
+     "children": []
+    },
+    {
+     "tag_id": 6090,
+     "name": "俄语流行",
+     "children": []
+    },
+    {
+     "tag_id": 1227,
+     "name": "泰国流行",
+     "children": []
+    },
+    {
+     "tag_id": 1023680,
+     "name": "Afrobeats",
+     "children": []
+    },
+    {
+     "tag_id": 1122,
+     "name": "法国流行",
+     "children": [
+      {
+       "tag_id": 1129,
+       "name": "法国香颂",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1166,
+     "name": "非洲流行",
+     "children": []
+    },
+    {
+     "tag_id": 1324,
+     "name": "西班牙流行",
+     "children": []
+    },
+    {
+     "tag_id": 1325,
+     "name": "德语流行",
+     "children": []
+    },
+    {
+     "tag_id": 1084,
+     "name": "意大利流行",
+     "children": []
+    },
+    {
+     "tag_id": 169120,
+     "name": "越南流行",
+     "children": []
+    },
+    {
+     "tag_id": 8173,
+     "name": "菲律宾流行",
+     "children": []
+    },
+    {
+     "tag_id": 7080,
+     "name": "City Pop",
+     "children": []
+    },
+    {
+     "tag_id": 1033,
+     "name": "流行舞曲",
+     "children": []
+    },
+    {
+     "tag_id": 9229,
+     "name": "欧洲流行",
+     "children": []
+    },
+    {
+     "tag_id": 1168,
+     "name": "印度流行",
+     "children": []
+    },
+    {
+     "tag_id": 9159,
+     "name": "印尼流行",
+     "children": []
+    },
+    {
+     "tag_id": 309120,
+     "name": "生日流行",
+     "children": []
+    },
+    {
+     "tag_id": 1085,
+     "name": "成人当代音乐",
+     "children": []
+    },
+    {
+     "tag_id": 55081,
+     "name": "氛围流行",
+     "children": []
+    },
+    {
+     "tag_id": 8176,
+     "name": "青少年流行",
+     "children": []
+    },
+    {
+     "tag_id": 1502,
+     "name": "合成器流行",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1017,
+   "name": "嘻哈说唱",
+   "children": [
+    {
+     "tag_id": 1332,
+     "name": "中文说唱",
+     "children": []
+    },
+    {
+     "tag_id": 64097,
+     "name": "说唱伴奏",
+     "children": []
+    },
+    {
+     "tag_id": 1061681,
+     "name": "Afro Trap",
+     "children": []
+    },
+    {
+     "tag_id": 9185,
+     "name": "Jersey Club",
+     "children": []
+    },
+    {
+     "tag_id": 1330,
+     "name": "陷阱说唱",
+     "children": [
+      {
+       "tag_id": 340120,
+       "name": "孟菲斯说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1027680,
+       "name": "底特律说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1015680,
+       "name": "Rage",
+       "children": []
+      },
+      {
+       "tag_id": 1051680,
+       "name": "Jerk",
+       "children": []
+      },
+      {
+       "tag_id": 2109520,
+       "name": "New Jazz Rap",
+       "children": []
+      },
+      {
+       "tag_id": 1066681,
+       "name": "Glo",
+       "children": []
+      },
+      {
+       "tag_id": 1052680,
+       "name": "Regalia",
+       "children": []
+      },
+      {
+       "tag_id": 1016680,
+       "name": "Plugg",
+       "children": []
+      },
+      {
+       "tag_id": 231120,
+       "name": "云雾说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1058682,
+       "name": "巴吞鲁日说唱",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 168122,
+     "name": "钻头说唱",
+     "children": [
+      {
+       "tag_id": 240120,
+       "name": "英式钻头",
+       "children": []
+      },
+      {
+       "tag_id": 1053684,
+       "name": "Sexy Drill",
+       "children": []
+      },
+      {
+       "tag_id": 1067680,
+       "name": "费城钻头",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1158,
+     "name": "流行说唱",
+     "children": []
+    },
+    {
+     "tag_id": 1013,
+     "name": "雷击顿",
+     "children": []
+    },
+    {
+     "tag_id": 9191,
+     "name": "情绪说唱",
+     "children": []
+    },
+    {
+     "tag_id": 66091,
+     "name": "旋律说唱",
+     "children": []
+    },
+    {
+     "tag_id": 9186,
+     "name": "意识说唱",
+     "children": []
+    },
+    {
+     "tag_id": 1091,
+     "name": "硬核说唱",
+     "children": []
+    },
+    {
+     "tag_id": 175121,
+     "name": "快嘴说唱",
+     "children": []
+    },
+    {
+     "tag_id": 9183,
+     "name": "地域说唱",
+     "children": [
+      {
+       "tag_id": 1027,
+       "name": "东岸说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1086,
+       "name": "西岸说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1160,
+       "name": "南方说唱",
+       "children": []
+      },
+      {
+       "tag_id": 1328,
+       "name": "中西部说唱",
+       "children": []
+      },
+      {
+       "tag_id": 10173,
+       "name": "亚特兰大说唱",
+       "children": []
+      },
+      {
+       "tag_id": 72080,
+       "name": "英国说唱",
+       "children": []
+      },
+      {
+       "tag_id": 10177,
+       "name": "韩语说唱",
+       "children": []
+      },
+      {
+       "tag_id": 11186,
+       "name": "日本说唱",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11109,
+     "name": "车库嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 1167,
+     "name": "爵士嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 11185,
+     "name": "Boom Bap",
+     "children": []
+    },
+    {
+     "tag_id": 1070,
+     "name": "匪帮说唱",
+     "children": [
+      {
+       "tag_id": 9187,
+       "name": "匪帮放克",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9198,
+     "name": "根源说唱",
+     "children": [
+      {
+       "tag_id": 1327,
+       "name": "旧学派说唱",
+       "children": []
+      },
+      {
+       "tag_id": 169121,
+       "name": "黄金时代嘻哈",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11179,
+     "name": "模糊说唱",
+     "children": []
+    },
+    {
+     "tag_id": 8192,
+     "name": "狂克说唱",
+     "children": []
+    },
+    {
+     "tag_id": 8194,
+     "name": "乡村说唱",
+     "children": []
+    },
+    {
+     "tag_id": 1333,
+     "name": "另类嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 10171,
+     "name": "工业说唱",
+     "children": []
+    },
+    {
+     "tag_id": 1331,
+     "name": "实验说唱",
+     "children": []
+    },
+    {
+     "tag_id": 66092,
+     "name": "喜剧说唱",
+     "children": []
+    },
+    {
+     "tag_id": 8112,
+     "name": "弛放嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 8114,
+     "name": "低保真嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 11182,
+     "name": "新杰克摇摆",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1015,
+   "name": "电子",
+   "children": [
+    {
+     "tag_id": 1047,
+     "name": "浩室舞曲",
+     "children": [
+      {
+       "tag_id": 1338,
+       "name": "深浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1339,
+       "name": "科技浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1342,
+       "name": "渐进浩室",
+       "children": []
+      },
+      {
+       "tag_id": 235126,
+       "name": "前卫浩室",
+       "children": []
+      },
+      {
+       "tag_id": 1340,
+       "name": "电气浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1218,
+       "name": "炸房浩室",
+       "children": []
+      },
+      {
+       "tag_id": 8093,
+       "name": "灵魂浩室",
+       "children": []
+      },
+      {
+       "tag_id": 1344,
+       "name": "未来浩室",
+       "children": []
+      },
+      {
+       "tag_id": 5100,
+       "name": "迪斯科浩室",
+       "children": []
+      },
+      {
+       "tag_id": 10080,
+       "name": "放克浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 11080,
+       "name": "车库浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8086,
+       "name": "硬浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8094,
+       "name": "部落浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 5101,
+       "name": "贝斯浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8081,
+       "name": "底特律浩室",
+       "children": []
+      },
+      {
+       "tag_id": 9082,
+       "name": "拉丁浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 4093,
+       "name": "酸性浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8084,
+       "name": "法式浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1498,
+       "name": "热带浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1057681,
+       "name": "钢琴浩室",
+       "children": []
+      },
+      {
+       "tag_id": 5099,
+       "name": "芝加哥浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8089,
+       "name": "爵士浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 5103,
+       "name": "街头浩室",
+       "children": []
+      },
+      {
+       "tag_id": 1341,
+       "name": "墨尔本弹跳",
+       "children": []
+      },
+      {
+       "tag_id": 5102,
+       "name": "弛放浩室",
+       "children": []
+      },
+      {
+       "tag_id": 11089,
+       "name": "女巫浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 5098,
+       "name": "氛围浩室舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8082,
+       "name": "错综电气",
+       "children": []
+      },
+      {
+       "tag_id": 171122,
+       "name": "未来弹跳",
+       "children": []
+      },
+      {
+       "tag_id": 173121,
+       "name": "巴西贝斯",
+       "children": []
+      },
+      {
+       "tag_id": 232120,
+       "name": "Amapiano",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 226120,
+     "name": "Phonk",
+     "children": []
+    },
+    {
+     "tag_id": 1046,
+     "name": "科技舞曲",
+     "children": [
+      {
+       "tag_id": 1053681,
+       "name": "EDM科技舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1347,
+       "name": "硬核科技舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 231121,
+       "name": "旋律科技舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 4100,
+       "name": "科技迷雾",
+       "children": []
+      },
+      {
+       "tag_id": 1348,
+       "name": "简约科技舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 11213,
+       "name": "回响科技舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 9093,
+       "name": "底特律科技舞曲",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1059,
+     "name": "Trance",
+     "children": [
+      {
+       "tag_id": 8103,
+       "name": "前卫迷幻舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 1349,
+       "name": "迷幻出神",
+       "children": []
+      },
+      {
+       "tag_id": 231127,
+       "name": "EDM迷幻出神舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 11096,
+       "name": "人声迷幻舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 8104,
+       "name": "科技迷幻舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 9098,
+       "name": "硬性迷幻舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 10206,
+       "name": "前卫迷幻出神舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 9099,
+       "name": "暗黑回转出神",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1072,
+     "name": "鼓打贝斯",
+     "children": [
+      {
+       "tag_id": 11098,
+       "name": "神经放克",
+       "children": []
+      },
+      {
+       "tag_id": 10093,
+       "name": "流体鼓打贝斯",
+       "children": []
+      },
+      {
+       "tag_id": 10089,
+       "name": "Jump-Up",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1060,
+     "name": "回响贝斯",
+     "children": [
+      {
+       "tag_id": 11210,
+       "name": "Brostep",
+       "children": []
+      },
+      {
+       "tag_id": 1053680,
+       "name": "英伦回响贝斯",
+       "children": []
+      },
+      {
+       "tag_id": 65101,
+       "name": "旋律回响贝斯",
+       "children": []
+      },
+      {
+       "tag_id": 172120,
+       "name": "Riddim Dubstep",
+       "children": []
+      },
+      {
+       "tag_id": 224120,
+       "name": "色彩贝斯",
+       "children": []
+      },
+      {
+       "tag_id": 10090,
+       "name": "Drumstep",
+       "children": []
+      },
+      {
+       "tag_id": 64100,
+       "name": "Metalstep",
+       "children": []
+      },
+      {
+       "tag_id": 67094,
+       "name": "Deathstep",
+       "children": []
+      },
+      {
+       "tag_id": 1499,
+       "name": "弛放低音",
+       "children": []
+      },
+      {
+       "tag_id": 62080,
+       "name": "深度回响贝斯",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1232,
+     "name": "未来贝斯",
+     "children": []
+    },
+    {
+     "tag_id": 10106,
+     "name": "Hardbass",
+     "children": []
+    },
+    {
+     "tag_id": 1108,
+     "name": "氛围电子",
+     "children": [
+      {
+       "tag_id": 9102,
+       "name": "黑暗氛围",
+       "children": []
+      },
+      {
+       "tag_id": 11105,
+       "name": "迷幻氛围",
+       "children": []
+      },
+      {
+       "tag_id": 9101,
+       "name": "氛围回响",
+       "children": []
+      },
+      {
+       "tag_id": 8106,
+       "name": "太空音乐",
+       "children": []
+      },
+      {
+       "tag_id": 8107,
+       "name": "Illbient",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1351,
+     "name": "缓拍",
+     "children": [
+      {
+       "tag_id": 1352,
+       "name": "神游舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 10095,
+       "name": "入梦弛放",
+       "children": []
+      },
+      {
+       "tag_id": 8111,
+       "name": "人声弛放音乐",
+       "children": []
+      },
+      {
+       "tag_id": 8113,
+       "name": "宇宙梦幻",
+       "children": []
+      },
+      {
+       "tag_id": 9109,
+       "name": "缓拍&沙发",
+       "children": []
+      },
+      {
+       "tag_id": 10094,
+       "name": "迷幻弛放",
+       "children": []
+      },
+      {
+       "tag_id": 10096,
+       "name": "氛围缓拍",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9108,
+     "name": "Electronica",
+     "children": []
+    },
+    {
+     "tag_id": 1153,
+     "name": "Disco",
+     "children": [
+      {
+       "tag_id": 1337,
+       "name": "新迪斯科",
+       "children": []
+      },
+      {
+       "tag_id": 9106,
+       "name": "伊泰洛迪斯科",
+       "children": []
+      },
+      {
+       "tag_id": 8109,
+       "name": "太空迪斯科舞曲",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1233,
+     "name": "硬核",
+     "children": [
+      {
+       "tag_id": 10108,
+       "name": "UK硬核",
+       "children": []
+      },
+      {
+       "tag_id": 11114,
+       "name": "快乐硬核",
+       "children": []
+      },
+      {
+       "tag_id": 8128,
+       "name": "碎核",
+       "children": []
+      },
+      {
+       "tag_id": 67090,
+       "name": "法核",
+       "children": []
+      },
+      {
+       "tag_id": 10107,
+       "name": "速核",
+       "children": []
+      },
+      {
+       "tag_id": 9119,
+       "name": "Doomcore",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1114,
+     "name": "碎拍",
+     "children": [
+      {
+       "tag_id": 1228,
+       "name": "大节拍",
+       "children": []
+      },
+      {
+       "tag_id": 9113,
+       "name": "巴尔的摩舞曲",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 8171,
+     "name": "游戏电子音乐",
+     "children": [
+      {
+       "tag_id": 9156,
+       "name": "芯片音乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11118,
+     "name": "工业音乐",
+     "children": [
+      {
+       "tag_id": 8133,
+       "name": "电气工业",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 225120,
+     "name": "未来锐舞",
+     "children": []
+    },
+    {
+     "tag_id": 1350,
+     "name": "硬派音乐",
+     "children": [
+      {
+       "tag_id": 64098,
+       "name": "生猛硬派",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9120,
+     "name": "丛林舞曲",
+     "children": []
+    },
+    {
+     "tag_id": 1346,
+     "name": "英国车库舞曲",
+     "children": [
+      {
+       "tag_id": 9110,
+       "name": "未来车库舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 10100,
+       "name": "英国放克舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 11097,
+       "name": "贝斯声线",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9154,
+     "name": "高能量舞曲",
+     "children": [
+      {
+       "tag_id": 10143,
+       "name": "欧陆舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 9088,
+       "name": "Hands Up",
+       "children": []
+      },
+      {
+       "tag_id": 5097,
+       "name": "经典欧洲舞曲",
+       "children": []
+      },
+      {
+       "tag_id": 9155,
+       "name": "欧陆节拍",
+       "children": []
+      },
+      {
+       "tag_id": 8168,
+       "name": "伊泰洛舞曲",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1189,
+     "name": "陷阱舞曲",
+     "children": []
+    },
+    {
+     "tag_id": 10101,
+     "name": "智能舞曲",
+     "children": []
+    },
+    {
+     "tag_id": 8100,
+     "name": "鹿特丹硬核舞曲",
+     "children": []
+    },
+    {
+     "tag_id": 227120,
+     "name": "中速节奏",
+     "children": [
+      {
+       "tag_id": 10102,
+       "name": "毛刺嘻哈",
+       "children": []
+      },
+      {
+       "tag_id": 11189,
+       "name": "合成器浪潮",
+       "children": []
+      },
+      {
+       "tag_id": 1345,
+       "name": "蒸汽波",
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag_id": 1028,
+   "name": "R&B",
+   "children": [
+    {
+     "tag_id": 1053,
+     "name": "当代R&B",
+     "children": [
+      {
+       "tag_id": 1220,
+       "name": "都市流行",
+       "children": []
+      },
+      {
+       "tag_id": 1052,
+       "name": "平静风暴",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1279,
+     "name": "早期R&B",
+     "children": [
+      {
+       "tag_id": 1119,
+       "name": "嘟喔普",
+       "children": []
+      },
+      {
+       "tag_id": 1281,
+       "name": "摩城音乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1280,
+     "name": "另类R&B",
+     "children": []
+    },
+    {
+     "tag_id": 1103,
+     "name": "灵魂乐",
+     "children": [
+      {
+       "tag_id": 8138,
+       "name": "新灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 11133,
+       "name": "柔顺灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 8149,
+       "name": "嘻哈灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 9138,
+       "name": "流行灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 6100,
+       "name": "白人灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 9128,
+       "name": "南方灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 10130,
+       "name": "迷幻灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 8148,
+       "name": "拉丁灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 8146,
+       "name": "芝加哥灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 9139,
+       "name": "费城灵魂乐",
+       "children": []
+      },
+      {
+       "tag_id": 7098,
+       "name": "北方灵魂乐",
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag_id": 10119,
+   "name": "国风",
+   "children": [
+    {
+     "tag_id": 1255,
+     "name": "古风",
+     "children": []
+    },
+    {
+     "tag_id": 206122,
+     "name": "国风流行",
+     "children": []
+    },
+    {
+     "tag_id": 208120,
+     "name": "国风嘻哈",
+     "children": []
+    },
+    {
+     "tag_id": 215125,
+     "name": "国风电子",
+     "children": []
+    },
+    {
+     "tag_id": 333124,
+     "name": "国风摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1020680,
+     "name": "国风戏腔",
+     "children": []
+    },
+    {
+     "tag_id": 336128,
+     "name": "国风纯音乐",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1026,
+   "name": "儿童",
+   "children": [
+    {
+     "tag_id": 1221,
+     "name": "儿歌",
+     "children": []
+    },
+    {
+     "tag_id": 1246,
+     "name": "胎教音乐",
+     "children": []
+    },
+    {
+     "tag_id": 177120,
+     "name": "儿童故事",
+     "children": []
+    },
+    {
+     "tag_id": 67088,
+     "name": "英文儿歌",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1008,
+   "name": "摇滚",
+   "children": [
+    {
+     "tag_id": 1098,
+     "name": "流行摇滚",
+     "children": [
+      {
+       "tag_id": 1075,
+       "name": "软摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 9206,
+       "name": "强力流行",
+       "children": []
+      },
+      {
+       "tag_id": 9207,
+       "name": "噪响流行",
+       "children": []
+      },
+      {
+       "tag_id": 11193,
+       "name": "英国节拍乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1040,
+     "name": "另类摇滚",
+     "children": [
+      {
+       "tag_id": 1177,
+       "name": "垃圾摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 1042,
+       "name": "梦幻流行",
+       "children": []
+      },
+      {
+       "tag_id": 11191,
+       "name": "学院摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 1170,
+       "name": "英伦摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 9204,
+       "name": "噪音摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 8220,
+       "name": "盯鞋摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 10182,
+       "name": "慢核",
+       "children": []
+      },
+      {
+       "tag_id": 11190,
+       "name": "室内流行",
+       "children": []
+      },
+      {
+       "tag_id": 10180,
+       "name": "后垃圾摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 10181,
+       "name": "悲核",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1171,
+     "name": "器乐摇滚",
+     "children": [
+      {
+       "tag_id": 1061,
+       "name": "后摇",
+       "children": []
+      },
+      {
+       "tag_id": 1063,
+       "name": "数学摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1065,
+     "name": "前卫摇滚",
+     "children": [
+      {
+       "tag_id": 10185,
+       "name": "泡菜摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 8203,
+       "name": "太空摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 8202,
+       "name": "坎特伯里之声",
+       "children": []
+      },
+      {
+       "tag_id": 10186,
+       "name": "反摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1058,
+     "name": "迷幻摇滚",
+     "children": [
+      {
+       "tag_id": 8205,
+       "name": "新迷幻",
+       "children": []
+      },
+      {
+       "tag_id": 8204,
+       "name": "酸性摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1394,
+     "name": "实验摇滚",
+     "children": [
+      {
+       "tag_id": 9203,
+       "name": "艺术摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 8199,
+       "name": "工业摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 7092,
+     "name": "日系摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 9199,
+     "name": "电子摇滚",
+     "children": [
+      {
+       "tag_id": 1104,
+       "name": "合成器摇滚",
+       "children": []
+      },
+      {
+       "tag_id": 9201,
+       "name": "电音撞击乐",
+       "children": []
+      },
+      {
+       "tag_id": 11188,
+       "name": "新狂欢",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1090,
+     "name": "华丽摇滚",
+     "children": [
+      {
+       "tag_id": 1127,
+       "name": "舞台摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 8209,
+     "name": "南方摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1057,
+     "name": "硬摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1074,
+     "name": "民谣摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1106,
+     "name": "蓝调摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1164,
+     "name": "车库摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 9227,
+     "name": "根源摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1201,
+     "name": "经典摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1236,
+     "name": "视觉摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1163,
+     "name": "冲浪摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 11202,
+     "name": "说唱摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 4091,
+     "name": "韩系摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1118,
+     "name": "独立摇滚",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1003,
+   "name": "民谣",
+   "children": [
+    {
+     "tag_id": 15088,
+     "name": "华语民谣",
+     "children": [
+      {
+       "tag_id": 8215,
+       "name": "校园民谣",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1021,
+     "name": "当代民谣",
+     "children": []
+    },
+    {
+     "tag_id": 1147,
+     "name": "独立民谣",
+     "children": []
+    },
+    {
+     "tag_id": 1120,
+     "name": "传统民谣",
+     "children": [
+      {
+       "tag_id": 11203,
+       "name": "凯尔特民谣",
+       "children": []
+      },
+      {
+       "tag_id": 10205,
+       "name": "德国民谣",
+       "children": []
+      },
+      {
+       "tag_id": 10197,
+       "name": "爱尔兰民谣",
+       "children": []
+      },
+      {
+       "tag_id": 10199,
+       "name": "瑞典民谣",
+       "children": []
+      },
+      {
+       "tag_id": 10198,
+       "name": "苏格兰民谣",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11205,
+     "name": "融合民谣",
+     "children": [
+      {
+       "tag_id": 9219,
+       "name": "新民谣",
+       "children": []
+      },
+      {
+       "tag_id": 8216,
+       "name": "迷幻民谣",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1391,
+     "name": "世界民谣",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 79088,
+   "name": "慢摇DJ",
+   "children": [
+    {
+     "tag_id": 21080,
+     "name": "中文DJ",
+     "children": []
+    },
+    {
+     "tag_id": 1257,
+     "name": "喊麦",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1010,
+   "name": "原声带",
+   "children": [
+    {
+     "tag_id": 6097,
+     "name": "综艺原声",
+     "children": []
+    },
+    {
+     "tag_id": 1126,
+     "name": "电视剧原声",
+     "children": []
+    },
+    {
+     "tag_id": 1031,
+     "name": "电影原声",
+     "children": [
+      {
+       "tag_id": 6096,
+       "name": "电影配乐",
+       "children": []
+      },
+      {
+       "tag_id": 332128,
+       "name": "宝莱坞电影原声",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1376,
+     "name": "动画片原声",
+     "children": []
+    },
+    {
+     "tag_id": 1065681,
+     "name": "Netflix",
+     "children": []
+    },
+    {
+     "tag_id": 337129,
+     "name": "Disney",
+     "children": []
+    },
+    {
+     "tag_id": 1378,
+     "name": "游戏原声",
+     "children": [
+      {
+       "tag_id": 65097,
+       "name": "手游原声",
+       "children": []
+      },
+      {
+       "tag_id": 142124,
+       "name": "主机游戏配乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1069,
+     "name": "音乐剧",
+     "children": []
+    },
+    {
+     "tag_id": 52080,
+     "name": "配乐",
+     "children": []
+    },
+    {
+     "tag_id": 78088,
+     "name": "布袋戏原声",
+     "children": []
+    },
+    {
+     "tag_id": 1504,
+     "name": "史诗音乐",
+     "children": []
+    },
+    {
+     "tag_id": 76088,
+     "name": "纪录片原声",
+     "children": []
+    },
+    {
+     "tag_id": 139120,
+     "name": "广播剧原声",
+     "children": []
+    },
+    {
+     "tag_id": 4098,
+     "name": "广告原声",
+     "children": []
+    },
+    {
+     "tag_id": 6099,
+     "name": "体育节目原声",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1001,
+   "name": "中国传统特色",
+   "children": [
+    {
+     "tag_id": 1039,
+     "name": "戏曲",
+     "children": [
+      {
+       "tag_id": 1241,
+       "name": "京剧",
+       "children": []
+      },
+      {
+       "tag_id": 1295,
+       "name": "越剧",
+       "children": []
+      },
+      {
+       "tag_id": 79093,
+       "name": "晋剧",
+       "children": []
+      },
+      {
+       "tag_id": 78091,
+       "name": "秦腔",
+       "children": []
+      },
+      {
+       "tag_id": 1297,
+       "name": "豫剧",
+       "children": []
+      },
+      {
+       "tag_id": 2108520,
+       "name": "曲剧",
+       "children": []
+      },
+      {
+       "tag_id": 1038,
+       "name": "黄梅戏",
+       "children": []
+      },
+      {
+       "tag_id": 1294,
+       "name": "昆曲",
+       "children": []
+      },
+      {
+       "tag_id": 1249,
+       "name": "粤剧",
+       "children": []
+      },
+      {
+       "tag_id": 79094,
+       "name": "花鼓戏",
+       "children": []
+      },
+      {
+       "tag_id": 77090,
+       "name": "河北梆子",
+       "children": []
+      },
+      {
+       "tag_id": 1296,
+       "name": "评剧",
+       "children": []
+      },
+      {
+       "tag_id": 76094,
+       "name": "沪剧",
+       "children": []
+      },
+      {
+       "tag_id": 79092,
+       "name": "川剧",
+       "children": []
+      },
+      {
+       "tag_id": 78095,
+       "name": "二人台",
+       "children": []
+      },
+      {
+       "tag_id": 78092,
+       "name": "婺剧",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1002,
+     "name": "民乐",
+     "children": [
+      {
+       "tag_id": 77097,
+       "name": "古琴",
+       "children": []
+      },
+      {
+       "tag_id": 79106,
+       "name": "古筝",
+       "children": []
+      },
+      {
+       "tag_id": 76091,
+       "name": "二胡",
+       "children": []
+      },
+      {
+       "tag_id": 76090,
+       "name": "竹笛",
+       "children": []
+      },
+      {
+       "tag_id": 78101,
+       "name": "琵琶",
+       "children": []
+      },
+      {
+       "tag_id": 63080,
+       "name": "马头琴",
+       "children": []
+      },
+      {
+       "tag_id": 78089,
+       "name": "葫芦丝",
+       "children": []
+      },
+      {
+       "tag_id": 78102,
+       "name": "洞箫",
+       "children": []
+      },
+      {
+       "tag_id": 79104,
+       "name": "唢呐",
+       "children": []
+      },
+      {
+       "tag_id": 82080,
+       "name": "扬琴",
+       "children": []
+      },
+      {
+       "tag_id": 77099,
+       "name": "潮州音乐",
+       "children": []
+      },
+      {
+       "tag_id": 79107,
+       "name": "芦笙",
+       "children": []
+      },
+      {
+       "tag_id": 78100,
+       "name": "江南丝竹",
+       "children": []
+      },
+      {
+       "tag_id": 77098,
+       "name": "西安鼓乐",
+       "children": []
+      },
+      {
+       "tag_id": 79105,
+       "name": "广东音乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1023,
+     "name": "民族歌曲",
+     "children": [
+      {
+       "tag_id": 10144,
+       "name": "藏族民歌",
+       "children": []
+      },
+      {
+       "tag_id": 55084,
+       "name": "新疆特色",
+       "children": []
+      },
+      {
+       "tag_id": 9130,
+       "name": "台湾原住民特色",
+       "children": []
+      },
+      {
+       "tag_id": 57080,
+       "name": "蒙古族民歌",
+       "children": []
+      },
+      {
+       "tag_id": 79102,
+       "name": "花儿",
+       "children": []
+      },
+      {
+       "tag_id": 78090,
+       "name": "陕北民歌",
+       "children": []
+      },
+      {
+       "tag_id": 76099,
+       "name": "福建南音",
+       "children": []
+      },
+      {
+       "tag_id": 78098,
+       "name": "蒙古族长调",
+       "children": []
+      },
+      {
+       "tag_id": 78099,
+       "name": "侗族大歌",
+       "children": []
+      },
+      {
+       "tag_id": 78103,
+       "name": "彝族民歌",
+       "children": []
+      },
+      {
+       "tag_id": 146121,
+       "name": "云南民歌",
+       "children": []
+      },
+      {
+       "tag_id": 77095,
+       "name": "蒙古族呼麦",
+       "children": []
+      },
+      {
+       "tag_id": 76098,
+       "name": "新疆维吾尔木卡姆",
+       "children": []
+      },
+      {
+       "tag_id": 77096,
+       "name": "苗族民歌",
+       "children": []
+      },
+      {
+       "tag_id": 144121,
+       "name": "青海民歌",
+       "children": []
+      },
+      {
+       "tag_id": 145120,
+       "name": "江苏民歌",
+       "children": []
+      },
+      {
+       "tag_id": 146122,
+       "name": "贵州民歌",
+       "children": []
+      },
+      {
+       "tag_id": 144122,
+       "name": "安徽民歌",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 58090,
+     "name": "正能量",
+     "children": []
+    },
+    {
+     "tag_id": 1243,
+     "name": "红色经典",
+     "children": []
+    },
+    {
+     "tag_id": 1245,
+     "name": "曲艺",
+     "children": [
+      {
+       "tag_id": 76096,
+       "name": "苏州评弹",
+       "children": []
+      },
+      {
+       "tag_id": 79099,
+       "name": "京韵大鼓",
+       "children": []
+      },
+      {
+       "tag_id": 77091,
+       "name": "河南坠子",
+       "children": []
+      },
+      {
+       "tag_id": 145121,
+       "name": "单弦",
+       "children": []
+      },
+      {
+       "tag_id": 146123,
+       "name": "西河大鼓",
+       "children": []
+      },
+      {
+       "tag_id": 144123,
+       "name": "京东大鼓",
+       "children": []
+      },
+      {
+       "tag_id": 77093,
+       "name": "梅花大鼓",
+       "children": []
+      },
+      {
+       "tag_id": 144124,
+       "name": "北京小曲",
+       "children": []
+      },
+      {
+       "tag_id": 77092,
+       "name": "东北二人转",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1210,
+     "name": "时代曲",
+     "children": []
+    },
+    {
+     "tag_id": 1242,
+     "name": "军旅歌曲",
+     "children": []
+    },
+    {
+     "tag_id": 75081,
+     "name": "中国艺术歌曲",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1022,
+   "name": "古典",
+   "children": [
+    {
+     "tag_id": 1308,
+     "name": "文艺复兴时期",
+     "children": []
+    },
+    {
+     "tag_id": 1309,
+     "name": "巴洛克时期",
+     "children": []
+    },
+    {
+     "tag_id": 1310,
+     "name": "古典主义时期",
+     "children": []
+    },
+    {
+     "tag_id": 1311,
+     "name": "浪漫主义时期",
+     "children": []
+    },
+    {
+     "tag_id": 1418,
+     "name": "二十世纪古典",
+     "children": []
+    },
+    {
+     "tag_id": 1312,
+     "name": "印象主义音乐",
+     "children": []
+    },
+    {
+     "tag_id": 74088,
+     "name": "新古典主义音乐",
+     "children": []
+    },
+    {
+     "tag_id": 1128,
+     "name": "当代古典音乐",
+     "children": []
+    },
+    {
+     "tag_id": 1151,
+     "name": "古典跨界",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1011,
+   "name": "爵士",
+   "children": [
+    {
+     "tag_id": 1302,
+     "name": "早期爵士",
+     "children": [
+      {
+       "tag_id": 1303,
+       "name": "拉格泰姆",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1089,
+     "name": "摇摆乐",
+     "children": []
+    },
+    {
+     "tag_id": 1048,
+     "name": "比波普",
+     "children": []
+    },
+    {
+     "tag_id": 1055,
+     "name": "冷爵士",
+     "children": []
+    },
+    {
+     "tag_id": 11164,
+     "name": "硬波普",
+     "children": []
+    },
+    {
+     "tag_id": 11166,
+     "name": "后波普",
+     "children": []
+    },
+    {
+     "tag_id": 1076,
+     "name": "先锋爵士",
+     "children": [
+      {
+       "tag_id": 9170,
+       "name": "自由爵士",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1030,
+     "name": "融合爵士",
+     "children": [
+      {
+       "tag_id": 11167,
+       "name": "灵魂爵士",
+       "children": []
+      },
+      {
+       "tag_id": 11169,
+       "name": "放克爵士",
+       "children": []
+      },
+      {
+       "tag_id": 1173,
+       "name": "酸性爵士",
+       "children": []
+      },
+      {
+       "tag_id": 8187,
+       "name": "新兴爵士",
+       "children": []
+      },
+      {
+       "tag_id": 1083,
+       "name": "柔顺爵士",
+       "children": []
+      },
+      {
+       "tag_id": 1301,
+       "name": "流行爵士",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1082,
+     "name": "当代爵士",
+     "children": []
+    },
+    {
+     "tag_id": 1109,
+     "name": "人声爵士",
+     "children": []
+    },
+    {
+     "tag_id": 1291,
+     "name": "拉丁爵士",
+     "children": [
+      {
+       "tag_id": 10161,
+       "name": "古巴爵士",
+       "children": []
+      },
+      {
+       "tag_id": 1113,
+       "name": "巴萨诺瓦",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11171,
+     "name": "爵士蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 9173,
+     "name": "调式爵士",
+     "children": []
+    },
+    {
+     "tag_id": 8185,
+     "name": "室内爵士",
+     "children": []
+    },
+    {
+     "tag_id": 1111,
+     "name": "大乐队",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1252,
+   "name": "二次元",
+   "children": [
+    {
+     "tag_id": 1315,
+     "name": "动漫原声",
+     "children": [
+      {
+       "tag_id": 4085,
+       "name": "动漫主题曲",
+       "children": []
+      },
+      {
+       "tag_id": 7085,
+       "name": "动漫角色歌",
+       "children": []
+      },
+      {
+       "tag_id": 5083,
+       "name": "动漫印象歌",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1025,
+     "name": "游戏音乐",
+     "children": [
+      {
+       "tag_id": 6084,
+       "name": "二次元游戏原声带",
+       "children": []
+      },
+      {
+       "tag_id": 7087,
+       "name": "游戏主题曲",
+       "children": []
+      },
+      {
+       "tag_id": 7088,
+       "name": "游戏角色歌",
+       "children": []
+      },
+      {
+       "tag_id": 1049680,
+       "name": "节奏游戏音乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1320,
+     "name": "同人作品",
+     "children": [
+      {
+       "tag_id": 7089,
+       "name": "東方Project",
+       "children": []
+      },
+      {
+       "tag_id": 1319,
+       "name": "同人原创",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 7083,
+     "name": "特摄剧",
+     "children": []
+    },
+    {
+     "tag_id": 1316,
+     "name": "歌声合成",
+     "children": [
+      {
+       "tag_id": 6086,
+       "name": "VOCALOID",
+       "children": []
+      },
+      {
+       "tag_id": 5084,
+       "name": "UTAU",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1318,
+     "name": "广播剧/音声",
+     "children": []
+    },
+    {
+     "tag_id": 1317,
+     "name": "唱见",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1006,
+   "name": "轻音乐",
+   "children": [
+    {
+     "tag_id": 1298,
+     "name": "流行轻音乐",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1263,
+   "name": "世界乐器体裁",
+   "children": [
+    {
+     "tag_id": 1384,
+     "name": "键盘乐器",
+     "children": [
+      {
+       "tag_id": 1385,
+       "name": "钢琴",
+       "children": []
+      },
+      {
+       "tag_id": 1419,
+       "name": "风琴",
+       "children": []
+      },
+      {
+       "tag_id": 1420,
+       "name": "早期键盘乐器",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1382,
+     "name": "弦乐",
+     "children": [
+      {
+       "tag_id": 1421,
+       "name": "小提琴",
+       "children": []
+      },
+      {
+       "tag_id": 1423,
+       "name": "大提琴",
+       "children": []
+      },
+      {
+       "tag_id": 1422,
+       "name": "中提琴",
+       "children": []
+      },
+      {
+       "tag_id": 1426,
+       "name": "竖琴",
+       "children": []
+      },
+      {
+       "tag_id": 1425,
+       "name": "低音提琴",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1100,
+     "name": "管弦乐",
+     "children": [
+      {
+       "tag_id": 1110,
+       "name": "交响乐",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1096,
+     "name": "室内乐",
+     "children": []
+    },
+    {
+     "tag_id": 11150,
+     "name": "西方乐器",
+     "children": [
+      {
+       "tag_id": 1424,
+       "name": "吉他",
+       "children": []
+      },
+      {
+       "tag_id": 1427,
+       "name": "鲁特琴",
+       "children": []
+      },
+      {
+       "tag_id": 1428,
+       "name": "低音维奥尔琴",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1152,
+     "name": "歌剧",
+     "children": []
+    },
+    {
+     "tag_id": 1121,
+     "name": "协奏曲",
+     "children": []
+    },
+    {
+     "tag_id": 1209,
+     "name": "乐器独奏",
+     "children": []
+    },
+    {
+     "tag_id": 1380,
+     "name": "木管乐",
+     "children": [
+      {
+       "tag_id": 1430,
+       "name": "长笛",
+       "children": []
+      },
+      {
+       "tag_id": 1433,
+       "name": "黑管",
+       "children": []
+      },
+      {
+       "tag_id": 1431,
+       "name": "双簧管",
+       "children": []
+      },
+      {
+       "tag_id": 1432,
+       "name": "直笛",
+       "children": []
+      },
+      {
+       "tag_id": 1434,
+       "name": "巴松管",
+       "children": []
+      },
+      {
+       "tag_id": 1429,
+       "name": "萨克斯",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1381,
+     "name": "铜管乐",
+     "children": [
+      {
+       "tag_id": 1435,
+       "name": "小号",
+       "children": []
+      },
+      {
+       "tag_id": 1436,
+       "name": "圆号",
+       "children": []
+      },
+      {
+       "tag_id": 1437,
+       "name": "长号",
+       "children": []
+      },
+      {
+       "tag_id": 1438,
+       "name": "大号",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1383,
+     "name": "打击乐器",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1060683,
+   "name": "纯演奏音乐",
+   "children": [
+    {
+     "tag_id": 10126,
+     "name": "低保真",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1077,
+   "name": "乡村",
+   "children": [
+    {
+     "tag_id": 1306,
+     "name": "传统乡村乐",
+     "children": [
+      {
+       "tag_id": 1305,
+       "name": "乡村民谣",
+       "children": []
+      },
+      {
+       "tag_id": 10116,
+       "name": "西部摇摆",
+       "children": []
+      },
+      {
+       "tag_id": 10115,
+       "name": "前卫乡村",
+       "children": []
+      },
+      {
+       "tag_id": 9126,
+       "name": "纳什维尔之声",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1112,
+     "name": "当代乡村乐",
+     "children": []
+    },
+    {
+     "tag_id": 1105,
+     "name": "美式乡村",
+     "children": []
+    },
+    {
+     "tag_id": 1125,
+     "name": "蓝草",
+     "children": []
+    },
+    {
+     "tag_id": 10123,
+     "name": "乡村流行",
+     "children": []
+    },
+    {
+     "tag_id": 1304,
+     "name": "乡村摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 8142,
+     "name": "洛卡比里",
+     "children": []
+    },
+    {
+     "tag_id": 1078,
+     "name": "另类乡村",
+     "children": []
+    },
+    {
+     "tag_id": 8139,
+     "name": "叛道乡村",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1007,
+   "name": "新世纪",
+   "children": [
+    {
+     "tag_id": 10148,
+     "name": "冥想音乐",
+     "children": []
+    },
+    {
+     "tag_id": 1117,
+     "name": "自然新世纪",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 152124,
+   "name": "朋克",
+   "children": [
+    {
+     "tag_id": 11192,
+     "name": "后朋克",
+     "children": [
+      {
+       "tag_id": 1066,
+       "name": "暗潮",
+       "children": []
+      },
+      {
+       "tag_id": 10179,
+       "name": "仙音",
+       "children": []
+      },
+      {
+       "tag_id": 1231,
+       "name": "哥特摇滚",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 11197,
+     "name": "硬核朋克",
+     "children": [
+      {
+       "tag_id": 11195,
+       "name": "D拍",
+       "children": []
+      },
+      {
+       "tag_id": 8207,
+       "name": "地壳朋克",
+       "children": []
+      },
+      {
+       "tag_id": 9213,
+       "name": "滑板朋克",
+       "children": []
+      },
+      {
+       "tag_id": 11198,
+       "name": "激流核",
+       "children": []
+      },
+      {
+       "tag_id": 9210,
+       "name": "后硬核",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 8198,
+     "name": "电子朋克",
+     "children": [
+      {
+       "tag_id": 159121,
+       "name": "合成器朋克",
+       "children": []
+      },
+      {
+       "tag_id": 160122,
+       "name": "舞曲朋克",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 10191,
+     "name": "情绪硬核",
+     "children": [
+      {
+       "tag_id": 10190,
+       "name": "Screamo",
+       "children": []
+      },
+      {
+       "tag_id": 167124,
+       "name": "Midwest Emo",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9211,
+     "name": "流行朋克",
+     "children": []
+    },
+    {
+     "tag_id": 1115,
+     "name": "新浪潮",
+     "children": []
+    },
+    {
+     "tag_id": 11200,
+     "name": "精神摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 10188,
+     "name": "死亡摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 160121,
+     "name": "前朋克",
+     "children": []
+    },
+    {
+     "tag_id": 10189,
+     "name": "车库朋克",
+     "children": []
+    },
+    {
+     "tag_id": 9212,
+     "name": "暴女朋克运动",
+     "children": []
+    },
+    {
+     "tag_id": 10187,
+     "name": "牛仔朋克",
+     "children": []
+    },
+    {
+     "tag_id": 10195,
+     "name": "日系朋克",
+     "children": []
+    },
+    {
+     "tag_id": 159122,
+     "name": "后朋克复兴",
+     "children": []
+    },
+    {
+     "tag_id": 10194,
+     "name": "街头朋克",
+     "children": []
+    },
+    {
+     "tag_id": 159123,
+     "name": "无浪潮",
+     "children": []
+    },
+    {
+     "tag_id": 11187,
+     "name": "冷潮",
+     "children": []
+    },
+    {
+     "tag_id": 11196,
+     "name": "艺术朋克",
+     "children": []
+    },
+    {
+     "tag_id": 8208,
+     "name": "斯卡朋克",
+     "children": []
+    },
+    {
+     "tag_id": 10192,
+     "name": "恐怖朋克",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1041,
+   "name": "金属",
+   "children": [
+    {
+     "tag_id": 1056,
+     "name": "传统金属",
+     "children": [
+      {
+       "tag_id": 11154,
+       "name": "重金属",
+       "children": []
+      },
+      {
+       "tag_id": 8177,
+       "name": "华丽金属",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1165,
+     "name": "极端金属",
+     "children": [
+      {
+       "tag_id": 1396,
+       "name": "死亡金属",
+       "children": []
+      },
+      {
+       "tag_id": 1397,
+       "name": "黑金属",
+       "children": []
+      },
+      {
+       "tag_id": 11158,
+       "name": "死核",
+       "children": []
+      },
+      {
+       "tag_id": 10156,
+       "name": "旋律死亡金属",
+       "children": []
+      },
+      {
+       "tag_id": 9164,
+       "name": "Blackgaze",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1162,
+     "name": "另类金属",
+     "children": [
+      {
+       "tag_id": 1503,
+       "name": "工业金属",
+       "children": []
+      },
+      {
+       "tag_id": 1399,
+       "name": "新金属",
+       "children": []
+      },
+      {
+       "tag_id": 10151,
+       "name": "饶舌金属",
+       "children": []
+      },
+      {
+       "tag_id": 11155,
+       "name": "放克金属",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1095,
+     "name": "硬核金属",
+     "children": [
+      {
+       "tag_id": 11157,
+       "name": "金属核",
+       "children": []
+      },
+      {
+       "tag_id": 11156,
+       "name": "速度金属",
+       "children": []
+      },
+      {
+       "tag_id": 1395,
+       "name": "激流金属",
+       "children": []
+      },
+      {
+       "tag_id": 8179,
+       "name": "律动金属",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1141,
+     "name": "前卫金属",
+     "children": [
+      {
+       "tag_id": 11161,
+       "name": "交响金属",
+       "children": []
+      },
+      {
+       "tag_id": 8182,
+       "name": "新古典金属",
+       "children": []
+      },
+      {
+       "tag_id": 9169,
+       "name": "结构金属",
+       "children": []
+      },
+      {
+       "tag_id": 11162,
+       "name": "先锋金属",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9168,
+     "name": "厄运金属",
+     "children": []
+    },
+    {
+     "tag_id": 1131,
+     "name": "力量金属",
+     "children": [
+      {
+       "tag_id": 11159,
+       "name": "可爱金属",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9166,
+     "name": "民谣金属",
+     "children": []
+    },
+    {
+     "tag_id": 1398,
+     "name": "哥特金属",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1037,
+   "name": "蓝调",
+   "children": [
+    {
+     "tag_id": 10137,
+     "name": "融合蓝调",
+     "children": [
+      {
+       "tag_id": 11139,
+       "name": "原声蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 1300,
+       "name": "古典蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 9147,
+       "name": "灵魂蓝调",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 9141,
+     "name": "地域蓝调",
+     "children": [
+      {
+       "tag_id": 1099,
+       "name": "芝加哥蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 1135,
+       "name": "三角洲蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 9145,
+       "name": "西海岸蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 10135,
+       "name": "东海岸蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 8152,
+       "name": "新奥尔良蓝调",
+       "children": []
+      },
+      {
+       "tag_id": 8153,
+       "name": "德克萨斯蓝调",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1134,
+     "name": "乡村蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 1079,
+     "name": "电子蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 1185,
+     "name": "当代蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 11137,
+     "name": "钢琴蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 10136,
+     "name": "城市布鲁斯",
+     "children": []
+    },
+    {
+     "tag_id": 11136,
+     "name": "跳跃蓝调",
+     "children": []
+    },
+    {
+     "tag_id": 8154,
+     "name": "布基伍基",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1014,
+   "name": "另类/独立",
+   "children": [
+    {
+     "tag_id": 1035,
+     "name": "独立流行",
+     "children": []
+    },
+    {
+     "tag_id": 11153,
+     "name": "另类流行",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1029,
+   "name": "放克",
+   "children": [
+    {
+     "tag_id": 7099,
+     "name": "深度放克",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1043,
+   "name": "雷鬼",
+   "children": [
+    {
+     "tag_id": 1142,
+     "name": "斯卡",
+     "children": []
+    },
+    {
+     "tag_id": 1356,
+     "name": "舞场雷鬼",
+     "children": []
+    },
+    {
+     "tag_id": 1097,
+     "name": "根源雷鬼",
+     "children": []
+    },
+    {
+     "tag_id": 1101,
+     "name": "回响",
+     "children": []
+    },
+    {
+     "tag_id": 75082,
+     "name": "雷鬼摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1130,
+     "name": "情人摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 8157,
+     "name": "融合雷鬼",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1071,
+   "name": "拉丁音乐",
+   "children": [
+    {
+     "tag_id": 11140,
+     "name": "巴西音乐",
+     "children": [
+      {
+       "tag_id": 10140,
+       "name": "葡萄牙法罗",
+       "children": []
+      },
+      {
+       "tag_id": 1184,
+       "name": "巴西全域音乐",
+       "children": []
+      },
+      {
+       "tag_id": 1197,
+       "name": "巴西乡村乐",
+       "children": []
+      },
+      {
+       "tag_id": 1188,
+       "name": "桑巴",
+       "children": []
+      },
+      {
+       "tag_id": 11141,
+       "name": "巴西流行乐",
+       "children": []
+      },
+      {
+       "tag_id": 1196,
+       "name": "派对森巴",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 10141,
+     "name": "墨西哥地方曲目",
+     "children": [
+      {
+       "tag_id": 8160,
+       "name": "Banda",
+       "children": []
+      },
+      {
+       "tag_id": 9152,
+       "name": "Norteño",
+       "children": []
+      },
+      {
+       "tag_id": 8161,
+       "name": "墨西哥街头乐队",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1092,
+     "name": "拉丁热带",
+     "children": [
+      {
+       "tag_id": 1357,
+       "name": "萨尔萨",
+       "children": []
+      },
+      {
+       "tag_id": 1187,
+       "name": "默朗格",
+       "children": []
+      },
+      {
+       "tag_id": 8164,
+       "name": "Bachata",
+       "children": []
+      },
+      {
+       "tag_id": 11146,
+       "name": "Vallenato",
+       "children": []
+      },
+      {
+       "tag_id": 10142,
+       "name": "Cumbia",
+       "children": []
+      },
+      {
+       "tag_id": 1155,
+       "name": "伦巴",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1199,
+     "name": "拉丁都市",
+     "children": []
+    },
+    {
+     "tag_id": 1161,
+     "name": "拉丁流行",
+     "children": []
+    },
+    {
+     "tag_id": 1174,
+     "name": "探戈",
+     "children": []
+    },
+    {
+     "tag_id": 1146,
+     "name": "拉丁摇滚",
+     "children": []
+    },
+    {
+     "tag_id": 1235,
+     "name": "拉丁饶舌",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1012,
+   "name": "世界音乐",
+   "children": [
+    {
+     "tag_id": 1182,
+     "name": "韩国传统与特色",
+     "children": [
+      {
+       "tag_id": 1222,
+       "name": "韩国演歌",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1054,
+     "name": "日本传统与特色",
+     "children": [
+      {
+       "tag_id": 1219,
+       "name": "日本演歌",
+       "children": []
+      },
+      {
+       "tag_id": 1202,
+       "name": "歌谣曲",
+       "children": []
+      },
+      {
+       "tag_id": 9222,
+       "name": "岛呗",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1367,
+     "name": "蒙古传统与特色",
+     "children": [
+      {
+       "tag_id": 1237,
+       "name": "呼麦",
+       "children": []
+      }
+     ]
+    },
+    {
+     "tag_id": 1369,
+     "name": "拉美传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1361,
+     "name": "非洲传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1186,
+     "name": "施拉格尔",
+     "children": []
+    },
+    {
+     "tag_id": 1372,
+     "name": "俄罗斯传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1123,
+     "name": "弗拉门戈",
+     "children": []
+    },
+    {
+     "tag_id": 1179,
+     "name": "法朵",
+     "children": []
+    },
+    {
+     "tag_id": 1195,
+     "name": "墨西哥传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1364,
+     "name": "地中海传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1370,
+     "name": "凯尔特传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1363,
+     "name": "欧洲传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 43080,
+     "name": "南美传统与特色",
+     "children": []
+    },
+    {
+     "tag_id": 1365,
+     "name": "北美传统与特色",
+     "children": []
+    }
+   ]
+  },
+  {
+   "tag_id": 1049,
+   "name": "实验",
+   "children": [
+    {
+     "tag_id": 46080,
+     "name": "自然环境声",
+     "children": []
+    },
+    {
+     "tag_id": 1051,
+     "name": "声学噪声",
+     "children": []
+    },
+    {
+     "tag_id": 268125,
+     "name": "双耳节拍",
+     "children": []
+    }
+   ]
+  }
+ ],
+ "flat": {
+  "1000": {
+   "name": "流行",
+   "parent": null,
+   "level": 1
+  },
+  "1001": {
+   "name": "中国传统特色",
+   "parent": null,
+   "level": 1
+  },
+  "1002": {
+   "name": "民乐",
+   "parent": 1001,
+   "level": 2
+  },
+  "1003": {
+   "name": "民谣",
+   "parent": null,
+   "level": 1
+  },
+  "1006": {
+   "name": "轻音乐",
+   "parent": null,
+   "level": 1
+  },
+  "1007": {
+   "name": "新世纪",
+   "parent": null,
+   "level": 1
+  },
+  "1008": {
+   "name": "摇滚",
+   "parent": null,
+   "level": 1
+  },
+  "1009": {
+   "name": "粤语流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1010": {
+   "name": "原声带",
+   "parent": null,
+   "level": 1
+  },
+  "1011": {
+   "name": "爵士",
+   "parent": null,
+   "level": 1
+  },
+  "1012": {
+   "name": "世界音乐",
+   "parent": null,
+   "level": 1
+  },
+  "1013": {
+   "name": "雷击顿",
+   "parent": 1017,
+   "level": 2
+  },
+  "1014": {
+   "name": "另类/独立",
+   "parent": null,
+   "level": 1
+  },
+  "1015": {
+   "name": "电子",
+   "parent": null,
+   "level": 1
+  },
+  "1017": {
+   "name": "嘻哈说唱",
+   "parent": null,
+   "level": 1
+  },
+  "1020": {
+   "name": "华语流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1021": {
+   "name": "当代民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "1022": {
+   "name": "古典",
+   "parent": null,
+   "level": 1
+  },
+  "1023": {
+   "name": "民族歌曲",
+   "parent": 1001,
+   "level": 2
+  },
+  "1025": {
+   "name": "游戏音乐",
+   "parent": 1252,
+   "level": 2
+  },
+  "1026": {
+   "name": "儿童",
+   "parent": null,
+   "level": 1
+  },
+  "1027": {
+   "name": "东岸说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "1028": {
+   "name": "R&B",
+   "parent": null,
+   "level": 1
+  },
+  "1029": {
+   "name": "放克",
+   "parent": null,
+   "level": 1
+  },
+  "1030": {
+   "name": "融合爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1031": {
+   "name": "电影原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "1032": {
+   "name": "欧美流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1033": {
+   "name": "流行舞曲",
+   "parent": 1000,
+   "level": 2
+  },
+  "1034": {
+   "name": "日本流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1035": {
+   "name": "独立流行",
+   "parent": 1014,
+   "level": 2
+  },
+  "1037": {
+   "name": "蓝调",
+   "parent": null,
+   "level": 1
+  },
+  "1038": {
+   "name": "黄梅戏",
+   "parent": 1039,
+   "level": 3
+  },
+  "1039": {
+   "name": "戏曲",
+   "parent": 1001,
+   "level": 2
+  },
+  "1040": {
+   "name": "另类摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1041": {
+   "name": "金属",
+   "parent": null,
+   "level": 1
+  },
+  "1042": {
+   "name": "梦幻流行",
+   "parent": 1040,
+   "level": 3
+  },
+  "1043": {
+   "name": "雷鬼",
+   "parent": null,
+   "level": 1
+  },
+  "1046": {
+   "name": "科技舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "1047": {
+   "name": "浩室舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "1048": {
+   "name": "比波普",
+   "parent": 1011,
+   "level": 2
+  },
+  "1049": {
+   "name": "实验",
+   "parent": null,
+   "level": 1
+  },
+  "1051": {
+   "name": "声学噪声",
+   "parent": 1049,
+   "level": 2
+  },
+  "1052": {
+   "name": "平静风暴",
+   "parent": 1053,
+   "level": 3
+  },
+  "1053": {
+   "name": "当代R&B",
+   "parent": 1028,
+   "level": 2
+  },
+  "1054": {
+   "name": "日本传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1055": {
+   "name": "冷爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1056": {
+   "name": "传统金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1057": {
+   "name": "硬摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1058": {
+   "name": "迷幻摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1059": {
+   "name": "Trance",
+   "parent": 1015,
+   "level": 2
+  },
+  "1060": {
+   "name": "回响贝斯",
+   "parent": 1015,
+   "level": 2
+  },
+  "1061": {
+   "name": "后摇",
+   "parent": 1171,
+   "level": 3
+  },
+  "1063": {
+   "name": "数学摇滚",
+   "parent": 1171,
+   "level": 3
+  },
+  "1065": {
+   "name": "前卫摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1066": {
+   "name": "暗潮",
+   "parent": 11192,
+   "level": 3
+  },
+  "1069": {
+   "name": "音乐剧",
+   "parent": 1010,
+   "level": 2
+  },
+  "1070": {
+   "name": "匪帮说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1071": {
+   "name": "拉丁音乐",
+   "parent": null,
+   "level": 1
+  },
+  "1072": {
+   "name": "鼓打贝斯",
+   "parent": 1015,
+   "level": 2
+  },
+  "1074": {
+   "name": "民谣摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1075": {
+   "name": "软摇滚",
+   "parent": 1098,
+   "level": 3
+  },
+  "1076": {
+   "name": "先锋爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1077": {
+   "name": "乡村",
+   "parent": null,
+   "level": 1
+  },
+  "1078": {
+   "name": "另类乡村",
+   "parent": 1077,
+   "level": 2
+  },
+  "1079": {
+   "name": "电子蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "1082": {
+   "name": "当代爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1083": {
+   "name": "柔顺爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "1084": {
+   "name": "意大利流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1085": {
+   "name": "成人当代音乐",
+   "parent": 1000,
+   "level": 2
+  },
+  "1086": {
+   "name": "西岸说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "1089": {
+   "name": "摇摆乐",
+   "parent": 1011,
+   "level": 2
+  },
+  "1090": {
+   "name": "华丽摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1091": {
+   "name": "硬核说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1092": {
+   "name": "拉丁热带",
+   "parent": 1071,
+   "level": 2
+  },
+  "1095": {
+   "name": "硬核金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1096": {
+   "name": "室内乐",
+   "parent": 1263,
+   "level": 2
+  },
+  "1097": {
+   "name": "根源雷鬼",
+   "parent": 1043,
+   "level": 2
+  },
+  "1098": {
+   "name": "流行摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1099": {
+   "name": "芝加哥蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "1100": {
+   "name": "管弦乐",
+   "parent": 1263,
+   "level": 2
+  },
+  "1101": {
+   "name": "回响",
+   "parent": 1043,
+   "level": 2
+  },
+  "1103": {
+   "name": "灵魂乐",
+   "parent": 1028,
+   "level": 2
+  },
+  "1104": {
+   "name": "合成器摇滚",
+   "parent": 9199,
+   "level": 3
+  },
+  "1105": {
+   "name": "美式乡村",
+   "parent": 1077,
+   "level": 2
+  },
+  "1106": {
+   "name": "蓝调摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1108": {
+   "name": "氛围电子",
+   "parent": 1015,
+   "level": 2
+  },
+  "1109": {
+   "name": "人声爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1110": {
+   "name": "交响乐",
+   "parent": 1100,
+   "level": 3
+  },
+  "1111": {
+   "name": "大乐队",
+   "parent": 1011,
+   "level": 2
+  },
+  "1112": {
+   "name": "当代乡村乐",
+   "parent": 1077,
+   "level": 2
+  },
+  "1113": {
+   "name": "巴萨诺瓦",
+   "parent": 1291,
+   "level": 3
+  },
+  "1114": {
+   "name": "碎拍",
+   "parent": 1015,
+   "level": 2
+  },
+  "1115": {
+   "name": "新浪潮",
+   "parent": 152124,
+   "level": 2
+  },
+  "1117": {
+   "name": "自然新世纪",
+   "parent": 1007,
+   "level": 2
+  },
+  "1118": {
+   "name": "独立摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1119": {
+   "name": "嘟喔普",
+   "parent": 1279,
+   "level": 3
+  },
+  "1120": {
+   "name": "传统民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "1121": {
+   "name": "协奏曲",
+   "parent": 1263,
+   "level": 2
+  },
+  "1122": {
+   "name": "法国流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1123": {
+   "name": "弗拉门戈",
+   "parent": 1012,
+   "level": 2
+  },
+  "1125": {
+   "name": "蓝草",
+   "parent": 1077,
+   "level": 2
+  },
+  "1126": {
+   "name": "电视剧原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "1127": {
+   "name": "舞台摇滚",
+   "parent": 1090,
+   "level": 3
+  },
+  "1128": {
+   "name": "当代古典音乐",
+   "parent": 1022,
+   "level": 2
+  },
+  "1129": {
+   "name": "法国香颂",
+   "parent": 1122,
+   "level": 3
+  },
+  "1130": {
+   "name": "情人摇滚",
+   "parent": 1043,
+   "level": 2
+  },
+  "1131": {
+   "name": "力量金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1134": {
+   "name": "乡村蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "1135": {
+   "name": "三角洲蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "1141": {
+   "name": "前卫金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1142": {
+   "name": "斯卡",
+   "parent": 1043,
+   "level": 2
+  },
+  "1146": {
+   "name": "拉丁摇滚",
+   "parent": 1071,
+   "level": 2
+  },
+  "1147": {
+   "name": "独立民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "1151": {
+   "name": "古典跨界",
+   "parent": 1022,
+   "level": 2
+  },
+  "1152": {
+   "name": "歌剧",
+   "parent": 1263,
+   "level": 2
+  },
+  "1153": {
+   "name": "Disco",
+   "parent": 1015,
+   "level": 2
+  },
+  "1155": {
+   "name": "伦巴",
+   "parent": 1092,
+   "level": 3
+  },
+  "1158": {
+   "name": "流行说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1160": {
+   "name": "南方说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "1161": {
+   "name": "拉丁流行",
+   "parent": 1071,
+   "level": 2
+  },
+  "1162": {
+   "name": "另类金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1163": {
+   "name": "冲浪摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1164": {
+   "name": "车库摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1165": {
+   "name": "极端金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1166": {
+   "name": "非洲流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1167": {
+   "name": "爵士嘻哈",
+   "parent": 1017,
+   "level": 2
+  },
+  "1168": {
+   "name": "印度流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1170": {
+   "name": "英伦摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "1171": {
+   "name": "器乐摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1173": {
+   "name": "酸性爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "1174": {
+   "name": "探戈",
+   "parent": 1071,
+   "level": 2
+  },
+  "1177": {
+   "name": "垃圾摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "1179": {
+   "name": "法朵",
+   "parent": 1012,
+   "level": 2
+  },
+  "1180": {
+   "name": "KPop",
+   "parent": 1000,
+   "level": 2
+  },
+  "1182": {
+   "name": "韩国传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1184": {
+   "name": "巴西全域音乐",
+   "parent": 11140,
+   "level": 3
+  },
+  "1185": {
+   "name": "当代蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "1186": {
+   "name": "施拉格尔",
+   "parent": 1012,
+   "level": 2
+  },
+  "1187": {
+   "name": "默朗格",
+   "parent": 1092,
+   "level": 3
+  },
+  "1188": {
+   "name": "桑巴",
+   "parent": 11140,
+   "level": 3
+  },
+  "1189": {
+   "name": "陷阱舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "1195": {
+   "name": "墨西哥传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1196": {
+   "name": "派对森巴",
+   "parent": 11140,
+   "level": 3
+  },
+  "1197": {
+   "name": "巴西乡村乐",
+   "parent": 11140,
+   "level": 3
+  },
+  "1199": {
+   "name": "拉丁都市",
+   "parent": 1071,
+   "level": 2
+  },
+  "1201": {
+   "name": "经典摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1202": {
+   "name": "歌谣曲",
+   "parent": 1054,
+   "level": 3
+  },
+  "1209": {
+   "name": "乐器独奏",
+   "parent": 1263,
+   "level": 2
+  },
+  "1210": {
+   "name": "时代曲",
+   "parent": 1001,
+   "level": 2
+  },
+  "1218": {
+   "name": "炸房浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "1219": {
+   "name": "日本演歌",
+   "parent": 1054,
+   "level": 3
+  },
+  "1220": {
+   "name": "都市流行",
+   "parent": 1053,
+   "level": 3
+  },
+  "1221": {
+   "name": "儿歌",
+   "parent": 1026,
+   "level": 2
+  },
+  "1222": {
+   "name": "韩国演歌",
+   "parent": 1182,
+   "level": 3
+  },
+  "1227": {
+   "name": "泰国流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1228": {
+   "name": "大节拍",
+   "parent": 1114,
+   "level": 3
+  },
+  "1231": {
+   "name": "哥特摇滚",
+   "parent": 11192,
+   "level": 3
+  },
+  "1232": {
+   "name": "未来贝斯",
+   "parent": 1015,
+   "level": 2
+  },
+  "1233": {
+   "name": "硬核",
+   "parent": 1015,
+   "level": 2
+  },
+  "1235": {
+   "name": "拉丁饶舌",
+   "parent": 1071,
+   "level": 2
+  },
+  "1236": {
+   "name": "视觉摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1237": {
+   "name": "呼麦",
+   "parent": 1367,
+   "level": 3
+  },
+  "1241": {
+   "name": "京剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "1242": {
+   "name": "军旅歌曲",
+   "parent": 1001,
+   "level": 2
+  },
+  "1243": {
+   "name": "红色经典",
+   "parent": 1001,
+   "level": 2
+  },
+  "1245": {
+   "name": "曲艺",
+   "parent": 1001,
+   "level": 2
+  },
+  "1246": {
+   "name": "胎教音乐",
+   "parent": 1026,
+   "level": 2
+  },
+  "1249": {
+   "name": "粤剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "1252": {
+   "name": "二次元",
+   "parent": null,
+   "level": 1
+  },
+  "1255": {
+   "name": "古风",
+   "parent": 10119,
+   "level": 2
+  },
+  "1257": {
+   "name": "喊麦",
+   "parent": 79088,
+   "level": 2
+  },
+  "1263": {
+   "name": "世界乐器体裁",
+   "parent": null,
+   "level": 1
+  },
+  "1279": {
+   "name": "早期R&B",
+   "parent": 1028,
+   "level": 2
+  },
+  "1280": {
+   "name": "另类R&B",
+   "parent": 1028,
+   "level": 2
+  },
+  "1281": {
+   "name": "摩城音乐",
+   "parent": 1279,
+   "level": 3
+  },
+  "1291": {
+   "name": "拉丁爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1294": {
+   "name": "昆曲",
+   "parent": 1039,
+   "level": 3
+  },
+  "1295": {
+   "name": "越剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "1296": {
+   "name": "评剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "1297": {
+   "name": "豫剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "1298": {
+   "name": "流行轻音乐",
+   "parent": 1006,
+   "level": 2
+  },
+  "1300": {
+   "name": "古典蓝调",
+   "parent": 10137,
+   "level": 3
+  },
+  "1301": {
+   "name": "流行爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "1302": {
+   "name": "早期爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "1303": {
+   "name": "拉格泰姆",
+   "parent": 1302,
+   "level": 3
+  },
+  "1304": {
+   "name": "乡村摇滚",
+   "parent": 1077,
+   "level": 2
+  },
+  "1305": {
+   "name": "乡村民谣",
+   "parent": 1306,
+   "level": 3
+  },
+  "1306": {
+   "name": "传统乡村乐",
+   "parent": 1077,
+   "level": 2
+  },
+  "1308": {
+   "name": "文艺复兴时期",
+   "parent": 1022,
+   "level": 2
+  },
+  "1309": {
+   "name": "巴洛克时期",
+   "parent": 1022,
+   "level": 2
+  },
+  "1310": {
+   "name": "古典主义时期",
+   "parent": 1022,
+   "level": 2
+  },
+  "1311": {
+   "name": "浪漫主义时期",
+   "parent": 1022,
+   "level": 2
+  },
+  "1312": {
+   "name": "印象主义音乐",
+   "parent": 1022,
+   "level": 2
+  },
+  "1315": {
+   "name": "动漫原声",
+   "parent": 1252,
+   "level": 2
+  },
+  "1316": {
+   "name": "歌声合成",
+   "parent": 1252,
+   "level": 2
+  },
+  "1317": {
+   "name": "唱见",
+   "parent": 1252,
+   "level": 2
+  },
+  "1318": {
+   "name": "广播剧/音声",
+   "parent": 1252,
+   "level": 2
+  },
+  "1319": {
+   "name": "同人原创",
+   "parent": 1320,
+   "level": 3
+  },
+  "1320": {
+   "name": "同人作品",
+   "parent": 1252,
+   "level": 2
+  },
+  "1321": {
+   "name": "闽南语流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1324": {
+   "name": "西班牙流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1325": {
+   "name": "德语流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1327": {
+   "name": "旧学派说唱",
+   "parent": 9198,
+   "level": 3
+  },
+  "1328": {
+   "name": "中西部说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "1330": {
+   "name": "陷阱说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1331": {
+   "name": "实验说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1332": {
+   "name": "中文说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "1333": {
+   "name": "另类嘻哈",
+   "parent": 1017,
+   "level": 2
+  },
+  "1337": {
+   "name": "新迪斯科",
+   "parent": 1153,
+   "level": 3
+  },
+  "1338": {
+   "name": "深浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "1339": {
+   "name": "科技浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "1340": {
+   "name": "电气浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "1341": {
+   "name": "墨尔本弹跳",
+   "parent": 1047,
+   "level": 3
+  },
+  "1342": {
+   "name": "渐进浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "1344": {
+   "name": "未来浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "1345": {
+   "name": "蒸汽波",
+   "parent": 227120,
+   "level": 3
+  },
+  "1346": {
+   "name": "英国车库舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "1347": {
+   "name": "硬核科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "1348": {
+   "name": "简约科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "1349": {
+   "name": "迷幻出神",
+   "parent": 1059,
+   "level": 3
+  },
+  "1350": {
+   "name": "硬派音乐",
+   "parent": 1015,
+   "level": 2
+  },
+  "1351": {
+   "name": "缓拍",
+   "parent": 1015,
+   "level": 2
+  },
+  "1352": {
+   "name": "神游舞曲",
+   "parent": 1351,
+   "level": 3
+  },
+  "1356": {
+   "name": "舞场雷鬼",
+   "parent": 1043,
+   "level": 2
+  },
+  "1357": {
+   "name": "萨尔萨",
+   "parent": 1092,
+   "level": 3
+  },
+  "1361": {
+   "name": "非洲传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1363": {
+   "name": "欧洲传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1364": {
+   "name": "地中海传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1365": {
+   "name": "北美传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1367": {
+   "name": "蒙古传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1369": {
+   "name": "拉美传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1370": {
+   "name": "凯尔特传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1372": {
+   "name": "俄罗斯传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "1376": {
+   "name": "动画片原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "1378": {
+   "name": "游戏原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "1380": {
+   "name": "木管乐",
+   "parent": 1263,
+   "level": 2
+  },
+  "1381": {
+   "name": "铜管乐",
+   "parent": 1263,
+   "level": 2
+  },
+  "1382": {
+   "name": "弦乐",
+   "parent": 1263,
+   "level": 2
+  },
+  "1383": {
+   "name": "打击乐器",
+   "parent": 1263,
+   "level": 2
+  },
+  "1384": {
+   "name": "键盘乐器",
+   "parent": 1263,
+   "level": 2
+  },
+  "1385": {
+   "name": "钢琴",
+   "parent": 1384,
+   "level": 3
+  },
+  "1391": {
+   "name": "世界民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "1394": {
+   "name": "实验摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "1395": {
+   "name": "激流金属",
+   "parent": 1095,
+   "level": 3
+  },
+  "1396": {
+   "name": "死亡金属",
+   "parent": 1165,
+   "level": 3
+  },
+  "1397": {
+   "name": "黑金属",
+   "parent": 1165,
+   "level": 3
+  },
+  "1398": {
+   "name": "哥特金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "1399": {
+   "name": "新金属",
+   "parent": 1162,
+   "level": 3
+  },
+  "1418": {
+   "name": "二十世纪古典",
+   "parent": 1022,
+   "level": 2
+  },
+  "1419": {
+   "name": "风琴",
+   "parent": 1384,
+   "level": 3
+  },
+  "1420": {
+   "name": "早期键盘乐器",
+   "parent": 1384,
+   "level": 3
+  },
+  "1421": {
+   "name": "小提琴",
+   "parent": 1382,
+   "level": 3
+  },
+  "1422": {
+   "name": "中提琴",
+   "parent": 1382,
+   "level": 3
+  },
+  "1423": {
+   "name": "大提琴",
+   "parent": 1382,
+   "level": 3
+  },
+  "1424": {
+   "name": "吉他",
+   "parent": 11150,
+   "level": 3
+  },
+  "1425": {
+   "name": "低音提琴",
+   "parent": 1382,
+   "level": 3
+  },
+  "1426": {
+   "name": "竖琴",
+   "parent": 1382,
+   "level": 3
+  },
+  "1427": {
+   "name": "鲁特琴",
+   "parent": 11150,
+   "level": 3
+  },
+  "1428": {
+   "name": "低音维奥尔琴",
+   "parent": 11150,
+   "level": 3
+  },
+  "1429": {
+   "name": "萨克斯",
+   "parent": 1380,
+   "level": 3
+  },
+  "1430": {
+   "name": "长笛",
+   "parent": 1380,
+   "level": 3
+  },
+  "1431": {
+   "name": "双簧管",
+   "parent": 1380,
+   "level": 3
+  },
+  "1432": {
+   "name": "直笛",
+   "parent": 1380,
+   "level": 3
+  },
+  "1433": {
+   "name": "黑管",
+   "parent": 1380,
+   "level": 3
+  },
+  "1434": {
+   "name": "巴松管",
+   "parent": 1380,
+   "level": 3
+  },
+  "1435": {
+   "name": "小号",
+   "parent": 1381,
+   "level": 3
+  },
+  "1436": {
+   "name": "圆号",
+   "parent": 1381,
+   "level": 3
+  },
+  "1437": {
+   "name": "长号",
+   "parent": 1381,
+   "level": 3
+  },
+  "1438": {
+   "name": "大号",
+   "parent": 1381,
+   "level": 3
+  },
+  "1498": {
+   "name": "热带浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "1499": {
+   "name": "弛放低音",
+   "parent": 1060,
+   "level": 3
+  },
+  "1502": {
+   "name": "合成器流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "1503": {
+   "name": "工业金属",
+   "parent": 1162,
+   "level": 3
+  },
+  "1504": {
+   "name": "史诗音乐",
+   "parent": 1010,
+   "level": 2
+  },
+  "4085": {
+   "name": "动漫主题曲",
+   "parent": 1315,
+   "level": 3
+  },
+  "4091": {
+   "name": "韩系摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "4093": {
+   "name": "酸性浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "4098": {
+   "name": "广告原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "4100": {
+   "name": "科技迷雾",
+   "parent": 1046,
+   "level": 3
+  },
+  "5083": {
+   "name": "动漫印象歌",
+   "parent": 1315,
+   "level": 3
+  },
+  "5084": {
+   "name": "UTAU",
+   "parent": 1316,
+   "level": 3
+  },
+  "5097": {
+   "name": "经典欧洲舞曲",
+   "parent": 9154,
+   "level": 3
+  },
+  "5098": {
+   "name": "氛围浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "5099": {
+   "name": "芝加哥浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "5100": {
+   "name": "迪斯科浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "5101": {
+   "name": "贝斯浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "5102": {
+   "name": "弛放浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "5103": {
+   "name": "街头浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "6084": {
+   "name": "二次元游戏原声带",
+   "parent": 1025,
+   "level": 3
+  },
+  "6086": {
+   "name": "VOCALOID",
+   "parent": 1316,
+   "level": 3
+  },
+  "6090": {
+   "name": "俄语流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "6096": {
+   "name": "电影配乐",
+   "parent": 1031,
+   "level": 3
+  },
+  "6097": {
+   "name": "综艺原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "6099": {
+   "name": "体育节目原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "6100": {
+   "name": "白人灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "7080": {
+   "name": "City Pop",
+   "parent": 1000,
+   "level": 2
+  },
+  "7083": {
+   "name": "特摄剧",
+   "parent": 1252,
+   "level": 2
+  },
+  "7085": {
+   "name": "动漫角色歌",
+   "parent": 1315,
+   "level": 3
+  },
+  "7087": {
+   "name": "游戏主题曲",
+   "parent": 1025,
+   "level": 3
+  },
+  "7088": {
+   "name": "游戏角色歌",
+   "parent": 1025,
+   "level": 3
+  },
+  "7089": {
+   "name": "東方Project",
+   "parent": 1320,
+   "level": 3
+  },
+  "7092": {
+   "name": "日系摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "7098": {
+   "name": "北方灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "7099": {
+   "name": "深度放克",
+   "parent": 1029,
+   "level": 2
+  },
+  "8081": {
+   "name": "底特律浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "8082": {
+   "name": "错综电气",
+   "parent": 1047,
+   "level": 3
+  },
+  "8084": {
+   "name": "法式浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "8086": {
+   "name": "硬浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "8089": {
+   "name": "爵士浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "8093": {
+   "name": "灵魂浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "8094": {
+   "name": "部落浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "8100": {
+   "name": "鹿特丹硬核舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "8103": {
+   "name": "前卫迷幻舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "8104": {
+   "name": "科技迷幻舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "8106": {
+   "name": "太空音乐",
+   "parent": 1108,
+   "level": 3
+  },
+  "8107": {
+   "name": "Illbient",
+   "parent": 1108,
+   "level": 3
+  },
+  "8109": {
+   "name": "太空迪斯科舞曲",
+   "parent": 1153,
+   "level": 3
+  },
+  "8111": {
+   "name": "人声弛放音乐",
+   "parent": 1351,
+   "level": 3
+  },
+  "8112": {
+   "name": "弛放嘻哈",
+   "parent": 1017,
+   "level": 2
+  },
+  "8113": {
+   "name": "宇宙梦幻",
+   "parent": 1351,
+   "level": 3
+  },
+  "8114": {
+   "name": "低保真嘻哈",
+   "parent": 1017,
+   "level": 2
+  },
+  "8128": {
+   "name": "碎核",
+   "parent": 1233,
+   "level": 3
+  },
+  "8133": {
+   "name": "电气工业",
+   "parent": 11118,
+   "level": 3
+  },
+  "8138": {
+   "name": "新灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "8139": {
+   "name": "叛道乡村",
+   "parent": 1077,
+   "level": 2
+  },
+  "8142": {
+   "name": "洛卡比里",
+   "parent": 1077,
+   "level": 2
+  },
+  "8146": {
+   "name": "芝加哥灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "8148": {
+   "name": "拉丁灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "8149": {
+   "name": "嘻哈灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "8152": {
+   "name": "新奥尔良蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "8153": {
+   "name": "德克萨斯蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "8154": {
+   "name": "布基伍基",
+   "parent": 1037,
+   "level": 2
+  },
+  "8157": {
+   "name": "融合雷鬼",
+   "parent": 1043,
+   "level": 2
+  },
+  "8160": {
+   "name": "Banda",
+   "parent": 10141,
+   "level": 3
+  },
+  "8161": {
+   "name": "墨西哥街头乐队",
+   "parent": 10141,
+   "level": 3
+  },
+  "8164": {
+   "name": "Bachata",
+   "parent": 1092,
+   "level": 3
+  },
+  "8168": {
+   "name": "伊泰洛舞曲",
+   "parent": 9154,
+   "level": 3
+  },
+  "8171": {
+   "name": "游戏电子音乐",
+   "parent": 1015,
+   "level": 2
+  },
+  "8173": {
+   "name": "菲律宾流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "8176": {
+   "name": "青少年流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "8177": {
+   "name": "华丽金属",
+   "parent": 1056,
+   "level": 3
+  },
+  "8179": {
+   "name": "律动金属",
+   "parent": 1095,
+   "level": 3
+  },
+  "8182": {
+   "name": "新古典金属",
+   "parent": 1141,
+   "level": 3
+  },
+  "8185": {
+   "name": "室内爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "8187": {
+   "name": "新兴爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "8192": {
+   "name": "狂克说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "8194": {
+   "name": "乡村说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "8198": {
+   "name": "电子朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "8199": {
+   "name": "工业摇滚",
+   "parent": 1394,
+   "level": 3
+  },
+  "8202": {
+   "name": "坎特伯里之声",
+   "parent": 1065,
+   "level": 3
+  },
+  "8203": {
+   "name": "太空摇滚",
+   "parent": 1065,
+   "level": 3
+  },
+  "8204": {
+   "name": "酸性摇滚",
+   "parent": 1058,
+   "level": 3
+  },
+  "8205": {
+   "name": "新迷幻",
+   "parent": 1058,
+   "level": 3
+  },
+  "8207": {
+   "name": "地壳朋克",
+   "parent": 11197,
+   "level": 3
+  },
+  "8208": {
+   "name": "斯卡朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "8209": {
+   "name": "南方摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "8215": {
+   "name": "校园民谣",
+   "parent": 15088,
+   "level": 3
+  },
+  "8216": {
+   "name": "迷幻民谣",
+   "parent": 11205,
+   "level": 3
+  },
+  "8220": {
+   "name": "盯鞋摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "9082": {
+   "name": "拉丁浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "9088": {
+   "name": "Hands Up",
+   "parent": 9154,
+   "level": 3
+  },
+  "9093": {
+   "name": "底特律科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "9098": {
+   "name": "硬性迷幻舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "9099": {
+   "name": "暗黑回转出神",
+   "parent": 1059,
+   "level": 3
+  },
+  "9101": {
+   "name": "氛围回响",
+   "parent": 1108,
+   "level": 3
+  },
+  "9102": {
+   "name": "黑暗氛围",
+   "parent": 1108,
+   "level": 3
+  },
+  "9106": {
+   "name": "伊泰洛迪斯科",
+   "parent": 1153,
+   "level": 3
+  },
+  "9108": {
+   "name": "Electronica",
+   "parent": 1015,
+   "level": 2
+  },
+  "9109": {
+   "name": "缓拍&沙发",
+   "parent": 1351,
+   "level": 3
+  },
+  "9110": {
+   "name": "未来车库舞曲",
+   "parent": 1346,
+   "level": 3
+  },
+  "9113": {
+   "name": "巴尔的摩舞曲",
+   "parent": 1114,
+   "level": 3
+  },
+  "9119": {
+   "name": "Doomcore",
+   "parent": 1233,
+   "level": 3
+  },
+  "9120": {
+   "name": "丛林舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "9126": {
+   "name": "纳什维尔之声",
+   "parent": 1306,
+   "level": 3
+  },
+  "9128": {
+   "name": "南方灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "9130": {
+   "name": "台湾原住民特色",
+   "parent": 1023,
+   "level": 3
+  },
+  "9138": {
+   "name": "流行灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "9139": {
+   "name": "费城灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "9141": {
+   "name": "地域蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "9145": {
+   "name": "西海岸蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "9147": {
+   "name": "灵魂蓝调",
+   "parent": 10137,
+   "level": 3
+  },
+  "9152": {
+   "name": "Norteño",
+   "parent": 10141,
+   "level": 3
+  },
+  "9154": {
+   "name": "高能量舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "9155": {
+   "name": "欧陆节拍",
+   "parent": 9154,
+   "level": 3
+  },
+  "9156": {
+   "name": "芯片音乐",
+   "parent": 8171,
+   "level": 3
+  },
+  "9159": {
+   "name": "印尼流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "9164": {
+   "name": "Blackgaze",
+   "parent": 1165,
+   "level": 3
+  },
+  "9166": {
+   "name": "民谣金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "9168": {
+   "name": "厄运金属",
+   "parent": 1041,
+   "level": 2
+  },
+  "9169": {
+   "name": "结构金属",
+   "parent": 1141,
+   "level": 3
+  },
+  "9170": {
+   "name": "自由爵士",
+   "parent": 1076,
+   "level": 3
+  },
+  "9173": {
+   "name": "调式爵士",
+   "parent": 1011,
+   "level": 2
+  },
+  "9183": {
+   "name": "地域说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "9185": {
+   "name": "Jersey Club",
+   "parent": 1017,
+   "level": 2
+  },
+  "9186": {
+   "name": "意识说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "9187": {
+   "name": "匪帮放克",
+   "parent": 1070,
+   "level": 3
+  },
+  "9191": {
+   "name": "情绪说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "9198": {
+   "name": "根源说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "9199": {
+   "name": "电子摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "9201": {
+   "name": "电音撞击乐",
+   "parent": 9199,
+   "level": 3
+  },
+  "9203": {
+   "name": "艺术摇滚",
+   "parent": 1394,
+   "level": 3
+  },
+  "9204": {
+   "name": "噪音摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "9206": {
+   "name": "强力流行",
+   "parent": 1098,
+   "level": 3
+  },
+  "9207": {
+   "name": "噪响流行",
+   "parent": 1098,
+   "level": 3
+  },
+  "9210": {
+   "name": "后硬核",
+   "parent": 11197,
+   "level": 3
+  },
+  "9211": {
+   "name": "流行朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "9212": {
+   "name": "暴女朋克运动",
+   "parent": 152124,
+   "level": 2
+  },
+  "9213": {
+   "name": "滑板朋克",
+   "parent": 11197,
+   "level": 3
+  },
+  "9219": {
+   "name": "新民谣",
+   "parent": 11205,
+   "level": 3
+  },
+  "9222": {
+   "name": "岛呗",
+   "parent": 1054,
+   "level": 3
+  },
+  "9227": {
+   "name": "根源摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "9229": {
+   "name": "欧洲流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "10080": {
+   "name": "放克浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "10089": {
+   "name": "Jump-Up",
+   "parent": 1072,
+   "level": 3
+  },
+  "10090": {
+   "name": "Drumstep",
+   "parent": 1060,
+   "level": 3
+  },
+  "10093": {
+   "name": "流体鼓打贝斯",
+   "parent": 1072,
+   "level": 3
+  },
+  "10094": {
+   "name": "迷幻弛放",
+   "parent": 1351,
+   "level": 3
+  },
+  "10095": {
+   "name": "入梦弛放",
+   "parent": 1351,
+   "level": 3
+  },
+  "10096": {
+   "name": "氛围缓拍",
+   "parent": 1351,
+   "level": 3
+  },
+  "10100": {
+   "name": "英国放克舞曲",
+   "parent": 1346,
+   "level": 3
+  },
+  "10101": {
+   "name": "智能舞曲",
+   "parent": 1015,
+   "level": 2
+  },
+  "10102": {
+   "name": "毛刺嘻哈",
+   "parent": 227120,
+   "level": 3
+  },
+  "10106": {
+   "name": "Hardbass",
+   "parent": 1015,
+   "level": 2
+  },
+  "10107": {
+   "name": "速核",
+   "parent": 1233,
+   "level": 3
+  },
+  "10108": {
+   "name": "UK硬核",
+   "parent": 1233,
+   "level": 3
+  },
+  "10115": {
+   "name": "前卫乡村",
+   "parent": 1306,
+   "level": 3
+  },
+  "10116": {
+   "name": "西部摇摆",
+   "parent": 1306,
+   "level": 3
+  },
+  "10119": {
+   "name": "国风",
+   "parent": null,
+   "level": 1
+  },
+  "10123": {
+   "name": "乡村流行",
+   "parent": 1077,
+   "level": 2
+  },
+  "10126": {
+   "name": "低保真",
+   "parent": 1060683,
+   "level": 2
+  },
+  "10130": {
+   "name": "迷幻灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "10135": {
+   "name": "东海岸蓝调",
+   "parent": 9141,
+   "level": 3
+  },
+  "10136": {
+   "name": "城市布鲁斯",
+   "parent": 1037,
+   "level": 2
+  },
+  "10137": {
+   "name": "融合蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "10140": {
+   "name": "葡萄牙法罗",
+   "parent": 11140,
+   "level": 3
+  },
+  "10141": {
+   "name": "墨西哥地方曲目",
+   "parent": 1071,
+   "level": 2
+  },
+  "10142": {
+   "name": "Cumbia",
+   "parent": 1092,
+   "level": 3
+  },
+  "10143": {
+   "name": "欧陆舞曲",
+   "parent": 9154,
+   "level": 3
+  },
+  "10144": {
+   "name": "藏族民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "10148": {
+   "name": "冥想音乐",
+   "parent": 1007,
+   "level": 2
+  },
+  "10151": {
+   "name": "饶舌金属",
+   "parent": 1162,
+   "level": 3
+  },
+  "10156": {
+   "name": "旋律死亡金属",
+   "parent": 1165,
+   "level": 3
+  },
+  "10161": {
+   "name": "古巴爵士",
+   "parent": 1291,
+   "level": 3
+  },
+  "10171": {
+   "name": "工业说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "10173": {
+   "name": "亚特兰大说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "10177": {
+   "name": "韩语说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "10179": {
+   "name": "仙音",
+   "parent": 11192,
+   "level": 3
+  },
+  "10180": {
+   "name": "后垃圾摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "10181": {
+   "name": "悲核",
+   "parent": 1040,
+   "level": 3
+  },
+  "10182": {
+   "name": "慢核",
+   "parent": 1040,
+   "level": 3
+  },
+  "10185": {
+   "name": "泡菜摇滚",
+   "parent": 1065,
+   "level": 3
+  },
+  "10186": {
+   "name": "反摇滚",
+   "parent": 1065,
+   "level": 3
+  },
+  "10187": {
+   "name": "牛仔朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "10188": {
+   "name": "死亡摇滚",
+   "parent": 152124,
+   "level": 2
+  },
+  "10189": {
+   "name": "车库朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "10190": {
+   "name": "Screamo",
+   "parent": 10191,
+   "level": 3
+  },
+  "10191": {
+   "name": "情绪硬核",
+   "parent": 152124,
+   "level": 2
+  },
+  "10192": {
+   "name": "恐怖朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "10194": {
+   "name": "街头朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "10195": {
+   "name": "日系朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "10197": {
+   "name": "爱尔兰民谣",
+   "parent": 1120,
+   "level": 3
+  },
+  "10198": {
+   "name": "苏格兰民谣",
+   "parent": 1120,
+   "level": 3
+  },
+  "10199": {
+   "name": "瑞典民谣",
+   "parent": 1120,
+   "level": 3
+  },
+  "10205": {
+   "name": "德国民谣",
+   "parent": 1120,
+   "level": 3
+  },
+  "10206": {
+   "name": "前卫迷幻出神舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "11080": {
+   "name": "车库浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "11089": {
+   "name": "女巫浩室舞曲",
+   "parent": 1047,
+   "level": 3
+  },
+  "11096": {
+   "name": "人声迷幻舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "11097": {
+   "name": "贝斯声线",
+   "parent": 1346,
+   "level": 3
+  },
+  "11098": {
+   "name": "神经放克",
+   "parent": 1072,
+   "level": 3
+  },
+  "11105": {
+   "name": "迷幻氛围",
+   "parent": 1108,
+   "level": 3
+  },
+  "11109": {
+   "name": "车库嘻哈",
+   "parent": 1017,
+   "level": 2
+  },
+  "11114": {
+   "name": "快乐硬核",
+   "parent": 1233,
+   "level": 3
+  },
+  "11118": {
+   "name": "工业音乐",
+   "parent": 1015,
+   "level": 2
+  },
+  "11133": {
+   "name": "柔顺灵魂乐",
+   "parent": 1103,
+   "level": 3
+  },
+  "11136": {
+   "name": "跳跃蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "11137": {
+   "name": "钢琴蓝调",
+   "parent": 1037,
+   "level": 2
+  },
+  "11139": {
+   "name": "原声蓝调",
+   "parent": 10137,
+   "level": 3
+  },
+  "11140": {
+   "name": "巴西音乐",
+   "parent": 1071,
+   "level": 2
+  },
+  "11141": {
+   "name": "巴西流行乐",
+   "parent": 11140,
+   "level": 3
+  },
+  "11146": {
+   "name": "Vallenato",
+   "parent": 1092,
+   "level": 3
+  },
+  "11150": {
+   "name": "西方乐器",
+   "parent": 1263,
+   "level": 2
+  },
+  "11153": {
+   "name": "另类流行",
+   "parent": 1014,
+   "level": 2
+  },
+  "11154": {
+   "name": "重金属",
+   "parent": 1056,
+   "level": 3
+  },
+  "11155": {
+   "name": "放克金属",
+   "parent": 1162,
+   "level": 3
+  },
+  "11156": {
+   "name": "速度金属",
+   "parent": 1095,
+   "level": 3
+  },
+  "11157": {
+   "name": "金属核",
+   "parent": 1095,
+   "level": 3
+  },
+  "11158": {
+   "name": "死核",
+   "parent": 1165,
+   "level": 3
+  },
+  "11159": {
+   "name": "可爱金属",
+   "parent": 1131,
+   "level": 3
+  },
+  "11161": {
+   "name": "交响金属",
+   "parent": 1141,
+   "level": 3
+  },
+  "11162": {
+   "name": "先锋金属",
+   "parent": 1141,
+   "level": 3
+  },
+  "11164": {
+   "name": "硬波普",
+   "parent": 1011,
+   "level": 2
+  },
+  "11166": {
+   "name": "后波普",
+   "parent": 1011,
+   "level": 2
+  },
+  "11167": {
+   "name": "灵魂爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "11169": {
+   "name": "放克爵士",
+   "parent": 1030,
+   "level": 3
+  },
+  "11171": {
+   "name": "爵士蓝调",
+   "parent": 1011,
+   "level": 2
+  },
+  "11179": {
+   "name": "模糊说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "11182": {
+   "name": "新杰克摇摆",
+   "parent": 1017,
+   "level": 2
+  },
+  "11185": {
+   "name": "Boom Bap",
+   "parent": 1017,
+   "level": 2
+  },
+  "11186": {
+   "name": "日本说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "11187": {
+   "name": "冷潮",
+   "parent": 152124,
+   "level": 2
+  },
+  "11188": {
+   "name": "新狂欢",
+   "parent": 9199,
+   "level": 3
+  },
+  "11189": {
+   "name": "合成器浪潮",
+   "parent": 227120,
+   "level": 3
+  },
+  "11190": {
+   "name": "室内流行",
+   "parent": 1040,
+   "level": 3
+  },
+  "11191": {
+   "name": "学院摇滚",
+   "parent": 1040,
+   "level": 3
+  },
+  "11192": {
+   "name": "后朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "11193": {
+   "name": "英国节拍乐",
+   "parent": 1098,
+   "level": 3
+  },
+  "11195": {
+   "name": "D拍",
+   "parent": 11197,
+   "level": 3
+  },
+  "11196": {
+   "name": "艺术朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "11197": {
+   "name": "硬核朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "11198": {
+   "name": "激流核",
+   "parent": 11197,
+   "level": 3
+  },
+  "11200": {
+   "name": "精神摇滚",
+   "parent": 152124,
+   "level": 2
+  },
+  "11202": {
+   "name": "说唱摇滚",
+   "parent": 1008,
+   "level": 2
+  },
+  "11203": {
+   "name": "凯尔特民谣",
+   "parent": 1120,
+   "level": 3
+  },
+  "11205": {
+   "name": "融合民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "11210": {
+   "name": "Brostep",
+   "parent": 1060,
+   "level": 3
+  },
+  "11213": {
+   "name": "回响科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "15088": {
+   "name": "华语民谣",
+   "parent": 1003,
+   "level": 2
+  },
+  "21080": {
+   "name": "中文DJ",
+   "parent": 79088,
+   "level": 2
+  },
+  "43080": {
+   "name": "南美传统与特色",
+   "parent": 1012,
+   "level": 2
+  },
+  "46080": {
+   "name": "自然环境声",
+   "parent": 1049,
+   "level": 2
+  },
+  "52080": {
+   "name": "配乐",
+   "parent": 1010,
+   "level": 2
+  },
+  "55081": {
+   "name": "氛围流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "55084": {
+   "name": "新疆特色",
+   "parent": 1023,
+   "level": 3
+  },
+  "57080": {
+   "name": "蒙古族民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "58090": {
+   "name": "正能量",
+   "parent": 1001,
+   "level": 2
+  },
+  "62080": {
+   "name": "深度回响贝斯",
+   "parent": 1060,
+   "level": 3
+  },
+  "63080": {
+   "name": "马头琴",
+   "parent": 1002,
+   "level": 3
+  },
+  "64097": {
+   "name": "说唱伴奏",
+   "parent": 1017,
+   "level": 2
+  },
+  "64098": {
+   "name": "生猛硬派",
+   "parent": 1350,
+   "level": 3
+  },
+  "64100": {
+   "name": "Metalstep",
+   "parent": 1060,
+   "level": 3
+  },
+  "65097": {
+   "name": "手游原声",
+   "parent": 1378,
+   "level": 3
+  },
+  "65101": {
+   "name": "旋律回响贝斯",
+   "parent": 1060,
+   "level": 3
+  },
+  "66091": {
+   "name": "旋律说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "66092": {
+   "name": "喜剧说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "67088": {
+   "name": "英文儿歌",
+   "parent": 1026,
+   "level": 2
+  },
+  "67090": {
+   "name": "法核",
+   "parent": 1233,
+   "level": 3
+  },
+  "67094": {
+   "name": "Deathstep",
+   "parent": 1060,
+   "level": 3
+  },
+  "72080": {
+   "name": "英国说唱",
+   "parent": 9183,
+   "level": 3
+  },
+  "74088": {
+   "name": "新古典主义音乐",
+   "parent": 1022,
+   "level": 2
+  },
+  "75081": {
+   "name": "中国艺术歌曲",
+   "parent": 1001,
+   "level": 2
+  },
+  "75082": {
+   "name": "雷鬼摇滚",
+   "parent": 1043,
+   "level": 2
+  },
+  "76088": {
+   "name": "纪录片原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "76090": {
+   "name": "竹笛",
+   "parent": 1002,
+   "level": 3
+  },
+  "76091": {
+   "name": "二胡",
+   "parent": 1002,
+   "level": 3
+  },
+  "76094": {
+   "name": "沪剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "76096": {
+   "name": "苏州评弹",
+   "parent": 1245,
+   "level": 3
+  },
+  "76098": {
+   "name": "新疆维吾尔木卡姆",
+   "parent": 1023,
+   "level": 3
+  },
+  "76099": {
+   "name": "福建南音",
+   "parent": 1023,
+   "level": 3
+  },
+  "77090": {
+   "name": "河北梆子",
+   "parent": 1039,
+   "level": 3
+  },
+  "77091": {
+   "name": "河南坠子",
+   "parent": 1245,
+   "level": 3
+  },
+  "77092": {
+   "name": "东北二人转",
+   "parent": 1245,
+   "level": 3
+  },
+  "77093": {
+   "name": "梅花大鼓",
+   "parent": 1245,
+   "level": 3
+  },
+  "77095": {
+   "name": "蒙古族呼麦",
+   "parent": 1023,
+   "level": 3
+  },
+  "77096": {
+   "name": "苗族民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "77097": {
+   "name": "古琴",
+   "parent": 1002,
+   "level": 3
+  },
+  "77098": {
+   "name": "西安鼓乐",
+   "parent": 1002,
+   "level": 3
+  },
+  "77099": {
+   "name": "潮州音乐",
+   "parent": 1002,
+   "level": 3
+  },
+  "78088": {
+   "name": "布袋戏原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "78089": {
+   "name": "葫芦丝",
+   "parent": 1002,
+   "level": 3
+  },
+  "78090": {
+   "name": "陕北民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "78091": {
+   "name": "秦腔",
+   "parent": 1039,
+   "level": 3
+  },
+  "78092": {
+   "name": "婺剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "78095": {
+   "name": "二人台",
+   "parent": 1039,
+   "level": 3
+  },
+  "78098": {
+   "name": "蒙古族长调",
+   "parent": 1023,
+   "level": 3
+  },
+  "78099": {
+   "name": "侗族大歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "78100": {
+   "name": "江南丝竹",
+   "parent": 1002,
+   "level": 3
+  },
+  "78101": {
+   "name": "琵琶",
+   "parent": 1002,
+   "level": 3
+  },
+  "78102": {
+   "name": "洞箫",
+   "parent": 1002,
+   "level": 3
+  },
+  "78103": {
+   "name": "彝族民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "79088": {
+   "name": "慢摇DJ",
+   "parent": null,
+   "level": 1
+  },
+  "79092": {
+   "name": "川剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "79093": {
+   "name": "晋剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "79094": {
+   "name": "花鼓戏",
+   "parent": 1039,
+   "level": 3
+  },
+  "79099": {
+   "name": "京韵大鼓",
+   "parent": 1245,
+   "level": 3
+  },
+  "79102": {
+   "name": "花儿",
+   "parent": 1023,
+   "level": 3
+  },
+  "79104": {
+   "name": "唢呐",
+   "parent": 1002,
+   "level": 3
+  },
+  "79105": {
+   "name": "广东音乐",
+   "parent": 1002,
+   "level": 3
+  },
+  "79106": {
+   "name": "古筝",
+   "parent": 1002,
+   "level": 3
+  },
+  "79107": {
+   "name": "芦笙",
+   "parent": 1002,
+   "level": 3
+  },
+  "82080": {
+   "name": "扬琴",
+   "parent": 1002,
+   "level": 3
+  },
+  "139120": {
+   "name": "广播剧原声",
+   "parent": 1010,
+   "level": 2
+  },
+  "142124": {
+   "name": "主机游戏配乐",
+   "parent": 1378,
+   "level": 3
+  },
+  "144121": {
+   "name": "青海民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "144122": {
+   "name": "安徽民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "144123": {
+   "name": "京东大鼓",
+   "parent": 1245,
+   "level": 3
+  },
+  "144124": {
+   "name": "北京小曲",
+   "parent": 1245,
+   "level": 3
+  },
+  "145120": {
+   "name": "江苏民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "145121": {
+   "name": "单弦",
+   "parent": 1245,
+   "level": 3
+  },
+  "146121": {
+   "name": "云南民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "146122": {
+   "name": "贵州民歌",
+   "parent": 1023,
+   "level": 3
+  },
+  "146123": {
+   "name": "西河大鼓",
+   "parent": 1245,
+   "level": 3
+  },
+  "152124": {
+   "name": "朋克",
+   "parent": null,
+   "level": 1
+  },
+  "159121": {
+   "name": "合成器朋克",
+   "parent": 8198,
+   "level": 3
+  },
+  "159122": {
+   "name": "后朋克复兴",
+   "parent": 152124,
+   "level": 2
+  },
+  "159123": {
+   "name": "无浪潮",
+   "parent": 152124,
+   "level": 2
+  },
+  "160121": {
+   "name": "前朋克",
+   "parent": 152124,
+   "level": 2
+  },
+  "160122": {
+   "name": "舞曲朋克",
+   "parent": 8198,
+   "level": 3
+  },
+  "167124": {
+   "name": "Midwest Emo",
+   "parent": 10191,
+   "level": 3
+  },
+  "168122": {
+   "name": "钻头说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "169120": {
+   "name": "越南流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "169121": {
+   "name": "黄金时代嘻哈",
+   "parent": 9198,
+   "level": 3
+  },
+  "171122": {
+   "name": "未来弹跳",
+   "parent": 1047,
+   "level": 3
+  },
+  "172120": {
+   "name": "Riddim Dubstep",
+   "parent": 1060,
+   "level": 3
+  },
+  "173121": {
+   "name": "巴西贝斯",
+   "parent": 1047,
+   "level": 3
+  },
+  "175121": {
+   "name": "快嘴说唱",
+   "parent": 1017,
+   "level": 2
+  },
+  "177120": {
+   "name": "儿童故事",
+   "parent": 1026,
+   "level": 2
+  },
+  "206122": {
+   "name": "国风流行",
+   "parent": 10119,
+   "level": 2
+  },
+  "208120": {
+   "name": "国风嘻哈",
+   "parent": 10119,
+   "level": 2
+  },
+  "215125": {
+   "name": "国风电子",
+   "parent": 10119,
+   "level": 2
+  },
+  "224120": {
+   "name": "色彩贝斯",
+   "parent": 1060,
+   "level": 3
+  },
+  "225120": {
+   "name": "未来锐舞",
+   "parent": 1015,
+   "level": 2
+  },
+  "226120": {
+   "name": "Phonk",
+   "parent": 1015,
+   "level": 2
+  },
+  "227120": {
+   "name": "中速节奏",
+   "parent": 1015,
+   "level": 2
+  },
+  "231120": {
+   "name": "云雾说唱",
+   "parent": 1330,
+   "level": 3
+  },
+  "231121": {
+   "name": "旋律科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "231127": {
+   "name": "EDM迷幻出神舞曲",
+   "parent": 1059,
+   "level": 3
+  },
+  "232120": {
+   "name": "Amapiano",
+   "parent": 1047,
+   "level": 3
+  },
+  "235126": {
+   "name": "前卫浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "240120": {
+   "name": "英式钻头",
+   "parent": 168122,
+   "level": 3
+  },
+  "268125": {
+   "name": "双耳节拍",
+   "parent": 1049,
+   "level": 2
+  },
+  "291120": {
+   "name": "草原流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "309120": {
+   "name": "生日流行",
+   "parent": 1000,
+   "level": 2
+  },
+  "332128": {
+   "name": "宝莱坞电影原声",
+   "parent": 1031,
+   "level": 3
+  },
+  "333124": {
+   "name": "国风摇滚",
+   "parent": 10119,
+   "level": 2
+  },
+  "336128": {
+   "name": "国风纯音乐",
+   "parent": 10119,
+   "level": 2
+  },
+  "337129": {
+   "name": "Disney",
+   "parent": 1010,
+   "level": 2
+  },
+  "340120": {
+   "name": "孟菲斯说唱",
+   "parent": 1330,
+   "level": 3
+  },
+  "1015680": {
+   "name": "Rage",
+   "parent": 1330,
+   "level": 3
+  },
+  "1016680": {
+   "name": "Plugg",
+   "parent": 1330,
+   "level": 3
+  },
+  "1020680": {
+   "name": "国风戏腔",
+   "parent": 10119,
+   "level": 2
+  },
+  "1023680": {
+   "name": "Afrobeats",
+   "parent": 1000,
+   "level": 2
+  },
+  "1027680": {
+   "name": "底特律说唱",
+   "parent": 1330,
+   "level": 3
+  },
+  "1049680": {
+   "name": "节奏游戏音乐",
+   "parent": 1025,
+   "level": 3
+  },
+  "1051680": {
+   "name": "Jerk",
+   "parent": 1330,
+   "level": 3
+  },
+  "1052680": {
+   "name": "Regalia",
+   "parent": 1330,
+   "level": 3
+  },
+  "1053680": {
+   "name": "英伦回响贝斯",
+   "parent": 1060,
+   "level": 3
+  },
+  "1053681": {
+   "name": "EDM科技舞曲",
+   "parent": 1046,
+   "level": 3
+  },
+  "1053684": {
+   "name": "Sexy Drill",
+   "parent": 168122,
+   "level": 3
+  },
+  "1057681": {
+   "name": "钢琴浩室",
+   "parent": 1047,
+   "level": 3
+  },
+  "1058682": {
+   "name": "巴吞鲁日说唱",
+   "parent": 1330,
+   "level": 3
+  },
+  "1060683": {
+   "name": "纯演奏音乐",
+   "parent": null,
+   "level": 1
+  },
+  "1061681": {
+   "name": "Afro Trap",
+   "parent": 1017,
+   "level": 2
+  },
+  "1065681": {
+   "name": "Netflix",
+   "parent": 1010,
+   "level": 2
+  },
+  "1066681": {
+   "name": "Glo",
+   "parent": 1330,
+   "level": 3
+  },
+  "1067680": {
+   "name": "费城钻头",
+   "parent": 168122,
+   "level": 3
+  },
+  "2108520": {
+   "name": "曲剧",
+   "parent": 1039,
+   "level": 3
+  },
+  "2109520": {
+   "name": "New Jazz Rap",
+   "parent": 1330,
+   "level": 3
+  }
+ }
+}

@@ -1,0 +1,118 @@
+# 理音 TuneTidy
+
+中文 | [English](README.en.md)
+
+把网易云歌单按曲风拆成几个新歌单：先在本地生成整理结果，你看过、调整过、亲自确认后，才在账号里新建歌单。
+
+> **非官方项目**，与网易云音乐及其运营方无关，也未获其授权。只读写你自己账号里的歌单信息，不下载音频。详见文末[免责声明](#免责声明)。
+
+<!-- 演示动图：docs/demo.gif（由作者录制） -->
+
+## 30 秒上手
+
+```bash
+pipx install tunetidy
+tunetidy login                      # 用网易云 App 扫码登录，登录态存进系统钥匙串
+tunetidy playlists                  # 看看有哪些歌单
+tunetidy analyze "我喜欢的音乐"       # 读取曲风、生成整理（不改账号；首次约每首 1.5 秒，之后有缓存）
+tunetidy ui                         # 在网页里看结果、换拆法、改歌单名、把分错的歌挪走
+tunetidy approve <整理id>            # 你本人在终端确认（要输入屏幕上显示的确认码）
+tunetidy apply <整理id>              # 新建私密歌单并加歌；中断后再运行即续传
+```
+
+不满意可以撤销：`tunetidy undo <整理id或运行id>`。撤销前会先回读歌单，只删理音新建、你没改过的歌单；你改过的只移除理音加进去的歌。
+
+## 拆法
+
+默认按大类（一级曲风）拆。`analyze` 可以换拆法，标签已缓存时几秒出结果；在网页里也能随时切换：
+
+```bash
+tunetidy analyze "我喜欢的音乐" --only 流行               # 只分出流行，其余放进「其他」
+tunetidy analyze "我喜欢的音乐" --only 流行 --match any   # 带流行标签的都算
+tunetidy analyze "我喜欢的音乐" --level 2                 # 按细类（二级曲风）
+tunetidy analyze "我喜欢的音乐" --top 5                   # 最多建 5 个歌单（不算「其他」）
+tunetidy analyze "我喜欢的音乐" --groups my.toml --no-other  # 自己定怎么分，不建「其他」
+```
+
+自定义分组的写法见 [taxonomies/examples/](taxonomies/examples/)。网页里"自己定怎么分"可以导入、导出同样格式的文件。
+
+## 网页
+
+`tunetidy ui` 在浏览器里打开理音（只监听本机）。首页每个歌单一张卡片；点进去能看到将要新建哪几个歌单、各多少首，可以切换拆法、给歌单改名、把分错的歌移到别的歌单，再把"没分好"的歌一首首选好去处。这些都只改本地的整理结果，不访问网易云。确认和建歌单在终端里完成，网页的确认页会给出要运行的命令。
+
+## 在 Claude Code、Codex 里用（MCP）
+
+理音自带 MCP 服务，AI 助手可以帮你列歌单、生成整理、查看明细，并在你确认后建歌单：
+
+```bash
+claude mcp add tunetidy -- tunetidy mcp     # Claude Code
+```
+
+Codex 在 `~/.codex/config.toml` 里加：
+
+```toml
+[mcp_servers.tunetidy]
+command = "tunetidy"
+args = ["mcp"]
+```
+
+五个工具：`list_playlists`、`create_plan`、`get_job_status`、`get_plan_items`、`apply_plan`。分析和建歌单都在后台运行，工具立即返回任务 id，再用 `get_job_status` 查进度。**MCP 里没有确认工具**：确认只能由你本人在终端运行 `tunetidy approve`，`apply_plan` 只接受你确认过、之后内容没变的整理。
+
+## 效果
+
+作者自己的"我喜欢的音乐"（1033 首，2026-10-31），默认拆法（按大类）：
+
+| | 歌曲数 | 没分好 |
+| --- | --- | --- |
+| 全部 | 1033 | 2.7% |
+| 网易云给了曲风标签的 | 1026（99.3%） | 2.1% |
+| 没有曲风标签的 | 7 | 85.7% |
+
+"没分好"的歌不会放进新歌单，可以在网页里一首首选好去处。人工改动比例要等更多人用过才有意义，暂不列出。这些数字只来自一个歌单，你的歌单可能不同；用 `uv run python scripts/evaluate.py <整理id>` 可以算自己的。
+
+## 安全约定
+
+- 只新建歌单，绝不修改或删除你原有的歌单。新歌单默认私密。
+- `approve`、`apply`（包括 `--yes`）、`undo` 只能在交互式终端里由你本人完成。如果你使用 Claude Code、Codex 等 AI 助手，请不要在它们的权限设置里自动放行这几个命令。
+- 整理在确认后有任何改动，确认即作废；已建好的整理不能再建第二次。
+- 访问网易云带随机间隔限速，限速只读配置文件，任何命令或 MCP 工具都没有提速参数。默认直连，不使用系统代理。
+- 登录凭据存在系统钥匙串里；日志和报错信息里不打印凭据。网页服务只监听 127.0.0.1，并校验随机口令。
+
+## 常见问题
+
+**第一次分析为什么这么慢？** 网易云的曲风标签要逐首读取，为了不被限制，理音会放慢速度，1000 首约 25 分钟。读过的标签会缓存，之后换拆法、重新分析都只要几秒。
+
+**"没分好"是什么？** 网易云没给这首歌标曲风，或者几个曲风一样多、分不出主次。不处理的话它们不会放进新歌单；可以在网页的"没分好的歌"里一首首选好去处。
+
+**AI 助手能替我确认吗？** 不能。确认要在终端输入屏幕上显示的确认码，MCP 里也没有确认工具。助手只能执行你已经确认过的整理。
+
+**怎么撤销？** 在终端运行 `tunetidy undo <整理id或运行id>`。
+
+## 免责声明
+
+- 本项目是个人开源项目，与网易云音乐及其运营方没有任何关系。
+- 理音通过网易云网页版使用的非公开接口访问你的账号。这些接口随时可能变化或失效，使用它们可能违反平台的服务条款，账号因此受到限制的风险由使用者自行承担。
+- 理音只读写你自己账号里的歌单信息（歌单名、简介、歌曲列表），不下载、不分发任何音频。
+- 软件按"现状"提供，不提供任何担保，详见 [LICENSE](LICENSE)。
+
+## 开发
+
+这一节写给想改理音代码的人，只是使用的话不用看。
+
+从源码使用时，命令要通过 `uv run` 运行（如 `uv run tunetidy playlists`），或者先用 `uv tool install --editable .` 把源码装成全局命令。
+
+```bash
+uv sync
+uv run ruff format . && uv run ruff check .
+uv run mypy src
+uv run pytest                               # 离线测试，不访问网络，钥匙串用测试专用的假实现
+uv run pytest -m live                       # 只读的真实接口测试，需要先登录
+```
+
+前端在 `web/`（React + TypeScript + Vite + Tailwind），构建产物不提交。从源码运行 `tunetidy ui` 前先构建一次：
+
+```bash
+cd web && npm ci && npm run build            # 输出到 src/tunetidy/server/static/
+```
+
+改前端时可以用 `npm run dev`（另开终端运行 `uv run tunetidy ui --no-browser`，再用它打印的口令打开 `http://localhost:5173/#token=...`）。代码结构和关键设计见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。

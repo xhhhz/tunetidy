@@ -53,7 +53,14 @@ class TerminalChannel:
         self.console = Console(file=file or sys.stdout, highlight=False, soft_wrap=True)
 
     def show(self, lines: list[str]) -> None:
-        body = "\n".join(escape(line) for line in lines)
+        def styled(line: str) -> str:
+            if line.startswith("确认码"):
+                return f"[bold reverse] {escape(line)} [/]"
+            if WARNING in line:
+                return f"[bold red]{escape(line)}[/]"
+            return escape(line)
+
+        body = "\n".join(styled(line) for line in lines)
         self.console.print(Panel(body, title="理音 · 网页确认", border_style="yellow"))
 
 

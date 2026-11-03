@@ -175,6 +175,13 @@
   .scrim { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 50; padding: 16px; }
   .scrim.frost { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
   .modal { background: var(--bg); border-radius: 24px; width: min(460px, 100%); padding: 28px; max-height: 100%; overflow: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .digits { display: flex; gap: 8px; justify-content: center; }
+  .digits input { width: 48px; height: 60px; border: 1.5px solid var(--line); border-radius: 12px; text-align: center; font-size: 26px; font-weight: 700; background: var(--soft); font-variant-numeric: tabular-nums; }
+  .digits input:focus { outline: none; border-color: var(--accent); background: var(--bg); }
+  .digits.bad input { border-color: var(--danger); }
+  .err { color: var(--danger); font-size: 13px; text-align: center; min-height: 20px; margin-top: 8px; }
+  .prog { height: 8px; background: var(--soft2); border-radius: 999px; overflow: hidden; }
+  .prog i { display: block; height: 100%; background: var(--fg); border-radius: 999px; transition: width 0.4s; }
   .term { background: var(--term); color: var(--term-fg); border-radius: 12px; padding: 12px 14px; font-family: var(--mono); font-size: 13px; line-height: 1.6; display: flex; align-items: center; gap: 12px; }
   .term code { flex: 1; min-width: 0; overflow-x: auto; white-space: pre; }
   .term button { color: var(--term-fg); background: rgba(255, 255, 255, 0.12); border-radius: 999px; padding: 4px 12px; font-family: var(--sans); font-size: 12px; font-weight: 600; white-space: nowrap; }
@@ -203,6 +210,7 @@
     .cover .ch { font-size: calc(var(--fs, 34px) * 0.78); }
     .uq { grid-template-columns: 1fr; }
     .uq .ops { justify-content: flex-start; }
+    .digits input { width: 40px; height: 52px; font-size: 22px; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }

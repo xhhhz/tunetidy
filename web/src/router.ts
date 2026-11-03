@@ -12,11 +12,17 @@ export type Route =
   | { name: "songs"; planId: string; show: SongsView }
   | { name: "pending"; planId: string }
   | { name: "split"; planId: string; more: boolean } // more：从按大类/细类进来，只显示剩下的歌和更多设置
-  | { name: "confirm"; planId: string };
+  | { name: "confirm"; planId: string }
+  | { name: "progress"; planId: string; job: string }
+  | { name: "history" }
+  | { name: "undo"; runId: string; job: string | null };
 
 const FILTERS: SongsFilter[] = ["all", "manual", "unsure", "ungrouped", "unavailable"];
 
 function parse(path: string, search: string): Route {
+  if (/^\/history\/?$/.test(path)) return { name: "history" };
+  const u = path.match(/^\/runs\/([^/]+)\/undo\/?$/);
+  if (u) return { name: "undo", runId: decodeURIComponent(u[1]), job: new URLSearchParams(search).get("job") };
   const m = path.match(/^\/plans\/([^/]+)(?:\/([a-z]+))?\/?$/);
   if (!m) return { name: "home" };
   const planId = decodeURIComponent(m[1]);
@@ -37,6 +43,8 @@ function parse(path: string, search: string): Route {
     case "confirm":
     case "preview": // 旧网址
       return { name: "confirm", planId };
+    case "progress":
+      return { name: "progress", planId, job: q.get("job") ?? "" };
     default:
       return { name: "result", planId };
   }
@@ -53,6 +61,10 @@ export const to = {
   pending: (id: string) => `${plan(id)}/pending`,
   split: (id: string, more: boolean) => `${plan(id)}/split${more ? "?more=1" : ""}`,
   confirm: (id: string) => `${plan(id)}/confirm`,
+  progress: (id: string, job: string) => `${plan(id)}/progress?${new URLSearchParams({ job })}`,
+  history: () => "/history",
+  undo: (runId: string, job?: string) =>
+    `/runs/${encodeURIComponent(runId)}/undo${job ? `?${new URLSearchParams({ job })}` : ""}`,
 };
 
 export function navigate(path: string, replace = false): void {

@@ -3,6 +3,7 @@ import { Shell } from "./layout";
 import { Home } from "./pages/Home";
 import { Confirm } from "./pages/Confirm";
 import { Pending } from "./pages/Pending";
+import { Progress } from "./pages/Progress";
 import { Result } from "./pages/Result";
 import { Songs } from "./pages/Songs";
 import { SplitEditor } from "./pages/SplitEditor";
@@ -37,5 +38,10 @@ function page(route: ReturnType<typeof useRoute>) {
       return <SplitEditor key={`${route.planId}|${route.more}`} planId={route.planId} more={route.more} />;
     case "confirm":
       return <Confirm key={route.planId} planId={route.planId} />;
+    case "progress":
+      return <Progress key={route.job} planId={route.planId} jobId={route.job} />;
+    case "history":
+    case "undo":
+      return null; // 下一步补上
   }
 }

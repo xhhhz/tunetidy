@@ -45,6 +45,7 @@ export class ApiError extends Error {
     message: string,
     readonly status: number,
     readonly code?: string,
+    readonly retryAfter?: number, // 锁定或限频时，还要等多少秒
   ) {
     super(message);
   }
@@ -68,7 +69,7 @@ async function request<T>(method: "GET" | "POST", path: string, body?: unknown):
   const data = await r.json().catch(() => ({}));
   if (!r.ok) {
     const detail = typeof data.detail === "string" ? data.detail : `请求失败（${r.status}）`;
-    throw new ApiError(detail, r.status, data.code);
+    throw new ApiError(detail, r.status, data.code, data.retry_after);
   }
   return data as T;
 }
@@ -203,4 +204,73 @@ export interface EditResult extends PlanState {
   approval_reset: boolean;
   manual: number;
   summary: Summary;
+}
+
+// ---------------------------------------------------------------- 网页确认、建歌单、历史与撤销
+
+export interface ConfirmStatus {
+  available: boolean; // 理音是在交互式终端里启动的：确认码会显示在那个终端里
+  locked_seconds: number; // 试错太多次后的锁定剩余秒数，0 表示没锁定
+}
+
+/** 申请确认码的回执：不含码本身，码只显示在启动理音的终端里。 */
+export interface Ticket {
+  action?: "apply" | "resume";
+  summary: string[]; // 这次确认要做什么
+  expires_in: number;
+  attempts_left: number;
+}
+
+export interface PlaylistProgress {
+  name: string;
+  added: number;
+  total: number;
+  status: string; // 等待中 / 添加中 / 已完成
+}
+
+export interface JobSummary {
+  job_id: string;
+  kind: "analyze" | "apply" | "undo";
+  status: "running" | "done" | "failed" | "interrupted";
+  phase: string | null;
+  done: number;
+  total: number;
+  plan_id: string | null;
+  run_id: string | null;
+  message?: string;
+  error?: string;
+  playlists?: PlaylistProgress[];
+  created?: { name: string; playlist_id: string | null; count: number }[];
+  unaddable?: number;
+  deleted?: string[];
+  trimmed?: { name: string; removed: number }[];
+  skipped?: string[];
+  warnings?: string[];
+}
+
+export interface RunRow {
+  run_id: string;
+  plan_id: string;
+  created_at: string;
+  status: "running" | "interrupted" | "done" | "undoing" | "undone";
+  sources: string[];
+  split: Split;
+  other_name: string;
+  playlists: { name: string; category: string; added: number }[];
+}
+
+export interface UndoPreview {
+  run_id: string;
+  created_at: string;
+  items: {
+    name: string;
+    category: string;
+    action: "delete" | "remove_ours" | "skip";
+    remove: number;
+    differences: string[];
+    note: string | null;
+  }[];
+  nothing_to_do: boolean;
+  fingerprint: string;
+  summary: string[];
 }

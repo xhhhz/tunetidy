@@ -8,6 +8,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import sqlite3
 import sys
@@ -19,6 +21,7 @@ from typing import Any
 
 from tunetidy.analyze import analyze
 from tunetidy.apply.approval import ApprovalError, check_executable
+from tunetidy.apply.undo import UndoError, UndoPlan, execute_undo, plan_undo
 from tunetidy.apply.writer import ApplyError, Writer
 from tunetidy.backends.base import BackendError, MusicBackend
 from tunetidy.classify.split import SplitError, SplitSettings
@@ -33,7 +36,15 @@ from tunetidy.storage.db import connect
 
 HEARTBEAT_EVERY = 10.0  # 秒；超时判定见 storage.jobs.HEARTBEAT_TIMEOUT
 SAMPLES = 3  # 摘要里每个歌单列几首样例
-KNOWN_ERRORS = (BackendError, ApprovalError, ApplyError, SplitError, ValueError, LookupError)
+KNOWN_ERRORS = (
+    BackendError,
+    ApprovalError,
+    ApplyError,
+    UndoError,
+    SplitError,
+    ValueError,
+    LookupError,
+)
 PHASES = {"tracks": "读取歌单", "tags": "获取曲风标签"}
 
 
@@ -115,30 +126,89 @@ def start_analyze(
 
 
 def start_apply(
-    db_path: Path, config: Config, backend: MusicBackend, plan_id: str
+    db_path: Path, config: Config, backend: MusicBackend, plan_id: str, *, resume: bool = False
 ) -> tuple[str, threading.Thread]:
-    """启动建歌单任务。只接受已确认且内容未变的整理；中断过的整理要在终端里续传。"""
+    """启动建歌单任务。只接受已确认且内容未变的整理。
+
+    resume=True 只给网页用（人已经输过确认码）：只接受上次没建完的整理，从中断处继续。
+    MCP 不传 resume，遇到没建完的整理仍然拒绝，让用户去终端续传。
+    """
     conn = connect(db_path)
     try:
         plan = plan_store.load_plan(conn, plan_id)
-        if plan.status == PlanStatus.APPLYING:
+        if resume:
+            if plan.status != PlanStatus.APPLYING:
+                raise ApprovalError(f"整理 {plan_id} 没有中断，无需继续")
+            if plan.approved_hash != plan.content_hash:
+                raise ApprovalError(f"整理 {plan_id} 的内容在确认后变了，不能继续")
+        elif plan.status == PlanStatus.APPLYING:
             raise ApprovalError(
                 f"这份整理上次没建完，续传要在终端里确认：请运行 tunetidy apply {plan_id}"
             )
-        check_executable(plan)
+        else:
+            check_executable(plan)
         job = job_store.create_job(conn, "apply", plan_id=plan_id, pid=os.getpid(), now=_now())
     finally:
         conn.close()
 
     def work(c: sqlite3.Connection) -> dict[str, Any]:
         fresh = plan_store.load_plan(c, plan_id)  # 期间可能在网页上被改过，Writer 会再核对
-        result = Writer(backend, c, config.apply, on_progress=_progress(c, job.id)).execute(fresh)
+        writer = Writer(backend, c, config.apply, on_progress=_progress(c, job.id))
+        result = writer.resume(fresh) if resume else writer.execute(fresh)
         return {"run_id": result.run_id}
 
     return job.id, _spawn(lambda: _run_job(db_path, job.id, work))
 
 
+def undo_fingerprint(up: UndoPlan) -> str:
+    """撤销预览的指纹：每个歌单怎么处理、要移除哪些歌。确认码绑定它，执行前再核对。"""
+    items = [[it.playlist.category, it.action, sorted(it.remove)] for it in up.items]
+    return hashlib.sha256(json.dumps([up.run.id, items]).encode()).hexdigest()
+
+
+def start_undo(
+    db_path: Path, config: Config, backend: MusicBackend, run_id: str, expected: str
+) -> tuple[str, threading.Thread]:
+    """启动撤销任务（网页用，人已经输过确认码）。线程里重新回读，和确认时的预览不一致就不执行。"""
+    conn = connect(db_path)
+    try:
+        run = run_store.load_run(conn, run_id)
+        if run.status == "undone":
+            raise UndoError(f"这次写回已经撤销过了（{run_id}）")
+        job = job_store.create_job(conn, "undo", plan_id=run.plan_id, pid=os.getpid(), now=_now())
+        job_store.set_run(conn, job.id, run_id, now=_now())
+    finally:
+        conn.close()
+
+    def work(c: sqlite3.Connection) -> dict[str, Any]:
+        up = plan_undo(backend, c, run_id)
+        if undo_fingerprint(up) != expected:
+            raise UndoError("歌单在你确认之后又变了，请重新预览后再撤销")
+        r = execute_undo(backend, c, up)
+        result = {
+            "deleted": r.deleted,
+            "trimmed": [{"name": n, "removed": k} for n, k in r.trimmed],
+            "skipped": r.skipped,
+            "warnings": r.warnings,
+        }
+        return {"run_id": run_id, "result": json.dumps(result, ensure_ascii=False)}
+
+    return job.id, _spawn(lambda: _run_job(db_path, job.id, work))
+
+
 # ------------------------------------------------------------------ 摘要
+
+
+def _playlist_progress(conn: sqlite3.Connection, run_id: str) -> list[dict[str, Any]]:
+    """建歌单时每个歌单的进度：已加入 / 总数，状态为等待中、添加中、已完成。"""
+    rows = []
+    for rp in run_store.load_run(conn, run_id).playlists:
+        tracks = run_store.tracks(conn, run_id, rp.category)
+        added = sum(t.status == "added" for t in tracks)
+        settled = sum(t.status in ("added", "unaddable") for t in tracks)
+        status = "已完成" if settled == len(tracks) else "添加中" if settled else "等待中"
+        rows.append({"name": rp.name, "added": added, "total": len(tracks), "status": status})
+    return rows
 
 
 def _plan_summary(conn: sqlite3.Connection, plan_id: str) -> dict[str, Any]:
@@ -202,6 +272,14 @@ def job_summary(conn: sqlite3.Connection, job: job_store.Job) -> dict[str, Any]:
         "plan_id": job.plan_id,
         "run_id": job.run_id,
     }
+    if job.kind == "apply" and job.plan_id:
+        run = run_store.load_run(conn, job.run_id) if job.run_id else None
+        run = run or run_store.active_run_for_plan(conn, job.plan_id)
+        if run is not None:
+            out["run_id"] = run.id
+            out["playlists"] = _playlist_progress(conn, run.id)
+    if job.kind == "undo":
+        return _undo_summary(job, out)
     analyzing = job.kind == "analyze"
     if job.status == "running":
         out["message"] = "分析中" if analyzing else "正在建歌单"
@@ -224,4 +302,18 @@ def job_summary(conn: sqlite3.Connection, job: job_store.Job) -> dict[str, Any]:
     elif job.run_id:
         out.update(_run_summary(conn, job.run_id))
         out["message"] = f"歌单已建好。不满意可以在终端运行 tunetidy undo {job.run_id} 撤销"
+    return out
+
+
+def _undo_summary(job: job_store.Job, out: dict[str, Any]) -> dict[str, Any]:
+    if job.status == "running":
+        out["message"] = "正在撤销"
+    elif job.status == "failed":
+        out["error"] = job.error
+        out["message"] = f"撤销失败：{job.error}"
+    elif job.status == "interrupted":
+        out["message"] = "撤销被中断（启动它的进程已退出），可以重新预览后再撤销"
+    else:
+        out.update(json.loads(job.result or "{}"))
+        out["message"] = "已撤销"
     return out

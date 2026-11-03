@@ -168,6 +168,35 @@ MIGRATIONS: list[str] = [
     );
     CREATE INDEX jobs_by_status ON jobs (status);
     """,
+    # 网页撤销也走后台任务，撤销结果（删了哪些、只移除了哪些）存进 result。
+    # SQLite 不能改 CHECK，只能重建表
+    """
+    CREATE TABLE jobs_new (
+        id           TEXT PRIMARY KEY,
+        kind         TEXT NOT NULL CHECK (kind IN ('analyze', 'apply', 'undo')),
+        status       TEXT NOT NULL
+                     CHECK (status IN ('running', 'done', 'failed', 'interrupted')),
+        phase        TEXT,
+        done         INTEGER NOT NULL DEFAULT 0,
+        total        INTEGER NOT NULL DEFAULT 0,
+        plan_id      TEXT,
+        run_id       TEXT,
+        error        TEXT,
+        pid          INTEGER NOT NULL,
+        heartbeat_at TEXT NOT NULL,
+        created_at   TEXT NOT NULL,
+        updated_at   TEXT NOT NULL,
+        result       TEXT
+    );
+    INSERT INTO jobs_new (id, kind, status, phase, done, total, plan_id, run_id, error, pid,
+                          heartbeat_at, created_at, updated_at)
+        SELECT id, kind, status, phase, done, total, plan_id, run_id, error, pid,
+               heartbeat_at, created_at, updated_at
+        FROM jobs;
+    DROP TABLE jobs;
+    ALTER TABLE jobs_new RENAME TO jobs;
+    CREATE INDEX jobs_by_status ON jobs (status);
+    """,
 ]
 
 

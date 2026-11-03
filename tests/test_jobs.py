@@ -10,11 +10,13 @@ from pathlib import Path
 import pytest
 
 from tests.apply.test_writer import APPLY, build_library
+from tests.classify.helpers import song
 from tests.fakes import FakeBackend
 from tests.test_analyze import Clock
 from tunetidy import jobs
 from tunetidy.analyze import analyze, move_songs
 from tunetidy.apply.approval import ApprovalError
+from tunetidy.apply.undo import UndoError, plan_undo
 from tunetidy.backends.base import BackendError
 from tunetidy.classify.split import SplitSettings
 from tunetidy.config import ClassifyConfig, Config
@@ -222,3 +224,100 @@ def test_heartbeat_keeps_running_job_alive(
         SlowBackend.gate.set()
         thread.join(timeout=30)
     assert job_store.load_job(conn, job_id).status == "done"
+
+
+# ---------------------------------------------------------------- 撤销、续传、每个歌单的进度
+
+
+def interrupted(b: FakeBackend, conn: sqlite3.Connection, db: Path) -> Plan:
+    """整理停在"正在创建"：第 3 批加歌前网络断了。"""
+    plan = approved(b, conn)
+    b.fail_before["add_tracks"] = {3}
+    job = run(lambda: jobs.start_apply(db, CONFIG, b, plan.id), conn)
+    assert job.status == "failed"
+    b.fail_before["add_tracks"] = set()
+    assert plan_store.load_plan(conn, plan.id).status == PlanStatus.APPLYING
+    return plan
+
+
+def test_resume_finishes_without_duplicates(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    plan = interrupted(backend, conn, db)
+    job = run(lambda: jobs.start_apply(db, CONFIG, backend, plan.id, resume=True), conn)
+    assert job.status == "done"
+    assert len(backend.owned_by_tool()) == 2
+    assert plan_store.load_plan(conn, plan.id).status == PlanStatus.APPLIED
+    statuses = {r[0] for r in conn.execute("SELECT status FROM run_tracks").fetchall()}
+    assert statuses == {"added"}
+
+
+def test_without_resume_flag_interrupted_plan_is_still_refused(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    """MCP 不续传：不带 resume 的调用行为不变。"""
+    plan = interrupted(backend, conn, db)
+    with pytest.raises(ApprovalError, match=f"tunetidy apply {plan.id}"):
+        jobs.start_apply(db, CONFIG, backend, plan.id)
+
+
+def test_resume_refuses_plan_that_is_not_interrupted(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    plan = approved(backend, conn)
+    with pytest.raises(ApprovalError, match="没有中断"):
+        jobs.start_apply(db, CONFIG, backend, plan.id, resume=True)
+
+
+def test_apply_summary_has_per_playlist_progress(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    plan = interrupted(backend, conn, db)
+    job = job_store.load_job(conn, conn.execute("SELECT id FROM jobs").fetchone()[0])
+    rows = jobs.job_summary(conn, job)["playlists"]
+    assert [r["name"] for r in rows] == [p.name for p in plan.playlists()]
+    assert all(set(r) == {"name", "added", "total", "status"} for r in rows)
+    assert rows[0]["total"] == 7 and 0 < rows[0]["added"] < 7 and rows[0]["status"] == "添加中"
+    assert rows[1]["added"] == 0 and rows[1]["status"] == "等待中"
+
+
+def applied_run(b: FakeBackend, conn: sqlite3.Connection, db: Path) -> tuple[Plan, str]:
+    plan = approved(b, conn)
+    job = run(lambda: jobs.start_apply(db, CONFIG, b, plan.id), conn)
+    assert job.run_id
+    return plan, job.run_id
+
+
+def test_undo_job_deletes_and_marks_plan_undone(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    plan, run_id = applied_run(backend, conn, db)
+    fp = jobs.undo_fingerprint(plan_undo(backend, conn, run_id))
+    job = run(lambda: jobs.start_undo(db, CONFIG, backend, run_id, fp), conn)
+    assert job.status == "done" and job.kind == "undo"
+    assert backend.owned_by_tool() == []
+    assert plan_store.load_plan(conn, plan.id).status == PlanStatus.UNDONE
+    summary = jobs.job_summary(conn, job)
+    assert len(summary["deleted"]) == 2 and summary["trimmed"] == []
+
+
+def test_undo_job_refuses_when_preview_changed(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    """预览之后歌单变了（用户往里加了歌）：指纹不同，任务失败，什么都不删。"""
+    plan, run_id = applied_run(backend, conn, db)
+    fp = jobs.undo_fingerprint(plan_undo(backend, conn, run_id))
+    backend.owned_by_tool()[0].songs.append(song(99))
+    job = run(lambda: jobs.start_undo(db, CONFIG, backend, run_id, fp), conn)
+    assert job.status == "failed" and "重新预览" in (job.error or "")
+    assert len(backend.owned_by_tool()) == 2
+
+
+def test_undo_of_undone_run_is_refused(
+    db: Path, conn: sqlite3.Connection, backend: FakeBackend
+) -> None:
+    _plan, run_id = applied_run(backend, conn, db)
+    fp = jobs.undo_fingerprint(plan_undo(backend, conn, run_id))
+    run(lambda: jobs.start_undo(db, CONFIG, backend, run_id, fp), conn)
+    with pytest.raises(UndoError, match="已经撤销"):
+        jobs.start_undo(db, CONFIG, backend, run_id, fp)

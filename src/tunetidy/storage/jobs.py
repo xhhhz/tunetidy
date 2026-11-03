@@ -17,7 +17,7 @@ from typing import Literal
 
 from tunetidy.storage.db import transaction
 
-Kind = Literal["analyze", "apply"]
+Kind = Literal["analyze", "apply", "undo"]
 HEARTBEAT_TIMEOUT = timedelta(seconds=60)
 
 
@@ -36,6 +36,7 @@ class Job:
     heartbeat_at: str
     created_at: str
     updated_at: str
+    result: str | None = None  # JSON；目前只有撤销任务用
 
 
 class JobBusyError(RuntimeError):
@@ -96,7 +97,7 @@ def create_job(
         _mark_orphans(conn, now, alive)
         busy = conn.execute("SELECT id, kind FROM jobs WHERE status = 'running'").fetchone()
         if busy:
-            kind_text = "分析" if busy["kind"] == "analyze" else "建歌单"
+            kind_text = {"analyze": "分析", "apply": "建歌单", "undo": "撤销"}[busy["kind"]]
             raise JobBusyError(f"已有一个{kind_text}任务在运行（{busy['id']}），等它结束后再试")
         t = _iso(now)
         conn.execute(
@@ -143,9 +144,12 @@ def finish_job(
     *,
     plan_id: str | None = None,
     run_id: str | None = None,
+    result: str | None = None,
     now: datetime,
 ) -> None:
     fields: dict[str, object] = {"status": "done"}
+    if result is not None:
+        fields["result"] = result
     if plan_id is not None:
         fields["plan_id"] = plan_id
     if run_id is not None:

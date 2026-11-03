@@ -97,6 +97,14 @@ def load_run(conn: sqlite3.Connection, run_id: str) -> Run:
     return Run(r["id"], r["plan_id"], r["marker"], r["status"], r["created_at"], playlists)
 
 
+def list_runs(conn: sqlite3.Connection, limit: int = 100) -> list[Run]:
+    """所有写回记录，新的在前（网页"历史"页用）。"""
+    rows = conn.execute(
+        "SELECT id FROM runs ORDER BY created_at DESC, rowid DESC LIMIT ?", (limit,)
+    ).fetchall()
+    return [load_run(conn, r["id"]) for r in rows]
+
+
 def active_run_for_plan(conn: sqlite3.Connection, plan_id: str) -> Run | None:
     r = conn.execute(
         "SELECT id FROM runs WHERE plan_id = ? AND status IN ('running', 'interrupted')"

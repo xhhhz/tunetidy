@@ -21,7 +21,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 
 from tunetidy.apply.approval import check_executable
-from tunetidy.backends.base import MusicBackend
+from tunetidy.backends.base import MusicBackend, NotLoggedInError
 from tunetidy.config import ApplyConfig
 from tunetidy.models import PlaylistInfo
 from tunetidy.plan import Plan, PlanStatus, source_label
@@ -102,6 +102,9 @@ class Writer:
     def execute(self, plan: Plan) -> ApplyResult:
         """执行一个已批准的方案。上次中断的方案（状态为执行中）走 resume。"""
         check_executable(plan)
+        user = self.backend.whoami()  # 记下建它的账号；没登录就什么都不做
+        if user is None:
+            raise NotLoggedInError("未登录或登录已失效，请先登录")
         plan_store.transition(self.conn, plan.id, (PlanStatus.APPROVED,), PlanStatus.APPLYING)
         intent = [(p.category, p.name, p.songs) for p in plan.playlists()]
         run = run_store.create_run(
@@ -111,6 +114,7 @@ class Writer:
             self.now(),
             intent,
             private=self.cfg.private,
+            account_id=user.id,
         )
         return self._run(plan, run, resuming=False)
 

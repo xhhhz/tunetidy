@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import secrets
 import sqlite3
 from collections.abc import Sequence
@@ -39,6 +40,7 @@ class Run:
     status: str  # running / interrupted / done / undoing / undone
     created_at: str
     playlists: tuple[RunPlaylist, ...]
+    account_id: str | None = None  # 建它的账号；加这一列之前的记录为空
 
     def playlist_marker(self, index: int) -> str:
         return f"{self.marker}/p{index:03d}"
@@ -59,14 +61,15 @@ def create_run(
     created_at: str,
     playlists: Sequence[tuple[str, str, Sequence[SongKey]]],  # (分类, 歌单名, 方案顺序的歌)
     private: bool = True,
+    account_id: str | None = None,
 ) -> Run:
     """先记意图：一次事务写入运行、每个将建的歌单、每首将写入的歌。"""
     marker = f"tunetidy:run-{run_id}"
     with transaction(conn):
         conn.execute(
-            "INSERT INTO runs (id, plan_id, marker, status, created_at, updated_at)"
-            " VALUES (?, ?, ?, 'running', ?, ?)",
-            (run_id, plan_id, marker, created_at, created_at),
+            "INSERT INTO runs (id, plan_id, marker, status, created_at, updated_at, account_id)"
+            " VALUES (?, ?, ?, 'running', ?, ?, ?)",
+            (run_id, plan_id, marker, created_at, created_at, account_id),
         )
         # run_playlists 的插入顺序（rowid）决定歌单序号 /pNNN
         for category, name, keys in playlists:
@@ -94,7 +97,9 @@ def load_run(conn: sqlite3.Connection, run_id: str) -> Run:
         RunPlaylist(i, p["category"], p["name"], p["playlist_id"], p["status"], bool(p["private"]))
         for i, p in enumerate(rows, start=1)
     )
-    return Run(r["id"], r["plan_id"], r["marker"], r["status"], r["created_at"], playlists)
+    return Run(
+        r["id"], r["plan_id"], r["marker"], r["status"], r["created_at"], playlists, r["account_id"]
+    )
 
 
 def list_runs(conn: sqlite3.Connection, limit: int = 100) -> list[Run]:
@@ -119,6 +124,29 @@ def latest_run_for_plan(conn: sqlite3.Connection, plan_id: str) -> Run | None:
         "SELECT id FROM runs WHERE plan_id = ? ORDER BY created_at DESC LIMIT 1", (plan_id,)
     ).fetchone()
     return load_run(conn, r["id"]) if r else None
+
+
+def _source_ids(sources_json: str) -> list[str]:
+    return sorted(str(i) for i, _ in json.loads(sources_json).get("items", []))
+
+
+def previous_batch(conn: sqlite3.Connection, plan_id: str, account_id: str) -> Run | None:
+    """这份整理建好后，同一来源（来源歌单 id 集合相同，顺序无关）上次由同一账号建好、
+    还没撤销的那批写回；没有时返回 None。这份自己还没建好时也返回 None。"""
+    me = conn.execute("SELECT status, sources_json FROM plans WHERE id = ?", (plan_id,)).fetchone()
+    if me is None or me["status"] != "applied":
+        return None
+    want = _source_ids(me["sources_json"])
+    rows = conn.execute(
+        "SELECT runs.id, plans.sources_json FROM runs JOIN plans ON plans.id = runs.plan_id"
+        " WHERE runs.status = 'done' AND runs.account_id = ? AND runs.plan_id != ?"
+        " ORDER BY runs.created_at DESC, runs.rowid DESC",
+        (account_id, plan_id),
+    ).fetchall()
+    for r in rows:
+        if _source_ids(r["sources_json"]) == want:
+            return load_run(conn, r["id"])
+    return None
 
 
 def tracks(conn: sqlite3.Connection, run_id: str, category: str) -> list[RunTrack]:

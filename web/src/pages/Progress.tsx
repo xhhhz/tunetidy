@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { get, post, type ApiError, type JobSummary, type PlanDetail, type Ticket } from "../api";
 import { useCodeFlow } from "../components/CodeDialog";
+import { PreviousBatch } from "../components/PreviousBatch";
 import { useLoad } from "../hooks";
 import { navigate, to } from "../router";
 import { Back, Cover, Icon, Link, toneStyle, coverLabel } from "../ui";
@@ -91,6 +92,7 @@ export function Progress({ planId, jobId }: { planId: string; jobId: string }) {
             </div>
           ))}
         </div>
+        <PreviousBatch planId={planId} />
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button type="button" className="btn" onClick={() => navigate(to.home())}>
             完成

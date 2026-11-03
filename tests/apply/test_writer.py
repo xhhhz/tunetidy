@@ -298,3 +298,22 @@ def test_progress_reports(conn: sqlite3.Connection) -> None:
     writer(b, conn, on_progress=lambda *e: events.append(e)).execute(approved_plan(b, conn))
     assert events[-1] == ("R&B · 整理自 我喜欢的音乐", 5, 5)
     assert ("流行 · 整理自 我喜欢的音乐", 7, 7) in events
+
+
+def test_run_records_account(conn: sqlite3.Connection) -> None:
+    b = build_library()
+    result = writer(b, conn).execute(approved_plan(b, conn))
+    assert run_store.load_run(conn, result.run_id).account_id == "10000001"
+
+
+def test_execute_refuses_when_logged_out(conn: sqlite3.Connection) -> None:
+    from tunetidy.backends.base import NotLoggedInError
+
+    b = build_library()
+    plan = approved_plan(b, conn)
+    b.user = None
+    with pytest.raises(NotLoggedInError):
+        writer(b, conn).execute(plan)
+    assert run_store.list_runs(conn) == []
+    assert b.owned_by_tool() == []
+    assert plan_store.load_plan(conn, plan.id).status == PlanStatus.APPROVED

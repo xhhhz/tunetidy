@@ -197,6 +197,10 @@ MIGRATIONS: list[str] = [
     ALTER TABLE jobs_new RENAME TO jobs;
     CREATE INDEX jobs_by_status ON jobs (status);
     """,
+    # 写回记录记下建它的账号（平台的用户 id），"撤销上次那批"只找当前账号建的；旧记录为空
+    """
+    ALTER TABLE runs ADD COLUMN account_id TEXT;
+    """,
 ]
 
 

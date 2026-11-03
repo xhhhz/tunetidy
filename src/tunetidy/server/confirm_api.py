@@ -163,6 +163,31 @@ def list_runs(conn: Conn) -> list[dict[str, Any]]:
     return out
 
 
+@router.get("/plans/{plan_id}/previous")
+def previous_batch(plan_id: str, conn: Conn, factory: Backends) -> dict[str, Any] | None:
+    """这份整理建好后，同一来源上次由当前账号建好、还没撤销的那批（网页提示"要撤销上次那批吗"）。
+    只确认一下当前账号，其余只读本地数据库；撤销本身仍走回读预览和确认码。"""
+    user = factory().whoami()
+    run = run_store.previous_batch(conn, plan_id, user.id) if user else None
+    if run is None:
+        return None
+    plan = plan_store.load_plan(conn, run.plan_id)
+    return {
+        "run_id": run.id,
+        "created_at": run.created_at,
+        "sources": [s.name for s in plan.sources],
+        "playlists": [
+            {
+                "name": rp.name,
+                "added": sum(
+                    t.status == "added" for t in run_store.tracks(conn, run.id, rp.category)
+                ),
+            }
+            for rp in run.playlists
+        ],
+    }
+
+
 def _preview(conn: Conn, backend: MusicBackend, run_id: str) -> tuple[UndoPlan, str, list[str]]:
     up = plan_undo(backend, conn, run_id)
     plan = plan_store.load_plan(conn, up.run.plan_id)

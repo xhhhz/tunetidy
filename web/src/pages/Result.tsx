@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { ConfirmStatus, Genres, PlanDetail, PlanRow, RunRow, Split } from "../api";
+import { PreviousBatch } from "../components/PreviousBatch";
 import { useEdit, type RunEdit } from "../edit";
 import { useLoad, usePlanState } from "../hooks";
 import { navigate, to } from "../router";
@@ -345,9 +346,8 @@ function Earlier({ plan }: { plan: PlanDetail }) {
   );
 }
 
-/** 已建好、正在创建、已撤销：只读横幅。v1.0 的撤销和重新整理都在终端里做。 */
+/** 已建好、正在创建、已撤销：只读横幅。网页确认不可用时，撤销给终端命令。 */
 function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: string; count: number }) {
-  const analyze = `tunetidy analyze ${plan.sources.map((s) => s.id).join(" ")}`;
   // 网页确认可用时，撤销直接去撤销页；否则给终端命令
   const runs = useLoad<RunRow[]>("/api/runs").data;
   const web = useLoad<ConfirmStatus>("/api/confirm").data?.available ?? false;
@@ -359,6 +359,7 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
           <>
             <b>这 {count} 个歌单已经在你的网易云里了</b>
             <div className="small">建好后内容不能再改，想换种拆法可以重新整理，会另建一批新歌单</div>
+            <PreviousBatch planId={plan.id} compact />
           </>
         )}
         {status === "applying" && (
@@ -389,8 +390,9 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
               <CopyCommand command={`tunetidy undo ${plan.id}`} />
             </>
           )}
-          <div className="small">重新整理</div>
-          <CopyCommand command={analyze} />
+          <button type="button" className="btn sm self-start" onClick={() => navigate(to.newPlan())}>
+            重新整理
+          </button>
         </div>
       )}
     </div>

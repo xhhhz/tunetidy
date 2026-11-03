@@ -303,3 +303,11 @@ export interface PlaylistRow {
   track_count: number;
   owned: boolean; // 自己创建的；否则是收藏的
 }
+
+/** 同一来源上次建好、还没撤销的那批（当前账号建的）。 */
+export interface PreviousBatch {
+  run_id: string;
+  created_at: string;
+  sources: string[];
+  playlists: { name: string; added: number }[];
+}

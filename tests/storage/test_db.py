@@ -127,3 +127,26 @@ def test_transaction_rolls_back_on_error(tmp_path: Path) -> None:
     assert conn.execute("SELECT COUNT(*) FROM songs").fetchone()[0] == 0
     assert not conn.in_transaction
     conn.close()
+
+
+def test_runs_gain_account_column_keeping_old_rows(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """升级前建的写回记录保留，账号为空。"""
+    path = tmp_path / "t.db"
+    monkeypatch.setattr(db, "MIGRATIONS", MIGRATIONS[:-1])
+    conn = connect(path)
+    conn.execute(
+        "INSERT INTO plans (id, created_at, status, sources_json, taxonomy_version, settings_json,"
+        " snapshot_json, content_hash) VALUES ('p', 't', 'applied', '{}', 'v', '{}', '{}', 'h')"
+    )
+    conn.execute(
+        "INSERT INTO runs (id, plan_id, marker, status, created_at, updated_at)"
+        " VALUES ('r', 'p', 'm', 'done', 't', 't')"
+    )
+    conn.close()
+    monkeypatch.setattr(db, "MIGRATIONS", MIGRATIONS)
+    conn = connect(path)
+    row = conn.execute("SELECT id, status, account_id FROM runs").fetchone()
+    assert tuple(row) == ("r", "done", None)
+    conn.close()

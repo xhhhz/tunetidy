@@ -10,6 +10,7 @@ from tests.server.conftest import Env
 from tests.server.test_confirm_api import confirm, submit
 from tunetidy.plan import Plan, PlanStatus
 from tunetidy.storage import plans as plan_store
+from tunetidy.storage import runs as run_store
 
 POP = "流行 · 整理自 我喜欢的音乐"
 RNB = "R&B · 整理自 我喜欢的音乐"
@@ -117,3 +118,37 @@ def test_code_is_bound_to_the_undo_fingerprint(env: Env, plan: Plan) -> None:
 
 def test_unknown_run(env: Env) -> None:
     assert env.call("GET", "/api/runs/nope/undo").status_code == 404
+
+
+# ------------------------------------------------------------------ 建完后撤销上次那批
+
+
+def test_previous_batch_then_undo_it(env: Env, plan: Plan, conn: sqlite3.Connection) -> None:
+    from tests.test_analyze import CFG, Clock
+    from tunetidy.analyze import analyze
+
+    run_a = applied(env, plan)
+    plan_b = analyze(env.backend, conn, CFG, [env.backend.list_playlists()[0]], now=Clock())
+    assert env.call("GET", f"/api/plans/{plan_b.id}/previous").json() is None  # B 还没建好
+    applied(env, plan_b)
+
+    before = dict(env.backend.calls)
+    prev = env.call("GET", f"/api/plans/{plan_b.id}/previous").json()
+    used = {k: v - before.get(k, 0) for k, v in env.backend.calls.items() if v != before.get(k, 0)}
+    assert used == {"whoami": 1}  # 只确认当前账号，其余只读本地数据库
+    assert prev["run_id"] == run_a
+    assert prev["sources"] == ["我喜欢的音乐"]
+    assert [(p["name"], p["added"]) for p in prev["playlists"]] == [(POP, 7), (RNB, 5)]
+
+    a_ids = {rp.playlist_id for rp in run_store.load_run(conn, run_a).playlists}
+    b_ids = {p.info.id for p in env.backend.owned_by_tool()} - a_ids
+    done = undo(env, run_a, preview(env, run_a)["fingerprint"])
+    assert done["status"] == "done"
+    assert {p.info.id for p in env.backend.owned_by_tool()} == b_ids  # 只剩 B 建的
+    assert env.call("GET", f"/api/plans/{plan_b.id}/previous").json() is None
+
+
+def test_previous_batch_logged_out(env: Env, plan: Plan) -> None:
+    applied(env, plan)
+    env.backend.user = None
+    assert env.call("GET", f"/api/plans/{plan.id}/previous").json() is None

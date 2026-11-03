@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import os
 import time
 from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -13,6 +15,8 @@ from tests.server.conftest import BASE, PORT, TOKEN
 from tests.test_jobs import CONFIG
 from tunetidy.models import User
 from tunetidy.server.app import TOKEN_HEADER, create_app
+from tunetidy.storage import jobs as job_store
+from tunetidy.storage.db import connect
 
 SECRET = "MUSIC_U=secret-cookie-value"
 
@@ -86,3 +90,29 @@ def test_not_logged_in_points_to_web_login(db_path: Path, backend: FakeBackend) 
     assert r.status_code == 409
     assert r.json()["code"] == "not_logged_in"
     assert "终端" not in r.json()["detail"]
+
+
+def test_logout_clears_login(db_path: Path, backend: FakeBackend) -> None:
+    client = make_client(db_path, backend)
+    r = client.post("/api/logout", json={})
+    assert r.status_code == 200
+    assert client.get("/api/me").json() == {"logged_in": False, "nickname": None}
+
+
+def test_logout_refused_while_a_job_runs(db_path: Path, backend: FakeBackend) -> None:
+    """后台任务手里还拿着登录态，这时退出会被它写回钥匙串，所以等任务结束再退出。"""
+    client = make_client(db_path, backend)
+    conn = connect(db_path)
+    job_store.create_job(conn, "apply", plan_id="x", pid=os.getpid(), now=datetime.now(UTC))
+    conn.close()
+    r = client.post("/api/logout", json={})
+    assert r.status_code == 409
+    assert r.json()["code"] == "busy"
+    assert client.get("/api/me").json()["logged_in"] is True
+
+
+def test_logout_requires_token_and_post(db_path: Path, backend: FakeBackend) -> None:
+    client = make_client(db_path, backend)
+    assert client.get("/api/logout").status_code == 405
+    assert client.post("/api/logout", json={}, headers={TOKEN_HEADER: "wrong"}).status_code == 401
+    assert client.get("/api/me").json()["logged_in"] is True

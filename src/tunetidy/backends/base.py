@@ -43,6 +43,10 @@ class MusicBackend(Protocol):
         """当前登录用户；未登录或登录失效返回 None。"""
         ...
 
+    def logout(self) -> None:
+        """删掉本机保存的登录态，不请求平台。"""
+        ...
+
     def list_playlists(self) -> list[PlaylistInfo]: ...
 
     def get_tracks(self, playlist_id: str) -> list[Song]:

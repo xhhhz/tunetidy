@@ -74,6 +74,9 @@ class FakeBackend:
         self.calls["whoami"] += 1
         return self.user
 
+    def logout(self) -> None:
+        self.user = None
+
     def _info(self, p: FakePlaylist) -> PlaylistInfo:
         return PlaylistInfo(self.platform, p.info.id, p.info.name, len(p.songs), p.info.owned)
 

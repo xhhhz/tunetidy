@@ -1,6 +1,6 @@
 """网页上开始一次整理要用的接口：扫码登录、账号状态、列歌单、开始读取、读取进度与取消。
 
-这些都不写网易云账号，所以不需要确认码；登录态由后端存进钥匙串，这里的响应只有昵称。
+这些都不写网易云账号（退出登录只删本机的登录态），所以不需要确认码；登录态由后端存进钥匙串，这里的响应只有昵称。
 """
 
 from __future__ import annotations
@@ -46,6 +46,17 @@ def start_login(flow: Login) -> dict[str, Any]:
 @router.get("/login")
 def login_state(flow: Login) -> dict[str, Any]:
     return asdict(flow.state())
+
+
+@router.post("/logout")
+def logout(conn: Conn, factory: Backends) -> dict[str, bool]:
+    """退出登录：删掉本机保存的登录态，整理记录留在本机。后台任务还在运行时不退出：
+    它手里的登录态会在查账号时写回钥匙串，等它结束再退。"""
+    job_store.mark_orphans(conn, datetime.now(UTC))
+    if job_store.running_job(conn) is not None:
+        raise job_store.JobBusyError("有任务正在运行，等它结束后再退出登录")
+    factory().logout()
+    return {"ok": True}
 
 
 @router.get("/playlists")

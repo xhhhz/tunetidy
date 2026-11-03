@@ -1,9 +1,9 @@
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 
-import { connection, get } from "./api";
-import { useMe } from "./hooks";
-import { to, type Route } from "./router";
-import { DialogHost, Icon, Link, ToastHost } from "./ui";
+import { connection, get, post, type ApiError } from "./api";
+import { refreshMe, useMe } from "./hooks";
+import { navigate, to, type Route } from "./router";
+import { askConfirm, DialogHost, Icon, Link, toast, ToastHost } from "./ui";
 
 const RETRY_MS = 5000;
 
@@ -50,27 +50,61 @@ export function Shell({ route, children }: { route: Route; children: ReactNode }
   );
 }
 
-/** 导航底部：登录了显示网易云昵称，没登录给一个去登录的链接。 */
+/** 导航底部：登录了显示网易云昵称，点开可以退出登录；没登录给一个去登录的链接。 */
 function Account() {
   const me = useMe();
+  const [open, setOpen] = useState(false);
   if (!me) return null;
   if (!me.logged_in) {
     return (
-      <Link to={to.login()} className="who link">
-        登录网易云
-      </Link>
+      <div className="acct">
+        <Link to={to.login()} className="who link">
+          登录网易云
+        </Link>
+      </div>
     );
   }
   const name = me.nickname ?? "";
+
+  const logout = async () => {
+    setOpen(false);
+    const ok = await askConfirm({
+      title: "退出登录？",
+      body: "会删掉这台电脑上保存的网易云登录信息，下次使用要重新扫码。本机的整理记录会保留",
+      ok: "退出登录",
+      cancel: "取消",
+    });
+    if (!ok) return;
+    post("/api/logout", {})
+      .then(() => refreshMe())
+      .then(() => navigate(to.login(), true))
+      .catch((e: ApiError) => toast(e.message, "error"));
+  };
+
   return (
-    <div className="who">
-      <div className="av" aria-hidden>
-        {[...name][0] ?? "?"}
-      </div>
-      <div className="min-w-0">
-        <b>{name}</b>
-        <span>网易云已登录</span>
-      </div>
+    <div className="acct">
+      <button type="button" className="who" onClick={() => setOpen(!open)} aria-expanded={open} title={name}>
+        <span className="av" aria-hidden>
+          {[...name][0] ?? "?"}
+        </span>
+        <span className="min-w-0">
+          <b>{name}</b>
+          <span>网易云已登录</span>
+        </span>
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
+          <div className="pop">
+            <button type="button" className="li" onClick={() => void logout()}>
+              <span className="t">
+                <b>退出登录</b>
+                <span>本机的整理记录会保留</span>
+              </span>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

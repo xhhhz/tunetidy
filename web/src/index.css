@@ -74,7 +74,10 @@
   .nv:hover { background: var(--soft); }
   .nv.on { font-weight: 700; }
   .nv svg { width: 24px; height: 24px; }
-  .who { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px; font-size: 13px; color: var(--fg2); }
+  .acct { margin-top: auto; position: relative; }
+  .who { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px; font-size: 13px; color: var(--fg2); width: 100%; text-align: left; }
+  button.who:hover { background: var(--soft); }
+  .acct .pop { top: auto; bottom: calc(100% + 6px); left: 0; right: auto; width: 100%; }
   .who b { display: block; color: var(--fg); font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .av { width: 36px; height: 36px; border-radius: 50%; background: var(--soft2); display: grid; place-items: center; font-weight: 600; color: var(--fg); flex: none; }
 
@@ -234,8 +237,11 @@
     .nv { padding: 8px 10px; gap: 8px; font-size: 15px; }
     .nv svg { width: 20px; height: 20px; }
     /* 顶栏放不下昵称，只留头像 */
-    .who { margin: 0 0 0 auto; padding: 4px; }
+    .acct { margin: 0 0 0 auto; }
+    .who { padding: 4px; }
     .who > :not(.av) { display: none; }
+    /* 顶栏可以横向滚动，会裁掉里面的弹层，所以窄屏上贴着窗口右上角显示 */
+    .acct .pop { position: fixed; top: 56px; bottom: auto; left: auto; right: 12px; width: 220px; }
     .who .av { width: 30px; height: 30px; font-size: 13px; }
     .login { grid-template-columns: minmax(0, 1fr); }
     .login .l { padding: 32px 16px; }

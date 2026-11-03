@@ -47,7 +47,7 @@ Genre names are NetEase's Chinese genre names. For custom groups, see [taxonomie
 
 ## Web page
 
-`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). If you aren't logged in, it shows a QR code to scan with the NetEase Cloud Music app; the session goes to the system keychain as usual, and the sidebar shows the current account. Click 新整理 (new tidy-up) to pick playlists; 我喜欢的音乐 is selected by default. Several playlists are merged in the order you tick them, and a song in more than one counts once. While reading, the page shows progress, the estimated time left and the genres found so far. Closing the page doesn't stop it, the home page picks it up again, and you can cancel; genres already read stay cached.
+`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). If you aren't logged in, it shows a QR code to scan with the NetEase Cloud Music app; the session goes to the system keychain as usual, and the sidebar shows the current account. Click it to log out: this only deletes the login saved on this computer and keeps your tidy-ups; if a task is running, wait for it to finish. Click 新整理 (new tidy-up) to pick playlists; 我喜欢的音乐 is selected by default. Several playlists are merged in the order you tick them, and a song in more than one counts once. While reading, the page shows progress, the estimated time left and the genres found so far. Closing the page doesn't stop it, the home page picks it up again, and you can cancel; genres already read stay cached.
 
 The home page has one card per playlist. Open one to see which new playlists will be created and how many songs each gets. There you can switch split modes, rename playlists, move misplaced songs, and pick a home for each song TuneTidy couldn't sort. All of this changes only the local plan and never contacts NetEase.
 
@@ -55,7 +55,7 @@ After you confirm, the page shows the progress of creating the playlists; if it 
 
 When a playlist has been tidied several times, the older plans are under 以前的整理 (earlier tidy-ups) at the top right of the result page. Plans that never created playlists aren't deleted automatically; click 现在清理 (clean up now) there. It deletes only records on this computer and keeps every plan that created playlists.
 
-Everything on the web page that changes your NetEase account (creating, continuing, undoing) needs a code; logging in, picking playlists, reading and cleaning up local records don't change the account and don't need one. The code appears only in the terminal window that started TuneTidy and never passes through the web page. If TuneTidy was not started from a terminal window (for example, another program runs it in the background), web confirmation is unavailable and the page shows terminal commands instead.
+Everything on the web page that changes your NetEase account (creating, continuing, undoing) needs a code; logging in or out, picking playlists, reading and cleaning up local records don't change the account and don't need one. The code appears only in the terminal window that started TuneTidy and never passes through the web page. If TuneTidy was not started from a terminal window (for example, another program runs it in the background), web confirmation is unavailable and the page shows terminal commands instead.
 
 The interface is in Chinese.
 

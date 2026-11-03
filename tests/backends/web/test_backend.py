@@ -179,6 +179,18 @@ def test_list_playlists_paginates(server: FakeNetease, clock: FakeClock) -> None
     assert offsets == [0, 2]
 
 
+def test_list_playlists_after_whoami_checks_account_once(
+    server: FakeNetease, clock: FakeClock
+) -> None:
+    """网页先 whoami 确认登录再读歌单：账号只查一次，少等一次限速间隔。"""
+    server.route("/api/w/nuser/account/get", ACCOUNT)
+    server.route("/api/user/playlist", load_fixture("netease/user_playlist.json"))
+    b = make(server, clock, logged_in())
+    assert b.whoami() is not None
+    b.list_playlists()
+    assert server.paths().count("/api/w/nuser/account/get") == 1
+
+
 def test_find_playlists_by_marker_only_owned(server: FakeNetease, clock: FakeClock) -> None:
     server.route("/api/w/nuser/account/get", ACCOUNT)
     server.route(

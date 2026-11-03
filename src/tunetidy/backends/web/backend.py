@@ -69,6 +69,7 @@ class NeteaseWebBackend:
         self.client = Client(
             store.load(), config.network, transport=transport, sleep=sleep, clock=clock, rng=rng
         )
+        self._user: User | None = None  # 本实例里 whoami 查到的账号，读歌单时不再查一遍
 
     @property
     def session(self) -> Session:
@@ -108,6 +109,7 @@ class NeteaseWebBackend:
         raise LoginExpiredError("等待扫码超时，请重新登录")
 
     def logout(self) -> None:
+        self._user = None
         self.store.clear()
         self.client.session = Session(device_id=self.session.device_id)
 
@@ -119,10 +121,11 @@ class NeteaseWebBackend:
         if user is not None:
             self.session.user_id, self.session.nickname = user.id, user.nickname
             self.store.save(self.session)  # 保存服务器可能下发的新 Cookie
+        self._user = user
         return user
 
     def _require_user(self) -> User:
-        user = self.whoami()
+        user = self._user or self.whoami()
         if user is None:
             raise NotLoggedInError("未登录或登录已失效，请先运行 tunetidy login")
         return user

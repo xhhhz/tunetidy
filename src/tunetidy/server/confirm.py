@@ -109,6 +109,12 @@ class ConfirmGate:
         with self._lock:
             return self._check_lock()
 
+    def locked_seconds(self) -> int:
+        """锁定剩余秒数；没锁定时为 0。"""
+        with self._lock:
+            until = self._check_lock()
+            return 0 if until is None else max(1, int(until - self._now() + 0.999))
+
     def _check_lock(self) -> float | None:
         if self._locked_until is not None and self._now() >= self._locked_until:
             self._locked_until = None

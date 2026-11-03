@@ -403,7 +403,7 @@ def ui(
         bool, typer.Option("--no-browser", help="不自动打开浏览器，改为打印带口令的网址")
     ] = False,
 ) -> None:
-    """打开网页审阅和调整方案（只监听本机；批准和写回仍在终端里完成）。"""
+    """打开网页：审阅、调整、确认并建歌单、撤销（只监听本机；确认码显示在这个终端里）。"""
     import threading
     import webbrowser
 
@@ -416,15 +416,23 @@ def ui(
         config = load_config()
     except (MissingBuildError, ConfigError) as e:
         fail(str(e))
+    from tunetidy.server.confirm import TerminalChannel
+
     token = new_token()
     url = f"http://127.0.0.1:{port}/#token={token}"
-    server = create_app(default_db_path(), token, port, config, static)
+    # 与 CLI approve 同一个判断：标准输入和输出都是终端时，确认码才显示在这里，网页确认才可用
+    channel = TerminalChannel() if approval.is_interactive() else None
+    server = create_app(default_db_path(), token, port, config, static, channel=channel)
     if no_browser:
         # 口令只在本次运行有效，只能看和改方案，不能批准或写回
         console.print(f"用浏览器打开：{url}", soft_wrap=True)  # 网址不能被折行
     else:
         threading.Timer(1.0, webbrowser.open, (url,)).start()
         console.print(f"已在浏览器打开 http://127.0.0.1:{port}（没打开的话加 --no-browser 运行）")
+    if channel is not None:
+        console.print("网页确认：可用，确认码会显示在这个窗口里，只在理音网页里输入。")
+    else:
+        console.print("网页确认：不可用（不是在交互式终端里启动的），确认请用终端命令。")
     console.print("按 Ctrl+C 退出。")
     uvicorn.run(server, host="127.0.0.1", port=port, log_level="warning")
 

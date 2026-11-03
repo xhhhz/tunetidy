@@ -1,7 +1,7 @@
 """本地 Web 服务：审阅与调整整理方案。
 
-v1.0 的网页只读写本地数据库，不访问平台，也不能批准、执行或撤销（这些只在 CLI 交互式
-终端里完成）。只监听 127.0.0.1 并不够，用户浏览器里的任何网页都能向本机端口发请求，
+网页可以确认、建歌单和撤销，但确认码只显示在启动理音的终端里（见 confirm.py）。
+只监听 127.0.0.1 并不够，用户浏览器里的任何网页都能向本机端口发请求，
 所以每个请求都要过三道检查：
 
 - Host 头只能是 127.0.0.1 或 localhost 加本服务端口，挡住 DNS 重绑定；
@@ -24,12 +24,19 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from tunetidy.analyze import ConfirmResetError, MoveError, ReclassifyError
+from tunetidy.apply.approval import ApprovalError
+from tunetidy.apply.undo import UndoError
+from tunetidy.backends import get_backend
+from tunetidy.backends.base import BackendError, MusicBackend, NotLoggedInError
 from tunetidy.classify.split import SplitError
 from tunetidy.config import Config, ConfigError
 from tunetidy.server.api import router
+from tunetidy.server.confirm import Channel, ConfirmError, ConfirmGate
+from tunetidy.server.confirm_api import router as confirm_router
 from tunetidy.storage import jobs
 from tunetidy.storage import plans as plan_store
 from tunetidy.storage.db import connect
+from tunetidy.storage.runs import RunNotFoundError
 
 TOKEN_HEADER = "X-TuneTidy-Token"
 LOCAL_HOSTS = ("127.0.0.1", "localhost")
@@ -66,7 +73,11 @@ def create_app(
     port: int,
     config: Config | None = None,
     static_dir: Path | None = None,
+    *,
+    backend_factory: Callable[[], MusicBackend] | None = None,
+    channel: Channel | None = None,
 ) -> FastAPI:
+    """channel 是显示确认码的地方（启动理音的终端）；为 None 时网页确认不可用。"""
     # 关掉自动生成的接口文档：它们不在 /api/ 下，会绕过 token
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
     app.state.db_path = db_path
@@ -76,6 +87,9 @@ def create_app(
     finally:
         conn.close()
     app.state.config = config or Config()
+    cfg = app.state.config
+    app.state.gate = ConfirmGate(channel)
+    app.state.backend_factory = backend_factory or (lambda: get_backend("web", cfg))
     hosts = {f"{h}:{port}" for h in LOCAL_HOSTS}
     origins = {f"http://{h}" for h in hosts}
     expected = token.encode()
@@ -120,7 +134,25 @@ def create_app(
     for bad_input in (SplitError, ConfigError, MoveError):
         app.add_exception_handler(bad_input, lambda _r, e: _error(400, str(e), "invalid"))
 
+    @app.exception_handler(ConfirmError)
+    async def confirm_failed(_: Request, e: Exception) -> JSONResponse:
+        assert isinstance(e, ConfirmError)
+        status = {"unavailable": 403, "locked": 423, "rate_limited": 429}.get(e.kind, 409)
+        body: dict[str, object] = {"detail": str(e), "code": e.kind}
+        if e.retry_after is not None:
+            body["retry_after"] = e.retry_after
+        return JSONResponse(body, status_code=status)
+
+    for refused in (ApprovalError, UndoError):
+        app.add_exception_handler(refused, lambda _r, e: _error(409, str(e), "invalid_state"))
+    app.add_exception_handler(jobs.JobBusyError, lambda _r, e: _error(409, str(e), "busy"))
+    app.add_exception_handler(NotLoggedInError, lambda _r, e: _error(409, str(e), "not_logged_in"))
+    app.add_exception_handler(BackendError, lambda _r, e: _error(502, str(e), "backend"))
+    for missing in (jobs.JobNotFoundError, RunNotFoundError):
+        app.add_exception_handler(missing, lambda _r, e: _error(404, str(e)))
+
     app.include_router(router)
+    app.include_router(confirm_router)
     if static_dir is not None:
         _serve_frontend(app, find_static(static_dir))
     return app

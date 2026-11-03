@@ -15,14 +15,19 @@ pipx install tunetidy
 tunetidy login                      # scan a QR code with the NetEase Cloud Music app; the session goes to the system keychain
 tunetidy playlists                  # list your playlists
 tunetidy analyze "我喜欢的音乐"       # read genres and build a plan (no account changes; first run about 1.5 s per song, cached afterwards)
-tunetidy ui                         # review in the browser: switch split modes, rename playlists, move misplaced songs
+tunetidy ui                         # review in the browser, adjust, then confirm and create the playlists
+```
+
+You can confirm and create the playlists on the web page: click "确认并开始建" (confirm and create), and a 6-digit code appears in the terminal running `tunetidy ui`; type it into the page to start. Or do it all from the command line:
+
+```bash
 tunetidy approve <plan-id>          # confirm in the terminal yourself (type the code shown on screen)
 tunetidy apply <plan-id>            # create private playlists and add songs; rerun to resume after an interruption
 ```
 
 `我喜欢的音乐` ("My liked music") is the name NetEase gives to your liked-songs playlist; pass any playlist name or id.
 
-To undo: `tunetidy undo <plan-id or run-id>`. Before undoing, TuneTidy reads the playlists back: it deletes only the playlists it created that you haven't changed; from playlists you have changed it removes only the songs it added.
+To undo, use the 历史 (History) page in the browser or run `tunetidy undo <plan-id or run-id>`. Before undoing, TuneTidy reads the playlists back: it deletes only the playlists it created that you haven't changed; from playlists you have changed it removes only the songs it added.
 
 ## Split modes
 
@@ -40,7 +45,11 @@ Genre names are NetEase's Chinese genre names. For custom groups, see [taxonomie
 
 ## Web page
 
-`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). The home page has one card per playlist. Open one to see which new playlists will be created and how many songs each gets. There you can switch split modes, rename playlists, move misplaced songs, and pick a home for each song TuneTidy couldn't sort. All of this changes only the local plan and never contacts NetEase. Confirming and creating playlists happen in the terminal; the confirm page shows the commands to run.
+`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). The home page has one card per playlist. Open one to see which new playlists will be created and how many songs each gets. There you can switch split modes, rename playlists, move misplaced songs, and pick a home for each song TuneTidy couldn't sort. All of this changes only the local plan and never contacts NetEase.
+
+After you confirm, the page shows the progress of creating the playlists; if it stops halfway you can continue, and no song is added twice. The History page lists every batch of playlists TuneTidy created. Before undoing, it checks what those playlists look like now; from any you have changed, it removes only the songs it added.
+
+Confirming and undoing on the web both need a code. The code appears only in the terminal window that started TuneTidy and never passes through the web page. If TuneTidy was not started from a terminal window (for example, another program runs it in the background), web confirmation is unavailable and the page shows terminal commands instead.
 
 The interface is in Chinese.
 
@@ -77,7 +86,8 @@ Unsorted songs are left out of the new playlists until you place them in the web
 ## Safety rules
 
 - TuneTidy only creates playlists. It never changes or deletes playlists you already have. New playlists are private by default.
-- `approve`, `apply` (including `--yes`) and `undo` work only in an interactive terminal, run by you. If you use an AI assistant such as Claude Code or Codex, don't auto-allow these commands in its permission settings.
+- Confirming and undoing always need you to type a code. On the command line, `approve`, `apply` (including `--yes`) and `undo` work only in an interactive terminal; on the web page, the code appears only in the terminal that started TuneTidy. If you use an AI assistant such as Claude Code or Codex, don't auto-allow these commands in its permission settings, and don't tell it the code.
+- Too many wrong codes pause web confirmation for 10 minutes (restarting TuneTidy also clears it).
 - Any change to a plan after you confirm it voids the confirmation. A plan that has been applied can't be applied a second time.
 - Requests to NetEase are rate-limited with random pauses. The limits come from the config file only; no command or MCP tool can speed them up. Connections go direct, without the system proxy.
 - Login credentials live in the system keychain and are never printed in logs or error messages. The web server listens on 127.0.0.1 only and checks a random token.
@@ -88,9 +98,9 @@ Unsorted songs are left out of the new playlists until you place them in the web
 
 **What does "unsorted" (没分好) mean?** NetEase gave the song no genre, or several genres tie and TuneTidy can't tell which comes first. Unsorted songs are left out of the new playlists unless you place them on the web page's unsorted-songs view.
 
-**Can an AI assistant confirm for me?** No. Confirming means typing the code shown in your terminal, and the MCP server has no confirmation tool. An assistant can only apply plans you have already confirmed.
+**Can an AI assistant confirm for me?** No. The code appears only in the terminal that started TuneTidy, never in the web page, the API or the logs, and the MCP server has no confirmation tool. An assistant can only apply plans you have already confirmed.
 
-**How do I undo?** Run `tunetidy undo <plan-id or run-id>` in a terminal.
+**How do I undo?** Click 撤销 (undo) on the History page, or run `tunetidy undo <plan-id or run-id>` in a terminal.
 
 ## Disclaimer
 

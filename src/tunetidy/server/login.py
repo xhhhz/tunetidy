@@ -39,6 +39,7 @@ class LoginFlow:
         self._lock = threading.Lock()
         self._state = LoginState("idle")
         self._thread: threading.Thread | None = None
+        self._ready = threading.Event()  # 本次登录拿到二维码（或出错）时置位
 
     def state(self) -> LoginState:
         with self._lock:
@@ -49,15 +50,16 @@ class LoginFlow:
             self._state = state
 
     def start(self) -> LoginState:
-        """开始一次扫码登录，等拿到二维码（或出错）后返回；已在等扫码时返回当前这次。"""
+        """开始一次扫码登录，等拿到二维码（或出错）后返回。登录线程还在时（哪怕还没拿到
+        二维码）不另起一个，等同一次的二维码。已过期、失败或成功的线程不会再写状态，可以另起。"""
         with self._lock:
-            running = self._thread is not None and self._thread.is_alive()
-            if running and self._state.status in ("waiting", "scanned"):
-                return self._state
-            self._state = LoginState("idle")
-            ready = threading.Event()
-            self._thread = threading.Thread(target=self._run, args=(ready,), daemon=True)
-            self._thread.start()
+            alive = self._thread is not None and self._thread.is_alive()
+            if not (alive and self._state.status in ("idle", "waiting", "scanned")):
+                self._state = LoginState("idle")
+                self._ready = threading.Event()
+                self._thread = threading.Thread(target=self._run, args=(self._ready,), daemon=True)
+                self._thread.start()
+            ready = self._ready
         ready.wait(QR_WAIT)
         return self.state()
 

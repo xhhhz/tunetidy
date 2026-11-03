@@ -149,3 +149,14 @@ def test_previous_batch_only_after_this_one_is_built(tmp_path: Path) -> None:
     _build(conn, b, ["100"])
     draft = analyze(b, conn, CFG, [b.list_playlists()[0]], now=Clock())
     assert run_store.previous_batch(conn, draft.id, "X") is None
+
+
+def test_previous_batch_never_points_at_a_newer_batch(tmp_path: Path) -> None:
+    """打开较早建好的那份时，不能把之后新建的那批当成"上次那批"。"""
+    conn = connect(tmp_path / "t.db")
+    b = _two_sources()
+    plan_a, run_a = _build(conn, b, ["100"])
+    plan_b, _ = _build(conn, b, ["100"])
+    assert run_store.previous_batch(conn, plan_a, "X") is None
+    prev = run_store.previous_batch(conn, plan_b, "X")
+    assert prev is not None and prev.id == run_a

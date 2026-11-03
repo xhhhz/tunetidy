@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 
 import type { JobSummary, PlanRow } from "../api";
-import { useLoad, useMe } from "../hooks";
+import { useLoad, useMe, useMeError } from "../hooks";
 import { navigate, to } from "../router";
 import { describeShort } from "../split";
 import { GenreChips, Icon, StatusBadge, formatDay } from "../ui";
+import { MeUnavailable } from "./Login";
 import { Select } from "./Select";
 
 
@@ -58,6 +59,7 @@ export function Home() {
   const jobs = useLoad<JobSummary | null>("/api/jobs/current");
   const current = jobs.data;
   const me = useMe();
+  const meError = useMeError();
   const empty = data !== null && data.length === 0;
   const running = current?.kind === "analyze";
   const reloadJob = jobs.reload;
@@ -74,7 +76,10 @@ export function Home() {
   if (error && !data) return <div className="wrap small">{error.message}</div>;
   if (!data) return null;
   const reading = running ? current : null;
-  if (empty && !reading) return me?.logged_in ? <Select /> : null;
+  if (empty && !reading) {
+    if (meError && !me) return <MeUnavailable error={meError} />;
+    return me?.logged_in ? <Select /> : null;
+  }
 
   return (
     <div className="wrap">

@@ -131,17 +131,21 @@ def _source_ids(sources_json: str) -> list[str]:
 
 
 def previous_batch(conn: sqlite3.Connection, plan_id: str, account_id: str) -> Run | None:
-    """这份整理建好后，同一来源（来源歌单 id 集合相同，顺序无关）上次由同一账号建好、
+    """这份整理建好后，同一来源（来源歌单 id 集合相同，顺序无关）在它之前由同一账号建好、
     还没撤销的那批写回；没有时返回 None。这份自己还没建好时也返回 None。"""
     me = conn.execute("SELECT status, sources_json FROM plans WHERE id = ?", (plan_id,)).fetchone()
     if me is None or me["status"] != "applied":
         return None
+    own = conn.execute("SELECT MAX(rowid) FROM runs WHERE plan_id = ?", (plan_id,)).fetchone()[0]
+    if own is None:
+        return None
     want = _source_ids(me["sources_json"])
+    # 只看这份自己那批之前建的（rowid 按建立先后递增；created_at 只精确到秒）
     rows = conn.execute(
         "SELECT runs.id, plans.sources_json FROM runs JOIN plans ON plans.id = runs.plan_id"
         " WHERE runs.status = 'done' AND runs.account_id = ? AND runs.plan_id != ?"
-        " ORDER BY runs.created_at DESC, runs.rowid DESC",
-        (account_id, plan_id),
+        " AND runs.rowid < ? ORDER BY runs.rowid DESC",
+        (account_id, plan_id, own),
     ).fetchall()
     for r in rows:
         if _source_ids(r["sources_json"]) == want:

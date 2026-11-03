@@ -132,3 +132,34 @@ def test_error_before_qr_does_not_hang(script: ScriptedLogin) -> None:
     assert time.monotonic() - t0 < 2
     assert s.status == "failed"
     assert s.error == "获取登录二维码失败：code=-460"
+
+
+def test_concurrent_starts_before_qr_share_one_login(monkeypatch: pytest.MonkeyPatch) -> None:
+    """刷新页面或开两个标签页时，第一个登录还没拿到二维码，第二次开始也不能另起一个登录。"""
+    import tunetidy.server.login as login_mod
+
+    monkeypatch.setattr(login_mod, "QR_WAIT", 5.0)
+    slow_qr = threading.Event()
+    script = ScriptedLogin()
+    inner = script.login
+
+    def login(show_qr: Callable[[str], None], on_scanned: Callable[[], None] | None = None) -> User:
+        slow_qr.wait(5)  # 取二维码的请求被限速，迟迟没回来
+        return inner(show_qr, on_scanned)
+
+    script.login = login  # type: ignore[method-assign]
+    flow = LoginFlow(lambda: script)  # type: ignore[arg-type, return-value]
+    results: list[LoginState] = []
+    threads = [threading.Thread(target=lambda: results.append(flow.start())) for _ in range(2)]
+    for t in threads:
+        t.start()
+    time.sleep(0.2)
+    slow_qr.set()
+    for t in threads:
+        t.join(5)
+    assert script.calls == 1
+    assert len(results) == 2
+    assert results[0].qr is not None and results[0].qr == results[1].qr
+    script.scan.set()
+    script.finish.set()
+    wait_for(flow, "done")

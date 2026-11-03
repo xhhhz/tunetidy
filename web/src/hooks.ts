@@ -58,32 +58,49 @@ export function usePlanState(planId: string, loadedHash: string | undefined, onC
 
 // ---------------------------------------------------------------- 当前网易云账号
 
-let me: Me | null = null;
+/** 当前账号：还没读到时 me 为 null；读不到（比如连不上网易云）时 error 是原因。 */
+interface MeState {
+  me: Me | null;
+  error: string | null;
+}
+
+let meState: MeState = { me: null, error: null };
 let meLoading: Promise<void> | null = null;
 const meListeners = new Set<() => void>();
 
-/** 重新读取登录状态（登录成功后调用），导航底部的昵称随之更新。 */
+function setMe(next: MeState): void {
+  meState = next;
+  meListeners.forEach((f) => f());
+}
+
+/** 重新读取登录状态（登录成功后、或读不到时点重试），导航底部的昵称随之更新。 */
 export function refreshMe(): Promise<void> {
   meLoading = get<Me>("/api/me")
-    .then((m) => {
-      me = m;
-      meListeners.forEach((f) => f());
-    })
-    .catch(() => undefined);
+    .then((me) => setMe({ me, error: null }))
+    .catch((e: Error) => setMe({ me: null, error: e.message }));
   return meLoading;
 }
 
-/** 当前登录的网易云账号；还没读到时为 null。整个页面只读一次，登录后 refreshMe() 刷新。 */
-export function useMe(): Me | null {
+function useMeState(): MeState {
   const value = useSyncExternalStore(
     (f) => {
       meListeners.add(f);
       return () => meListeners.delete(f);
     },
-    () => me,
+    () => meState,
   );
   useEffect(() => {
     if (!meLoading) void refreshMe();
   }, []);
   return value;
+}
+
+/** 当前登录的网易云账号；还没读到或读不到时为 null。整个页面只读一次，登录后 refreshMe() 刷新。 */
+export function useMe(): Me | null {
+  return useMeState().me;
+}
+
+/** 读不到账号时的原因（比如连不上网易云），否则为 null。 */
+export function useMeError(): string | null {
+  return useMeState().error;
 }

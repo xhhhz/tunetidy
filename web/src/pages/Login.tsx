@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { get, post, type LoginState } from "../api";
-import { refreshMe, useMe } from "../hooks";
+import { refreshMe, useMe, useMeError } from "../hooks";
 import { navigate, to } from "../router";
 import { Icon } from "../ui";
 
@@ -20,9 +20,25 @@ function QrImage({ rows }: { rows: string[] }) {
   );
 }
 
+/** 读不到网易云账号（比如断网）：说明原因，给一个重试按钮，不要让页面一直空着。 */
+export function MeUnavailable({ error }: { error: string }) {
+  return (
+    <div className="center">
+      <div className="wrap narrow">
+        <h1>连不上网易云</h1>
+        <p className="sub">{error}。检查一下网络，再点重试</p>
+        <button type="button" className="btn mt-6" onClick={() => void refreshMe()}>
+          重试
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /** 扫码登录：扫码后显示"已扫码"，手机上确认后跳到选歌单；二维码过期可以刷新。 */
 export function Login() {
   const me = useMe();
+  const meError = useMeError();
   const [state, setState] = useState<LoginState | null>(null);
   const [problem, setProblem] = useState("");
 
@@ -41,7 +57,8 @@ export function Login() {
 
   const status = state?.status;
   useEffect(() => {
-    if (status !== "waiting" && status !== "scanned") return;
+    // idle：开始登录后一段时间还没拿到二维码（取码请求被限速），接着等
+    if (status !== "idle" && status !== "waiting" && status !== "scanned") return;
     const t = setInterval(() => {
       get<LoginState>("/api/login")
         .then(setState)
@@ -54,6 +71,7 @@ export function Login() {
     if (status === "done") void refreshMe().then(() => navigate(to.newPlan(), true));
   }, [status]);
 
+  if (meError && !me) return <MeUnavailable error={meError} />;
   const scanned = status === "scanned" || status === "done";
   const dead = status === "expired" || status === "failed";
   return (

@@ -109,7 +109,7 @@ def test_undo_refused_without_terminal(
     pid = make_plan(backend)
     assert invoke("approve", pid, input="1234\n")[0] == 0
     assert invoke("apply", pid, "--yes")[0] == 0
-    monkeypatch.setattr(approval, "_interactive", lambda: False)
+    monkeypatch.setattr(approval, "is_interactive", lambda: False)
     code, out = invoke("undo", pid, input="1234\n")
     assert code == 1 and "交互式终端" in out
     assert len(backend.owned_by_tool()) == 2

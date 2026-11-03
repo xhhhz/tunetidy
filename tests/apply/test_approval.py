@@ -39,7 +39,7 @@ def plan(conn: sqlite3.Connection) -> Plan:
 
 @pytest.fixture
 def tty(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(approval, "_interactive", lambda: True)
+    monkeypatch.setattr(approval, "is_interactive", lambda: True)
 
 
 class Terminal:
@@ -71,7 +71,7 @@ def stored(conn: sqlite3.Connection, plan_id: str) -> sqlite3.Row:
 
 def test_pytest_streams_are_not_interactive() -> None:
     """真实判断：pytest 捕获输出时 stdin/stdout 不是终端。"""
-    assert approval._interactive() is False
+    assert approval.is_interactive() is False
 
 
 def test_approve_refused_without_terminal(conn: sqlite3.Connection, plan: Plan) -> None:

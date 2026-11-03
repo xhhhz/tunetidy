@@ -200,7 +200,7 @@ def test_undo_requires_terminal(conn: sqlite3.Connection) -> None:
 
 
 def test_undo_wrong_code(conn: sqlite3.Connection, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(approval, "_interactive", lambda: True)
+    monkeypatch.setattr(approval, "is_interactive", lambda: True)
     b, _, run_id = applied(conn)
     with pytest.raises(UndoError, match="确认码不符"):
         undo_interactive(b, conn, run_id, Terminal(correct=False).ask, Terminal().say)
@@ -209,7 +209,7 @@ def test_undo_wrong_code(conn: sqlite3.Connection, monkeypatch: pytest.MonkeyPat
 
 
 def test_undo_with_code(conn: sqlite3.Connection, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(approval, "_interactive", lambda: True)
+    monkeypatch.setattr(approval, "is_interactive", lambda: True)
     b, _, run_id = applied(conn)
     t = Terminal()
     result = undo_interactive(b, conn, run_id, t.ask, t.say)
@@ -218,7 +218,7 @@ def test_undo_with_code(conn: sqlite3.Connection, monkeypatch: pytest.MonkeyPatc
 
 
 def test_nothing_to_undo(conn: sqlite3.Connection, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(approval, "_interactive", lambda: True)
+    monkeypatch.setattr(approval, "is_interactive", lambda: True)
     b = build_library()
     b.fail_before["create_playlist"] = {1}
     plan = approved_plan(b, conn)

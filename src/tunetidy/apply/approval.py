@@ -27,7 +27,7 @@ class ApprovalError(RuntimeError):
     pass
 
 
-def _interactive() -> bool:
+def is_interactive() -> bool:
     try:
         return sys.stdin.isatty() and sys.stdout.isatty()
     except (AttributeError, ValueError):  # 流被替换或已关闭
@@ -35,7 +35,7 @@ def _interactive() -> bool:
 
 
 def require_interactive(action: str) -> None:
-    if not _interactive():
+    if not is_interactive():
         raise ApprovalError(
             f"{action}只能在交互式终端里由你本人完成。"
             "如果是 AI 助手在运行这个命令，请自己打开终端执行。"

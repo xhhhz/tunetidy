@@ -36,7 +36,7 @@ def db(tmp_path: Path) -> Path:
 
 @pytest.fixture
 def tty(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(approval, "_interactive", lambda: True)
+    monkeypatch.setattr(approval, "is_interactive", lambda: True)
     monkeypatch.setattr(approval, "new_code", lambda: "1234")
 
 

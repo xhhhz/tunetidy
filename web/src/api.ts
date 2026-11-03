@@ -246,6 +246,12 @@ export interface JobSummary {
   trimmed?: { name: string; removed: number }[];
   skipped?: string[];
   warnings?: string[];
+  // 分析任务的读取进度
+  sources?: string[];
+  cached?: number; // 以前读过、不用联网的首数（done、total 只计联网读取的歌）
+  categories?: { name: string; count: number }[];
+  pending?: number;
+  eta_seconds?: number | null;
 }
 
 export interface RunRow {

@@ -81,26 +81,18 @@ def _why(song: Song, ev: OfficialEvidence, n_categories: int, confident: bool) -
     return "assigned" if confident else "low_confidence"
 
 
-def classify_songs(
-    songs: Sequence[Song],
-    tags: Mapping[SongKey, SongTags],
-    taxonomy: Taxonomy,
-    cfg: ClassifyConfig,
-    positions: Mapping[SongKey, int] | None = None,
-    split: SplitSettings | None = None,
-) -> list[Assignment]:
-    split = split or SplitSettings()
-    keys = [s.key for s in songs]
-    if len(set(keys)) != len(keys):
-        raise ValueError("songs 里有重复的歌曲，请先去重")
-    pos = positions or {k: i for i, k in enumerate(keys)}
-    groups = resolve_groups(split, taxonomy, cfg.other_name)
-    mapper = _Mapper(taxonomy, split, groups, cfg.other_name)
-    use_any = bool(groups) and split.match == "any"
+class FirstPass:
+    """第一遍：每首歌只看自己的标签，决定主风格或"待确认"。逐首调用，结果与处理顺序无关。"""
 
-    first_pass: list[Assignment] = []
-    for song in songs:
-        ev = official_evidence(tags.get(song.key), taxonomy, cfg)
+    def __init__(self, taxonomy: Taxonomy, cfg: ClassifyConfig, split: SplitSettings) -> None:
+        self.taxonomy, self.cfg, self.split = taxonomy, cfg, split
+        groups = resolve_groups(split, taxonomy, cfg.other_name)
+        self.mapper = _Mapper(taxonomy, split, groups, cfg.other_name)
+        self.use_any = bool(groups) and split.match == "any"
+
+    def classify(self, song: Song, tags: SongTags | None, position: int) -> Assignment:
+        cfg, taxonomy, mapper, use_any = self.cfg, self.taxonomy, self.mapper, self.use_any
+        ev = official_evidence(tags, taxonomy, cfg)
         parent: dict[str, str | None] = {}
         if use_any:
             cats = [mapper.first_group_hit(ev.all_tags)] if ev.all_tags else []
@@ -135,19 +127,22 @@ def classify_songs(
                 "unknown_tag_ids": list(ev.unknown_tag_ids),
             },
             "candidates": [taxonomy.path(t) for t in (ev.all_tags if use_any else ev.candidates)],
-            "split": split.describe(),
+            "split": self.split.describe(),
             "scores": d.scores,
             "suggested": d.category,
             "category_level1": parent.get(d.category) if d.category else None,
             "merged_from": None,
         }
         category = d.category if d.confident else None
-        first_pass.append(
-            Assignment(song.key, pos[song.key], status, category, d.confidence, reason)
-        )
+        return Assignment(song.key, position, status, category, d.confidence, reason)
 
-    merged = first_pass
-    if not groups and split.level == 2:
+
+def finish_classification(
+    first_pass: Sequence[Assignment], cfg: ClassifyConfig, split: SplitSettings
+) -> list[Assignment]:
+    """收尾：按各分类的首数合并小类、只留前 N 类、不建"其他"，再按位置排序。"""
+    merged = list(first_pass)
+    if not split.groups and split.level == 2:
         merged = merge_level2_upward(merged, cfg.min_size)
     merged = merge_small_categories(merged, cfg.min_size, cfg.other_name)
     if split.top_n:
@@ -155,6 +150,24 @@ def classify_songs(
     if not split.other:
         merged = ungroup_other(merged, cfg.other_name)
     return sorted(merged, key=lambda a: a.position)
+
+
+def classify_songs(
+    songs: Sequence[Song],
+    tags: Mapping[SongKey, SongTags],
+    taxonomy: Taxonomy,
+    cfg: ClassifyConfig,
+    positions: Mapping[SongKey, int] | None = None,
+    split: SplitSettings | None = None,
+) -> list[Assignment]:
+    split = split or SplitSettings()
+    keys = [s.key for s in songs]
+    if len(set(keys)) != len(keys):
+        raise ValueError("songs 里有重复的歌曲，请先去重")
+    pos = positions or {k: i for i, k in enumerate(keys)}
+    fp = FirstPass(taxonomy, cfg, split)
+    first = [fp.classify(song, tags.get(song.key), pos[song.key]) for song in songs]
+    return finish_classification(first, cfg, split)
 
 
 def _writable_counts(assignments: Sequence[Assignment]) -> Counter[str]:

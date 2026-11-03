@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import sqlite3
 from datetime import UTC, datetime
+from pathlib import Path
 
 from tests.classify.helpers import song, tags
 from tests.fakes import FakeBackend
@@ -80,3 +81,37 @@ def test_analyze_needs_login(env: Env) -> None:
     r = env.call("POST", "/api/analyze", json={"playlists": ["100"]})
     assert r.status_code == 409
     assert r.json()["code"] == "not_logged_in"
+
+
+def test_current_job_none(env: Env) -> None:
+    r = env.call("GET", "/api/jobs/current")
+    assert r.status_code == 200
+    assert r.json() is None
+
+
+def test_current_job_and_progress_fields(env: Env) -> None:
+    job_id = env.call("POST", "/api/analyze", json={"playlists": ["100"]}).json()["job_id"]
+    cur = env.call("GET", "/api/jobs/current").json()
+    if cur is not None:  # 假后端很快，可能已经读完
+        assert cur["job_id"] == job_id
+        assert cur["sources"] == ["我喜欢的音乐"]
+    done = env.wait(job_id)
+    assert done["sources"] == ["我喜欢的音乐"]
+    assert {c["name"] for c in done["categories"]} == {"流行", "R&B"}
+    assert env.call("GET", "/api/jobs/current").json() is None
+
+
+def test_orphaned_job_is_not_current(
+    db_path: Path, backend: FakeBackend, conn: sqlite3.Connection
+) -> None:
+    """理音重启后，上次没读完的任务是"已中断"，不再是当前任务。"""
+    job_store.create_job(conn, "analyze", pid=2**22 + 12345, now=datetime.now(UTC))
+    env = Env(db_path, backend, None)
+    assert env.call("GET", "/api/jobs/current").json() is None
+
+
+def test_cancel_endpoint(env: Env, conn: sqlite3.Connection) -> None:
+    r = env.call("POST", "/api/jobs/nope/cancel", json={})
+    assert r.status_code == 409
+    assert "只能取消" in r.json()["detail"]
+    assert env.call("GET", "/api/jobs/nope/cancel").status_code == 405

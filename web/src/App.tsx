@@ -6,6 +6,7 @@ import { Login } from "./pages/Login";
 import { Confirm } from "./pages/Confirm";
 import { Pending } from "./pages/Pending";
 import { Progress } from "./pages/Progress";
+import { Reading } from "./pages/Reading";
 import { Result } from "./pages/Result";
 import { Select } from "./pages/Select";
 import { Songs } from "./pages/Songs";
@@ -31,8 +32,9 @@ export function App() {
 function page(route: ReturnType<typeof useRoute>) {
   switch (route.name) {
     case "home":
-    case "reading": // 读取进度页在下一步加上
       return <Home />;
+    case "reading":
+      return <Reading key={route.job} jobId={route.job} />;
     case "new":
       return <Select />;
     case "login":

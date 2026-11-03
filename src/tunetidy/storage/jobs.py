@@ -36,7 +36,7 @@ class Job:
     heartbeat_at: str
     created_at: str
     updated_at: str
-    result: str | None = None  # JSON；目前只有撤销任务用
+    result: str | None = None  # JSON：分析任务的进度统计，撤销任务的结果
 
 
 class JobBusyError(RuntimeError):
@@ -132,6 +132,15 @@ def update_progress(
     conn: sqlite3.Connection, job_id: str, phase: str, done: int, total: int, *, now: datetime
 ) -> None:
     _update(conn, job_id, now, phase=phase, done=done, total=total)
+
+
+def running_job(conn: sqlite3.Connection) -> Job | None:
+    r = conn.execute("SELECT id FROM jobs WHERE status = 'running' LIMIT 1").fetchone()
+    return load_job(conn, r["id"]) if r else None
+
+
+def set_result(conn: sqlite3.Connection, job_id: str, result: str, *, now: datetime) -> None:
+    _update(conn, job_id, now, result=result)
 
 
 def set_run(conn: sqlite3.Connection, job_id: str, run_id: str, *, now: datetime) -> None:

@@ -190,3 +190,40 @@ def test_old_plans_without_split_reproduce_as_level1(conn: sqlite3.Connection) -
         (__import__("json").dumps(settings, ensure_ascii=False), plan.id),
     )
     assert tuple(classify_from_snapshot(plan_store.load_plan(conn, plan.id))) == plan.assignments
+
+
+def test_on_tag_reports_cached_and_cloud_first_then_fetched(conn: sqlite3.Connection) -> None:
+    b = library()
+    analyze(b, conn, CFG, b.list_playlists(), now=Clock())  # 先缓存全部标签
+    b.tags["9"] = tags(9, "摇滚")
+    b.playlists["100"].songs.append(song(9))  # 新加一首：只有它要联网
+    events: list[str] = []
+    analyze(
+        b,
+        conn,
+        CFG,
+        b.list_playlists(),
+        now=Clock(),
+        on_progress=lambda phase, done, total: events.append(f"{phase} {done}/{total}"),
+        on_song=lambda a: events.append(a.key.id),
+    )
+    start = events.index("tags 0/1")
+    # 不用联网的 8 首（含云盘 7）按歌曲顺序先报，然后才开始联网，联网取到的 9 随后报
+    assert events[start - 8 : start] == [str(i) for i in range(1, 9)]
+    assert events[start + 1 :] == ["9", "tags 1/1"]
+
+
+def test_on_song_uses_final_rules(conn: sqlite3.Connection) -> None:
+    """逐首回调的是第一遍结果：多标签规则后的主风格，"流行"泛化标签被去掉。"""
+    b = library()
+    got = {}
+    analyze(
+        b, conn, CFG, b.list_playlists(), now=Clock(), on_song=lambda a: got.update({a.key.id: a})
+    )
+    assert len(got) == 8
+    assert (got["1"].status, got["1"].category) == ("assigned", "流行")
+    assert got["3"].category == "R&B"  # ["R&B", "流行"] 去掉泛化的流行
+    assert got["5"].status == "pending"  # R&B 和说唱并列
+    assert got["7"].status == "pending"  # 云盘，没有标签
+    assert got["8"].status == "unavailable"
+    assert got["1"].position == 0 and got["8"].position == 7

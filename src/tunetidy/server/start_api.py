@@ -1,4 +1,4 @@
-"""网页上开始一次整理要用的接口：扫码登录、账号状态、列歌单、开始读取。
+"""网页上开始一次整理要用的接口：扫码登录、账号状态、列歌单、开始读取、读取进度与取消。
 
 这些都不写网易云账号，所以不需要确认码；登录态由后端存进钥匙串，这里的响应只有昵称。
 """
@@ -6,17 +6,20 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from datetime import UTC, datetime
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from tunetidy import jobs
 from tunetidy.analyze import resolve_sources
 from tunetidy.classify.split import SplitSettings
-from tunetidy.server.api import Cfg
+from tunetidy.server.api import Cfg, Conn
 from tunetidy.server.confirm_api import Backends, logged_in
 from tunetidy.server.login import LoginFlow
+from tunetidy.storage import jobs as job_store
 
 router = APIRouter(prefix="/api")
 
@@ -69,3 +72,21 @@ def start_analyze(body: AnalyzeIn, request: Request, cfg: Cfg, factory: Backends
         request.app.state.db_path, cfg, backend, sources, SplitSettings()
     )
     return {"job_id": job_id}
+
+
+@router.get("/jobs/current")
+def current_job(conn: Conn) -> dict[str, Any] | None:
+    """正在运行的后台任务（首页显示"正在读取"用）；没有时为 null。"""
+    job_store.mark_orphans(conn, datetime.now(UTC))
+    job = job_store.running_job(conn)
+    return jobs.job_summary(conn, job) if job else None
+
+
+@router.post("/jobs/{job_id}/cancel", response_model=None)
+def cancel_job(job_id: str) -> dict[str, bool] | JSONResponse:
+    """取消这个网页开始的读取。建歌单和撤销不能取消（中途停下会留下半批歌单）。"""
+    try:
+        jobs.cancel_job(job_id)
+    except ValueError as e:
+        return JSONResponse({"detail": str(e), "code": "invalid_state"}, status_code=409)
+    return {"ok": True}

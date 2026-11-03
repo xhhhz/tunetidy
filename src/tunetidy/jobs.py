@@ -24,6 +24,7 @@ from tunetidy.apply.approval import ApprovalError, check_executable
 from tunetidy.apply.undo import UndoError, UndoPlan, execute_undo, plan_undo
 from tunetidy.apply.writer import ApplyError, Writer
 from tunetidy.backends.base import BackendError, MusicBackend
+from tunetidy.classify.pipeline import Assignment, finish_classification, summarize
 from tunetidy.classify.split import SplitError, SplitSettings
 from tunetidy.config import Config
 from tunetidy.models import PlaylistInfo, SongKey
@@ -36,7 +37,15 @@ from tunetidy.storage.db import connect
 
 HEARTBEAT_EVERY = 10.0  # 秒；超时判定见 storage.jobs.HEARTBEAT_TIMEOUT
 SAMPLES = 3  # 摘要里每个歌单列几首样例
+STATS_EVERY = 10  # 读取时每联网读到这么多首，刷新一次曲风统计
+
+
+class JobCancelled(RuntimeError):
+    """网页上点了取消。已读到的曲风都已存进缓存。"""
+
+
 KNOWN_ERRORS = (
+    JobCancelled,
     BackendError,
     ApprovalError,
     ApplyError,
@@ -104,6 +113,18 @@ def _progress(conn: sqlite3.Connection, job_id: str) -> Callable[[str, int, int]
     )
 
 
+# 本进程启动的分析任务的取消标记；只有网页能取消，所以不用跨进程
+_cancels: dict[str, threading.Event] = {}
+
+
+def cancel_job(job_id: str) -> None:
+    """取消本进程里正在读取的分析任务：读完当前这首就停下，任务记为失败（已取消）。"""
+    flag = _cancels.get(job_id)
+    if flag is None:
+        raise ValueError("只能取消在这个网页里开始的读取")
+    flag.set()
+
+
 def start_analyze(
     db_path: Path,
     config: Config,
@@ -111,16 +132,51 @@ def start_analyze(
     sources: list[PlaylistInfo],
     split: SplitSettings,
 ) -> tuple[str, threading.Thread]:
-    """启动分析任务；已有任务在运行时抛 JobBusyError。"""
+    """启动分析任务；已有任务在运行时抛 JobBusyError。
+
+    读取中把进度统计写进 result（JSON），供网页进度页显示：
+    - sources：来源歌单名；
+    - cached：不用联网的首数（缓存命中和云盘歌），tags_started_at：开始联网读的时间；
+    - categories、pending：已读到的歌按最终的分类规则算出的各分类首数和"没分好"数，
+      读完时与生成的整理完全一致。
+    """
     conn = connect(db_path)
+    stats: dict[str, Any] = {"sources": [s.name for s in sources]}
     try:
         job = job_store.create_job(conn, "analyze", pid=os.getpid(), now=_now())
+        job_store.set_result(conn, job.id, json.dumps(stats, ensure_ascii=False), now=_now())
     finally:
         conn.close()
+    cancel = _cancels[job.id] = threading.Event()
 
     def work(c: sqlite3.Connection) -> dict[str, Any]:
-        plan = analyze(backend, c, config, sources, on_progress=_progress(c, job.id), split=split)
-        return {"plan_id": plan.id}
+        first: list[Assignment] = []
+
+        def save_stats() -> None:
+            s = summarize(finish_classification(first, config.classify, split))
+            stats["categories"] = list(s["categories"].items())
+            stats["pending"] = s["pending"]
+            job_store.set_result(c, job.id, json.dumps(stats, ensure_ascii=False), now=_now())
+
+        def progress(phase: str, done: int, total: int) -> None:
+            if cancel.is_set():
+                raise JobCancelled("已取消。已读到的曲风会保留，下次读取会跳过")
+            job_store.update_progress(c, job.id, phase, done, total, now=_now())
+            if phase != "tags":
+                return
+            if done == 0:
+                stats["cached"] = len(first)
+                stats["tags_started_at"] = _now().isoformat()
+            if done == 0 or done == total or done % STATS_EVERY == 0:
+                save_stats()
+
+        try:
+            plan = analyze(
+                backend, c, config, sources, on_progress=progress, split=split, on_song=first.append
+            )
+        finally:
+            _cancels.pop(job.id, None)
+        return {"plan_id": plan.id, "result": json.dumps(stats, ensure_ascii=False)}
 
     return job.id, _spawn(lambda: _run_job(db_path, job.id, work))
 
@@ -260,8 +316,27 @@ def _run_summary(conn: sqlite3.Connection, run_id: str) -> dict[str, Any]:
     return {"created": created, "unaddable": unaddable}
 
 
-def job_summary(conn: sqlite3.Connection, job: job_store.Job) -> dict[str, Any]:
-    """给 MCP（以及之后的网页）看的任务状态；完成时附整理或写回的摘要。"""
+def _reading(job: job_store.Job, now: datetime) -> dict[str, Any]:
+    """分析任务的进度统计；剩余时间只按联网读取的实际速度估算还要联网读的首数。"""
+    stats = json.loads(job.result or "{}")
+    out: dict[str, Any] = {
+        "sources": stats.get("sources", []),
+        "cached": stats.get("cached", 0),
+        "categories": [{"name": n, "count": k} for n, k in stats.get("categories", [])],
+        "pending": stats.get("pending", 0),
+        "eta_seconds": None,
+    }
+    started = stats.get("tags_started_at")
+    if job.status == "running" and job.phase == "tags" and job.done > 0 and started:
+        per_song = (now - datetime.fromisoformat(started)).total_seconds() / job.done
+        out["eta_seconds"] = round((job.total - job.done) * max(per_song, 0.0))
+    return out
+
+
+def job_summary(
+    conn: sqlite3.Connection, job: job_store.Job, now: datetime | None = None
+) -> dict[str, Any]:
+    """给 MCP 和网页看的任务状态；完成时附整理或写回的摘要，分析任务附读取进度统计。"""
     out: dict[str, Any] = {
         "job_id": job.id,
         "kind": job.kind,
@@ -281,6 +356,8 @@ def job_summary(conn: sqlite3.Connection, job: job_store.Job) -> dict[str, Any]:
     if job.kind == "undo":
         return _undo_summary(job, out)
     analyzing = job.kind == "analyze"
+    if analyzing:
+        out.update(_reading(job, now or _now()))
     if job.status == "running":
         out["message"] = "分析中" if analyzing else "正在建歌单"
     elif job.status == "failed":

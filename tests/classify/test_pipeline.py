@@ -5,10 +5,13 @@ import pytest
 from tests.classify.helpers import netease_taxonomy, song, tags
 from tunetidy.classify.pipeline import (
     Assignment,
+    FirstPass,
     classify_songs,
+    finish_classification,
     merge_small_categories,
     summarize,
 )
+from tunetidy.classify.split import Group, SplitSettings, only
 from tunetidy.config import ClassifyConfig
 from tunetidy.models import CopyrightStatus, Song, SongKey, SongTags
 
@@ -139,3 +142,45 @@ def test_output_sorted_by_position() -> None:
         {SongKey("netease", "1"): 0, SongKey("netease", "2"): 1, SongKey("netease", "3"): 2},
     )
     assert [a.key.id for a in out] == ["1", "2", "3"]
+
+
+MIXED_SONGS = [song(i) for i in range(1, 14)] + [
+    song(14, CopyrightStatus.UNAVAILABLE),
+    song(15, CopyrightStatus.CLOUD),
+]
+MIXED_TAGS = [
+    *(tags(i, "流行-华语流行") for i in range(1, 6)),
+    *(tags(i, "R&B-当代R&B", "流行") for i in range(6, 9)),
+    tags(9, "R&B", "嘻哈说唱"),
+    tags(10, "摇滚"),
+    tags(11, "电子-浩室舞曲"),
+    tags(12, "电子"),
+    tags(13),
+    tags(14, "流行"),
+]
+
+
+@pytest.mark.parametrize(
+    "split",
+    [
+        SplitSettings(),
+        SplitSettings(level=2),
+        SplitSettings(groups=only(["流行"])),
+        SplitSettings(
+            groups=(Group("律动", ("R&B", "嘻哈说唱")), Group(None, ("电子",))), match="any"
+        ),
+        SplitSettings(top_n=2, other=False),
+    ],
+)
+def test_first_pass_then_finish_equals_classify_songs(split: SplitSettings) -> None:
+    """逐首做第一遍、再整体收尾，和一次性分类的结果完全相同（进度页统计靠这一点）。"""
+    cfg = ClassifyConfig(min_size=2)
+    tax = netease_taxonomy()
+    by_key = {t.key: t for t in MIXED_TAGS}
+    whole = classify_songs(MIXED_SONGS, by_key, tax, cfg, split=split)
+    fp = FirstPass(tax, cfg, split)
+    # 逐首顺序打乱也一样：每首只看自己的标签
+    order = list(enumerate(MIXED_SONGS))
+    random.Random(1).shuffle(order)
+    first = [fp.classify(s, by_key.get(s.key), i) for i, s in order]
+    assert finish_classification(first, cfg, split) == whole

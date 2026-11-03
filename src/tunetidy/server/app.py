@@ -156,8 +156,8 @@ def create_app(
         app.add_exception_handler(missing, lambda _r, e: _error(404, str(e)))
 
     app.include_router(router)
+    app.include_router(start_router)  # 在前：/api/jobs/current 不能被 /api/jobs/{job_id} 抢先匹配
     app.include_router(confirm_router)
-    app.include_router(start_router)
     if static_dir is not None:
         _serve_frontend(app, find_static(static_dir))
     return app

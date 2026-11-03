@@ -130,3 +130,18 @@ def test_killed_process_frees_the_slot(db: Path) -> None:
 def test_unknown_job(conn: sqlite3.Connection) -> None:
     with pytest.raises(jobs.JobNotFoundError):
         jobs.load_job(conn, "nope")
+
+
+def test_set_result(conn: sqlite3.Connection) -> None:
+    j = jobs.create_job(conn, "analyze", pid=os.getpid(), now=T0)
+    jobs.set_result(conn, j.id, '{"cached": 3}', now=T0 + timedelta(seconds=1))
+    assert jobs.load_job(conn, j.id).result == '{"cached": 3}'
+
+
+def test_running_job(conn: sqlite3.Connection) -> None:
+    assert jobs.running_job(conn) is None
+    j = jobs.create_job(conn, "analyze", pid=os.getpid(), now=T0)
+    running = jobs.running_job(conn)
+    assert running is not None and running.id == j.id
+    jobs.fail_job(conn, j.id, "x", now=T0)
+    assert jobs.running_job(conn) is None

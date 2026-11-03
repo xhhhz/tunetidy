@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-import type { PlanRow } from "../api";
+import type { JobSummary, PlanRow } from "../api";
 import { useLoad, useMe } from "../hooks";
 import { navigate, to } from "../router";
 import { describeShort } from "../split";
-import { GenreChips, StatusBadge, formatDay } from "../ui";
+import { GenreChips, Icon, StatusBadge, formatDay } from "../ui";
 import { Select } from "./Select";
 
 
@@ -31,18 +31,50 @@ function summary(r: PlanRow): string {
   return parts.join(" · ");
 }
 
+/** 关掉读取进度页后回到首页：显示正在读取哪个歌单，点进去接着看。 */
+function ReadingBanner({ job }: { job: JobSummary }) {
+  const tags = job.phase === "获取曲风标签";
+  const cached = job.cached ?? 0;
+  return (
+    <button type="button" className="banner w-full text-left" onClick={() => navigate(to.reading(job.job_id))}>
+      <span className="spin" style={{ width: 22, height: 22 }} aria-hidden />
+      <span className="t">
+        <b>正在读取{(job.sources ?? []).map((s) => `「${s}」`).join(" + ")}</b>
+        <span className="small block">
+          {tags ? `${cached + job.done} / ${cached + job.total} 首` : "正在读取歌单"}
+        </span>
+      </span>
+      <span className="link inline-flex items-center">
+        查看
+        <Icon name="next" size={16} />
+      </span>
+    </button>
+  );
+}
+
 /** 首页：每个来源一张卡片；还没整理过时直接选歌单（没登录先扫码）。 */
 export function Home() {
-  const { data, error } = useLoad<PlanRow[]>("/api/plans");
+  const { data, error, reload } = useLoad<PlanRow[]>("/api/plans");
+  const jobs = useLoad<JobSummary | null>("/api/jobs/current");
+  const current = jobs.data;
   const me = useMe();
   const empty = data !== null && data.length === 0;
+  const running = current?.kind === "analyze";
+  const reloadJob = jobs.reload;
+  // 正在读取时定时刷新横幅；读完后整理卡片随之出现
+  useEffect(() => {
+    if (!running) return;
+    const t = setInterval(() => void reloadJob().then(reload), 2000);
+    return () => clearInterval(t);
+  }, [running, reloadJob, reload]);
   useEffect(() => {
     if (empty && me?.logged_in === false) navigate(to.login(), true);
   }, [empty, me]);
 
   if (error && !data) return <div className="wrap small">{error.message}</div>;
   if (!data) return null;
-  if (empty) return me?.logged_in ? <Select /> : null;
+  const reading = running ? current : null;
+  if (empty && !reading) return me?.logged_in ? <Select /> : null;
 
   return (
     <div className="wrap">
@@ -52,6 +84,7 @@ export function Home() {
           新整理
         </button>
       </div>
+      {reading && <ReadingBanner job={reading} />}
       {latestBySource(data).map((r) => (
         <button key={r.id} type="button" className="card home-card" onClick={() => navigate(to.result(r.id))}>
           <div className="min-w-0">
@@ -65,7 +98,9 @@ export function Home() {
           <span className={unbuilt(r) ? "btn sm" : "ghost"}>{unbuilt(r) ? "继续" : "查看"}</span>
         </button>
       ))}
-      <p className="small mt-6">每个歌单只显示最近一次整理，更早的在结果页右上角「以前的整理」里</p>
+      {data.length > 0 && (
+        <p className="small mt-6">每个歌单只显示最近一次整理，更早的在结果页右上角「以前的整理」里</p>
+      )}
     </div>
   );
 }

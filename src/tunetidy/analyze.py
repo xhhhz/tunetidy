@@ -16,7 +16,7 @@ from typing import Any
 
 from tunetidy.apply.writer import ApplyError
 from tunetidy.backends.base import MusicBackend
-from tunetidy.classify.pipeline import Assignment, Status, classify_songs
+from tunetidy.classify.pipeline import Assignment, FirstPass, Status, classify_songs
 from tunetidy.classify.split import SplitSettings, resolve_groups
 from tunetidy.classify.taxonomy import Taxonomy
 from tunetidy.config import Config, parse_config
@@ -73,16 +73,25 @@ def fetch_tags(
     now: Callable[[], datetime],
     max_age_days: int,
     on_progress: Progress | None = None,
+    on_tag: Callable[[SongKey, SongTags | None], None] | None = None,
 ) -> dict[SongKey, SongTags]:
+    """on_tag：每首歌回调一次。先按歌曲顺序报不用联网的（缓存命中的给标签，云盘歌给 None），
+    再开始联网（on_progress 的 done、total 只计联网的歌），联网取到一首报一首。"""
     keys = [s.key for s in songs]
     tags = repo.fresh_tags(conn, keys, now(), max_age_days)
     # 云盘歌曲没有公共曲风数据，不去请求
     need = [s.key.id for s in songs if s.key not in tags and s.copyright != CopyrightStatus.CLOUD]
+    if on_tag:
+        for s in songs:
+            if s.key in tags or s.copyright == CopyrightStatus.CLOUD:
+                on_tag(s.key, tags.get(s.key))
     if on_progress:
         on_progress("tags", 0, len(need))
     for i, t in enumerate(backend.get_song_tags(need), 1):
         repo.save_tags(conn, t, now())  # 逐首提交，中断后重跑只取剩下的
         tags[t.key] = t
+        if on_tag:
+            on_tag(t.key, t)
         if on_progress:
             on_progress("tags", i, len(need))
     return tags
@@ -138,7 +147,10 @@ def analyze(
     now: Callable[[], datetime] = utcnow,
     on_progress: Progress | None = None,
     split: SplitSettings | None = None,
+    on_song: Callable[[Assignment], None] | None = None,
 ) -> Plan:
+    """on_song：每读到一首歌的标签，回调这首歌的第一遍分类结果（与最终结果同一套规则），
+    供进度页统计；最终结果还要按各分类首数收尾（合并小类等）。"""
     split = split or SplitSettings()
     if not sources:
         raise ValueError("至少需要一个来源歌单")
@@ -153,7 +165,16 @@ def analyze(
     taxonomy = Taxonomy(nodes)
     # 分组里写错的曲风在取标签（可能要很久）之前就报出来
     resolve_groups(split, taxonomy, config.classify.other_name)
-    tags = fetch_tags(backend, conn, songs, now, days, on_progress)
+    on_tag = None
+    if on_song is not None:
+        first_pass = FirstPass(taxonomy, config.classify, split)
+        where = {s.key: (i, s) for i, s in enumerate(songs)}
+
+        def on_tag(key: SongKey, t: SongTags | None) -> None:
+            i, s = where[key]
+            on_song(first_pass.classify(s, t, i))
+
+    tags = fetch_tags(backend, conn, songs, now, days, on_progress, on_tag)
     assignments = classify_songs(songs, tags, taxonomy, config.classify, split=split)
     created = now()
     plan = Plan(

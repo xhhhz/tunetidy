@@ -1,12 +1,14 @@
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 
 import { connection, get } from "./api";
+import { to, type Route } from "./router";
 import { DialogHost, Icon, Link, ToastHost } from "./ui";
 
 const RETRY_MS = 5000;
 
-/** 页面框架：桌面左侧导航，窄屏变顶栏。目前只有"整理"一项。 */
-export function Shell({ children }: { children: ReactNode }) {
+/** 页面框架：桌面左侧导航（整理、历史），窄屏变顶栏。 */
+export function Shell({ route, children }: { route: Route; children: ReactNode }) {
+  const inHistory = route.name === "history" || route.name === "undo";
   return (
     <div className="app">
       <nav className="nav">
@@ -14,9 +16,13 @@ export function Shell({ children }: { children: ReactNode }) {
           <i>理</i>
           <span>理音</span>
         </div>
-        <Link to="/" className="nv on">
+        <Link to={to.home()} className={`nv${inHistory ? "" : " on"}`}>
           <Icon name="home" size={24} />
           整理
+        </Link>
+        <Link to={to.history()} className={`nv${inHistory ? " on" : ""}`}>
+          <Icon name="clock" size={24} />
+          历史
         </Link>
       </nav>
       <main className="main">{children}</main>

@@ -7,6 +7,12 @@ import { navigate } from "./router";
 
 const ICONS = {
   home: <path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5V12l3 2" />
+    </>
+  ),
   pen: <path d="M4 20h4L19 9l-4-4L4 16z" />,
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
   shield: (

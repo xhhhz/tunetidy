@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { Genres, PlanDetail, PlanRow, Split } from "../api";
+import type { ConfirmStatus, Genres, PlanDetail, PlanRow, RunRow, Split } from "../api";
 import { useEdit, type RunEdit } from "../edit";
 import { useLoad, usePlanState } from "../hooks";
 import { navigate, to } from "../router";
 import { describeShort, presetOf, useSimulate, type Preset } from "../split";
-import { Back, BottomBar, CopyCommand, Cover, Icon, StatusBadge, formatWhen, toast } from "../ui";
+import { Back, BottomBar, CopyCommand, Cover, Icon, Link, StatusBadge, formatWhen, toast } from "../ui";
 import { sourceKey } from "./Home";
 
 const PRESETS: [Preset, string][] = [
@@ -348,6 +348,10 @@ function Earlier({ plan }: { plan: PlanDetail }) {
 /** 已建好、正在创建、已撤销：只读横幅。v1.0 的撤销和重新整理都在终端里做。 */
 function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: string; count: number }) {
   const analyze = `tunetidy analyze ${plan.sources.map((s) => s.id).join(" ")}`;
+  // 网页确认可用时，撤销直接去撤销页；否则给终端命令
+  const runs = useLoad<RunRow[]>("/api/runs").data;
+  const web = useLoad<ConfirmStatus>("/api/confirm").data?.available ?? false;
+  const run = runs?.find((r) => r.plan_id === plan.id && r.status === "done");
   return (
     <div className="banner">
       <div className="t">
@@ -359,8 +363,10 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
         )}
         {status === "applying" && (
           <>
-            <b>正在创建</b>
-            <div className="small">正在终端里创建，完成后这里会自动更新</div>
+            <b>正在创建，或上次没建完</b>
+            <div className="small">
+              <Link to={to.confirm(plan.id)}>查看进度或继续建</Link>
+            </div>
           </>
         )}
         {status === "undone" && (
@@ -372,7 +378,12 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
       </div>
       {status !== "applying" && (
         <div className="flex w-full flex-col gap-2">
-          {status === "applied" && (
+          {status === "applied" && run && web && (
+            <button type="button" className="ghost self-start" onClick={() => navigate(to.undo(run.run_id))}>
+              撤销这次建的歌单
+            </button>
+          )}
+          {status === "applied" && !(run && web) && (
             <>
               <div className="small">撤销</div>
               <CopyCommand command={`tunetidy undo ${plan.id}`} />

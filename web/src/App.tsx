@@ -1,5 +1,6 @@
 import { token } from "./api";
 import { Shell } from "./layout";
+import { History } from "./pages/History";
 import { Home } from "./pages/Home";
 import { Confirm } from "./pages/Confirm";
 import { Pending } from "./pages/Pending";
@@ -7,6 +8,7 @@ import { Progress } from "./pages/Progress";
 import { Result } from "./pages/Result";
 import { Songs } from "./pages/Songs";
 import { SplitEditor } from "./pages/SplitEditor";
+import { Undo } from "./pages/Undo";
 import { useRoute } from "./router";
 
 export function App() {
@@ -21,7 +23,7 @@ export function App() {
       </div>
     );
   }
-  return <Shell>{page(route)}</Shell>;
+  return <Shell route={route}>{page(route)}</Shell>;
 }
 
 function page(route: ReturnType<typeof useRoute>) {
@@ -41,7 +43,8 @@ function page(route: ReturnType<typeof useRoute>) {
     case "progress":
       return <Progress key={route.job} planId={route.planId} jobId={route.job} />;
     case "history":
+      return <History />;
     case "undo":
-      return null; // 下一步补上
+      return <Undo key={route.runId} runId={route.runId} jobId={route.job} />;
   }
 }

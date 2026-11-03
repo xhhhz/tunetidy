@@ -26,6 +26,7 @@ from fastapi.staticfiles import StaticFiles
 from tunetidy.analyze import ConfirmResetError, MoveError, ReclassifyError
 from tunetidy.apply.approval import ApprovalError
 from tunetidy.apply.undo import UndoError
+from tunetidy.apply.writer import ApplyError
 from tunetidy.backends import get_backend
 from tunetidy.backends.base import BackendError, MusicBackend, NotLoggedInError
 from tunetidy.classify.split import SplitError
@@ -134,7 +135,7 @@ def create_app(
     async def stale(_: Request, e: Exception) -> JSONResponse:
         return _error(409, str(e), "stale")
 
-    for bad_input in (SplitError, ConfigError, MoveError):
+    for bad_input in (SplitError, ConfigError, MoveError, ApplyError):
         app.add_exception_handler(bad_input, lambda _r, e: _error(400, str(e), "invalid"))
 
     @app.exception_handler(ConfirmError)

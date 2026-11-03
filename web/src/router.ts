@@ -10,6 +10,7 @@ export type Route =
   | { name: "home" }
   | { name: "login" }
   | { name: "new" }
+  | { name: "reading"; job: string }
   | { name: "result"; planId: string }
   | { name: "songs"; planId: string; show: SongsView }
   | { name: "pending"; planId: string }
@@ -25,6 +26,7 @@ function parse(path: string, search: string): Route {
   if (/^\/history\/?$/.test(path)) return { name: "history" };
   if (/^\/login\/?$/.test(path)) return { name: "login" };
   if (/^\/new\/?$/.test(path)) return { name: "new" };
+  if (/^\/reading\/?$/.test(path)) return { name: "reading", job: new URLSearchParams(search).get("job") ?? "" };
   const u = path.match(/^\/runs\/([^/]+)\/undo\/?$/);
   if (u) return { name: "undo", runId: decodeURIComponent(u[1]), job: new URLSearchParams(search).get("job") };
   const m = path.match(/^\/plans\/([^/]+)(?:\/([a-z]+))?\/?$/);
@@ -61,6 +63,7 @@ export const to = {
   home: () => "/",
   login: () => "/login",
   newPlan: () => "/new",
+  reading: (job: string) => `/reading?${new URLSearchParams({ job })}`,
   result: (id: string) => plan(id),
   songs: (id: string, show: SongsView) =>
     `${plan(id)}/songs?${new URLSearchParams("playlist" in show ? { playlist: show.playlist } : { filter: show.filter })}`,

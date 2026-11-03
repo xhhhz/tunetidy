@@ -290,3 +290,10 @@ export interface LoginState {
   nickname: string | null;
   error: string | null;
 }
+
+export interface PlaylistRow {
+  id: string;
+  name: string;
+  track_count: number;
+  owned: boolean; // 自己创建的；否则是收藏的
+}

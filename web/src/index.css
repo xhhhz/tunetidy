@@ -139,6 +139,8 @@
   .li .t b { display: block; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .li .t span { font-size: 13px; color: var(--fg2); }
   button.li:hover { background: var(--soft); }
+  .chk { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--fg3); display: grid; place-items: center; flex: none; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .chk.on { background: var(--accent); border-color: var(--accent); color: #fff; }
   .mini { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; font-size: 18px; flex: none; }
 
   .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }

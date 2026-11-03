@@ -7,6 +7,7 @@ import { Confirm } from "./pages/Confirm";
 import { Pending } from "./pages/Pending";
 import { Progress } from "./pages/Progress";
 import { Result } from "./pages/Result";
+import { Select } from "./pages/Select";
 import { Songs } from "./pages/Songs";
 import { SplitEditor } from "./pages/SplitEditor";
 import { Undo } from "./pages/Undo";
@@ -30,8 +31,10 @@ export function App() {
 function page(route: ReturnType<typeof useRoute>) {
   switch (route.name) {
     case "home":
-    case "new": // 选歌单页在下一步加上
+    case "reading": // 读取进度页在下一步加上
       return <Home />;
+    case "new":
+      return <Select />;
     case "login":
       return <Login />;
     case "result":

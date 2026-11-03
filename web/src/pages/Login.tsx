@@ -79,15 +79,17 @@ export function Login() {
       <div className="l">
         <div className="logo" style={{ padding: 0 }}>
           <i>理</i>
-          <span>理音</span>
+          <span>
+            理音 <span className="font-medium text-fg2">TuneTidy</span>
+          </span>
         </div>
         <h1>
-          一千首歌，
+          按曲风，
           <br />
-          整理成几个顺耳的歌单
+          理好你的歌单
         </h1>
         <p className="sub" style={{ maxWidth: "30em" }}>
-          按网易云给每首歌标的曲风，把大歌单拆成「流行」「R&B」「摇滚」等小歌单，你看过并确认后才会动手
+          用网易云给每首歌标的曲风，把大歌单拆成「流行」「R&B」「摇滚」等小歌单，你看过并确认后才会动手
         </p>
         <div className="assure" style={{ maxWidth: 560 }}>
           <div>
@@ -106,7 +108,9 @@ export function Login() {
             {state?.qr ? <QrImage rows={state.qr} /> : <span className="spin" style={{ width: 36, height: 36, margin: 82 }} />}
             {scanned && (
               <div className="over">
-                <Icon name="check" size={44} />
+                <span className="ok" aria-hidden>
+                  <Icon name="check" size={22} />
+                </span>
                 已扫码
               </div>
             )}

@@ -86,8 +86,14 @@ export function Home() {
       {/* 右边留出卡片的内边距和边框，新整理和卡片里的按钮上下对齐 */}
       <div className="flex items-center justify-between gap-4 pr-[23px]">
         <h1>整理</h1>
-        <button type="button" className="btn sm" onClick={() => navigate(to.newPlan())}>
-          新整理
+        <button
+          type="button"
+          className="btn round"
+          onClick={() => navigate(to.newPlan())}
+          aria-label="新整理"
+          title="新整理"
+        >
+          <Icon name="plus" size={22} />
         </button>
       </div>
       {reading && <ReadingBanner job={reading} />}

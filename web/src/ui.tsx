@@ -95,6 +95,16 @@ export function Back({ to, children }: { to: string; children: ReactNode }) {
   );
 }
 
+/** 转圈的加载指示，配一句正在做什么，用在要等网易云返回的地方。 */
+export function Waiting({ children }: { children: ReactNode }) {
+  return (
+    <div className="waiting" role="status" aria-live="polite">
+      <span className="spin" style={{ width: 36, height: 36 }} aria-hidden />
+      <div className="small">{children}</div>
+    </div>
+  );
+}
+
 /** 一屏只有一个主按钮（primary，黑底胶囊）；其余是描边按钮。 */
 export function Button({
   children,

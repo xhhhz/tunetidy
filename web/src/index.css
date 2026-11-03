@@ -182,6 +182,9 @@
   .err { color: var(--danger); font-size: 13px; text-align: center; min-height: 20px; margin-top: 8px; }
   .prog { height: 8px; background: var(--soft2); border-radius: 999px; overflow: hidden; }
   .prog i { display: block; height: 100%; background: var(--fg); border-radius: 999px; transition: width 0.4s; }
+  .spin { display: inline-block; flex: none; border-radius: 999px; border: 3px solid var(--soft2); border-top-color: var(--fg); animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .waiting { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 64px 0; text-align: center; }
   .term { background: var(--term); color: var(--term-fg); border-radius: 12px; padding: 12px 14px; font-family: var(--mono); font-size: 13px; line-height: 1.6; display: flex; align-items: center; gap: 12px; }
   .term code { flex: 1; min-width: 0; overflow-x: auto; white-space: pre; }
   .term button { color: var(--term-fg); background: rgba(255, 255, 255, 0.12); border-radius: 999px; padding: 4px 12px; font-family: var(--sans); font-size: 12px; font-weight: 600; white-space: nowrap; }

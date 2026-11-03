@@ -4,7 +4,7 @@ import { post, type ApiError, type ConfirmStatus, type Ticket, type UndoPreview 
 import { useCodeFlow } from "../components/CodeDialog";
 import { useLoad } from "../hooks";
 import { navigate, to } from "../router";
-import { Back, CopyCommand, Icon, formatDay } from "../ui";
+import { Back, CopyCommand, Icon, Waiting, formatDay } from "../ui";
 import { useJob } from "./Progress";
 
 const ACTION: Record<UndoPreview["items"][number]["action"], [string, string]> = {
@@ -42,7 +42,14 @@ function UndoPreviewPage({ runId }: { runId: string }) {
     );
   }
   const p = preview.data;
-  if (!p) return <div className="wrap small">正在检查这些歌单现在的样子…</div>;
+  if (!p) {
+    return (
+      <div className="wrap">
+        <Back to={to.history()}>历史</Back>
+        <Waiting>正在检查这些歌单现在的样子，歌单多的话要等几秒…</Waiting>
+      </div>
+    );
+  }
   const web = (confirm.data?.available ?? false) && (confirm.data?.locked_seconds ?? 0) === 0;
 
   const start = () => {
@@ -122,17 +129,18 @@ function UndoPreviewPage({ runId }: { runId: string }) {
 
 function UndoResult({ runId, jobId }: { runId: string; jobId: string }) {
   const job = useJob(jobId);
-  if (!job) return <div className="wrap small">正在读取进度…</div>;
+  const status = job?.status ?? "running";
   return (
     <div className="wrap">
       <Back to={to.history()}>历史</Back>
-      {job.status === "running" && (
+      {status === "running" && (
         <>
           <h1>正在撤销</h1>
           <p className="sub">删除歌单前会再核对一次，被你改过的只移除理音加的歌</p>
+          <Waiting>撤销会逐个处理歌单，中间稍等几秒，避免被网易云限制。可以关掉这个网页，理音会在后台做完</Waiting>
         </>
       )}
-      {job.status === "done" && (
+      {job && status === "done" && (
         <>
           <h1>已撤销</h1>
           <div className="list">
@@ -171,7 +179,7 @@ function UndoResult({ runId, jobId }: { runId: string; jobId: string }) {
           </button>
         </>
       )}
-      {(job.status === "failed" || job.status === "interrupted") && (
+      {job && (status === "failed" || status === "interrupted") && (
         <>
           <h1>没有撤销</h1>
           <p className="sub">{job.error ?? job.message}</p>

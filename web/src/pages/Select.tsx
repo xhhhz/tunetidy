@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { post, type ApiError, type PlaylistRow } from "../api";
 import { useLoad, useMe } from "../hooks";
 import { navigate, to } from "../router";
-import { BottomBar, Button, Icon } from "../ui";
+import { BottomBar, Button, Icon, Waiting } from "../ui";
 
 const SECONDS_PER_SONG = 1.5; // 第一次读取 1000 首约 25 分钟
 
@@ -44,7 +44,15 @@ export function Select() {
   }, [rows, picked]);
 
   if (list.error && !rows && !notLoggedIn) return <div className="wrap small">{list.error.message}</div>;
-  if (!rows || picked === null) return null;
+  if (!rows || picked === null) {
+    // 读歌单列表要请求网易云几次（每次之间有限速间隔），先把页面标题和等待提示显示出来
+    return (
+      <div className="wrap">
+        <h1>整理哪些歌单？</h1>
+        <Waiting>正在读取你的歌单…</Waiting>
+      </div>
+    );
+  }
 
   const toggle = (id: string) =>
     setPicked(picked.includes(id) ? picked.filter((x) => x !== id) : [...picked, id]);

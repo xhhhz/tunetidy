@@ -97,7 +97,9 @@
   .sub { color: var(--fg2); font-size: 16px; margin-top: 8px; }
   .small { font-size: 13px; color: var(--fg2); }
   .back { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-size: 15px; margin-bottom: 18px; }
-  .btn { background: var(--btn); color: var(--on-btn); border-radius: 999px; padding: 12px 26px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+  .back svg { margin-left: -5px; } /* 箭头在图标框里偏右，拉回来和标题左边对齐 */
+  /* 同色边框：和带边框的 .ghost 并排时一样高 */
+  .btn { background: var(--btn); color: var(--on-btn); border: 1px solid var(--btn); border-radius: 999px; padding: 12px 26px; font-weight: 600; font-size: 15px; white-space: nowrap; }
   .btn:not(:disabled):hover { opacity: 0.88; }
   .btn.sm { padding: 9px 18px; font-size: 14px; }
   .ghost { border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; font-weight: 500; font-size: 14px; white-space: nowrap; }
@@ -205,12 +207,15 @@
   .prog i { display: block; height: 100%; background: var(--fg); border-radius: 999px; transition: width 0.4s; }
   .spin { display: inline-block; flex: none; border-radius: 999px; border: 3px solid var(--soft2); border-top-color: var(--fg); animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .waiting { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 64px 0; text-align: center; }
+  .waiting { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 72px 0; text-align: center; }
+  .spin.lg { width: 64px; height: 64px; border-width: 5px; }
   .term { background: var(--term); color: var(--term-fg); border-radius: 12px; padding: 12px 14px; font-family: var(--mono); font-size: 13px; line-height: 1.6; display: flex; align-items: center; gap: 12px; }
   .term code { flex: 1; min-width: 0; overflow-x: auto; white-space: pre; }
   .term button { color: var(--term-fg); background: rgba(255, 255, 255, 0.12); border-radius: 999px; padding: 4px 12px; font-family: var(--sans); font-size: 12px; font-weight: 600; white-space: nowrap; }
   .banner { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 16px; background: var(--soft); margin-top: 22px; flex-wrap: wrap; }
   .banner .t { flex: 1; min-width: 200px; }
+  .banner .ghost { background: var(--bg); }
+  .banner .ghost:not(:disabled):hover { background: var(--soft2); }
   .center { min-height: 100%; display: grid; place-items: center; text-align: center; padding: 40px 16px; }
   .pop { position: absolute; right: 0; top: 44px; width: 340px; max-width: calc(100vw - 32px); background: var(--bg); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18); padding: 8px; z-index: 20; }
   .pop .li { border: none; border-radius: 12px; padding: 12px; }
@@ -226,9 +231,12 @@
     .nav { flex-direction: row; border-right: none; border-bottom: 1px solid var(--line); padding: 8px 12px; align-items: center; overflow-x: auto; }
     .logo { padding: 0 8px 0 0; }
     .logo span { display: none; }
-    .nv { padding: 8px 12px; font-size: 15px; }
-    .who { margin: 0 0 0 auto; padding: 4px 8px; }
-    .who .av, .who span { display: none; }
+    .nv { padding: 8px 10px; gap: 8px; font-size: 15px; }
+    .nv svg { width: 20px; height: 20px; }
+    /* 顶栏放不下昵称，只留头像 */
+    .who { margin: 0 0 0 auto; padding: 4px; }
+    .who > :not(.av) { display: none; }
+    .who .av { width: 30px; height: 30px; font-size: 13px; }
     .login { grid-template-columns: minmax(0, 1fr); }
     .login .l { padding: 32px 16px; }
     .wrap { padding: 24px 16px 48px; }

@@ -83,7 +83,8 @@ export function Home() {
 
   return (
     <div className="wrap">
-      <div className="flex items-center justify-between gap-4">
+      {/* 右边留出卡片的内边距和边框，新整理和卡片里的按钮上下对齐 */}
+      <div className="flex items-center justify-between gap-4 pr-[23px]">
         <h1>整理</h1>
         <button type="button" className="btn sm" onClick={() => navigate(to.newPlan())}>
           新整理

@@ -5,7 +5,7 @@ import { formatDay } from "../ui";
 
 /**
  * 新歌单建好后，同一来源上次建的那批还在时，提示可以撤销它。点了只是进入撤销页：
- * 那里先检查这些歌单现在的样子，再单独输入确认码。
+ * 那里先核对歌单现状，再单独输入确认码。
  */
 export function PreviousBatch({ planId, compact = false }: { planId: string; compact?: boolean }) {
   const prev = useLoad<Prev | null>(`/api/plans/${encodeURIComponent(planId)}/previous`).data;

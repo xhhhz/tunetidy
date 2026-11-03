@@ -107,8 +107,8 @@ export function Back({ to, children }: { to: string; children: ReactNode }) {
 export function Waiting({ children }: { children: ReactNode }) {
   return (
     <div className="waiting" role="status" aria-live="polite">
-      <span className="spin" style={{ width: 36, height: 36 }} aria-hidden />
-      <div className="small">{children}</div>
+      <span className="spin lg" aria-hidden />
+      <div className="sub">{children}</div>
     </div>
   );
 }

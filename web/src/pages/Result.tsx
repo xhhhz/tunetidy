@@ -394,6 +394,12 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
             <b>这 {count} 个歌单已经在你的网易云里了</b>
             <div className="small">建好后内容不能再改，想换种拆法可以重新整理，会另建一批新歌单</div>
             <PreviousBatch planId={plan.id} compact />
+            {!(run && web) && (
+              <div className="mt-3">
+                <div className="small mb-1.5">撤销这次建的歌单，在终端里运行</div>
+                <CopyCommand command={`tunetidy undo ${plan.id}`} />
+              </div>
+            )}
           </>
         )}
         {status === "applying" && (
@@ -412,19 +418,13 @@ function ReadOnlyBanner({ plan, status, count }: { plan: PlanDetail; status: str
         )}
       </div>
       {status !== "applying" && (
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {status === "applied" && run && web && (
-            <button type="button" className="ghost self-start" onClick={() => navigate(to.undo(run.run_id))}>
+            <button type="button" className="ghost" onClick={() => navigate(to.undo(run.run_id))}>
               撤销这次建的歌单
             </button>
           )}
-          {status === "applied" && !(run && web) && (
-            <>
-              <div className="small">撤销</div>
-              <CopyCommand command={`tunetidy undo ${plan.id}`} />
-            </>
-          )}
-          <button type="button" className="btn sm self-start" onClick={() => navigate(to.newPlan())}>
+          <button type="button" className="btn sm" onClick={() => navigate(to.newPlan())}>
             重新整理
           </button>
         </div>

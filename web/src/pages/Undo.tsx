@@ -46,7 +46,7 @@ function UndoPreviewPage({ runId }: { runId: string }) {
     return (
       <div className="wrap">
         <Back to={to.history()}>历史</Back>
-        <Waiting>正在检查这些歌单现在的样子，歌单多的话要等几秒…</Waiting>
+        <Waiting>正在核对歌单现状…</Waiting>
       </div>
     );
   }
@@ -70,7 +70,7 @@ function UndoPreviewPage({ runId }: { runId: string }) {
     <div className="wrap">
       <Back to={to.history()}>历史</Back>
       <h1>撤销 {formatDay(p.created_at)} 的整理</h1>
-      <p className="sub">已经检查过这些歌单现在的样子，撤销时会这样处理</p>
+      <p className="sub">已核对歌单现状，将按下面的方式撤销</p>
       <div className="list">
         {p.items.map((it) => {
           const [tag, cls] = ACTION[it.action];
@@ -136,8 +136,8 @@ function UndoResult({ runId, jobId }: { runId: string; jobId: string }) {
       {status === "running" && (
         <>
           <h1>正在撤销</h1>
-          <p className="sub">删除歌单前会再核对一次，被你改过的只移除理音加的歌</p>
-          <Waiting>撤销会逐个处理歌单，中间稍等几秒，避免被网易云限制。可以关掉这个网页，理音会在后台做完</Waiting>
+          <p className="sub">删除前会再核对一次，你改过的歌单只移除理音加的歌</p>
+          <Waiting>可以关掉网页，理音会在后台做完</Waiting>
         </>
       )}
       {job && status === "done" && (

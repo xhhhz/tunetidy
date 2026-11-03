@@ -45,6 +45,14 @@ const ICONS = {
     </>
   ),
   spinner: <path d="M12 3a9 9 0 1 0 9 9" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  note: (
+    <>
+      <path d="M9 18V6l10-2v12" />
+      <circle cx="6.5" cy="18" r="2.5" />
+      <circle cx="16.5" cy="16" r="2.5" />
+    </>
+  ),
 };
 
 export type IconName = keyof typeof ICONS;

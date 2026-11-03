@@ -61,8 +61,12 @@ class FakeBackend:
 
     # -------------------------------------------------------------- 读取
 
-    def login(self, show_qr: Callable[[str], None]) -> User:
+    def login(
+        self, show_qr: Callable[[str], None], on_scanned: Callable[[], None] | None = None
+    ) -> User:
         show_qr("https://example.invalid/qr")
+        if on_scanned is not None:
+            on_scanned()
         assert self.user is not None
         return self.user
 

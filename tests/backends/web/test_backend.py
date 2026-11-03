@@ -11,7 +11,7 @@ import pytest
 
 from tests.backends.web.fake_netease import FakeClock, FakeNetease, plain_weapi
 from tests.conftest import load_fixture
-from tunetidy.backends.base import BackendError, NotLoggedInError
+from tunetidy.backends.base import BackendError, LoginExpiredError, NotLoggedInError
 from tunetidy.backends.web.backend import NeteaseWebBackend
 from tunetidy.backends.web.session import MemoryStore, Session
 from tunetidy.config import Config
@@ -107,6 +107,38 @@ def test_qr_login_times_out(server: FakeNetease, clock: FakeClock) -> None:
     with pytest.raises(BackendError, match="超时"):
         make(server, clock).login(lambda _url: None)
     assert 60 <= len(server.calls) <= 200  # 3 分钟内按 1–2 秒间隔轮询
+
+
+def test_qr_login_reports_scanned_once(server: FakeNetease, clock: FakeClock) -> None:
+    polls: Iterator[int] = iter([801, 802, 802, 803])
+    server.route("/api/login/qrcode/unikey", {"code": 200, "unikey": "k" * 36})
+    server.route("/api/w/nuser/account/get", ACCOUNT)
+
+    def poll(_d: dict[str, Any]) -> dict[str, Any] | httpx.Response:
+        code = next(polls)
+        if code == 803:
+            return httpx.Response(
+                200, json={"code": 803}, headers=[("Set-Cookie", "MUSIC_U=u; Path=/")]
+            )
+        return {"code": code}
+
+    server.route("/api/login/qrcode/client/login", poll)
+    scanned: list[bool] = []
+    user = make(server, clock).login(lambda _url: None, on_scanned=lambda: scanned.append(True))
+    assert user.id == "10000001"
+    assert scanned == [True]
+
+
+def test_qr_login_expired_and_timeout_are_login_expired(
+    server: FakeNetease, clock: FakeClock
+) -> None:
+    server.route("/api/login/qrcode/unikey", {"code": 200, "unikey": "k" * 36})
+    server.route("/api/login/qrcode/client/login", {"code": 800})
+    with pytest.raises(LoginExpiredError):
+        make(server, clock).login(lambda _url: None)
+    server.route("/api/login/qrcode/client/login", {"code": 801})
+    with pytest.raises(LoginExpiredError):
+        make(server, clock).login(lambda _url: None)
 
 
 def test_login_discards_old_cookies_but_keeps_device(server: FakeNetease, clock: FakeClock) -> None:

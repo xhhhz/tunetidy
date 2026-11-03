@@ -74,6 +74,20 @@
   .nv:hover { background: var(--soft); }
   .nv.on { font-weight: 700; }
   .nv svg { width: 24px; height: 24px; }
+  .who { margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px; font-size: 13px; color: var(--fg2); }
+  .who b { display: block; color: var(--fg); font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .av { width: 36px; height: 36px; border-radius: 50%; background: var(--soft2); display: grid; place-items: center; font-weight: 600; color: var(--fg); flex: none; }
+
+  /* 扫码登录：左边介绍，右边二维码；窄屏上下排 */
+  .login { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); min-height: 100%; }
+  .login .l { padding: clamp(32px, 7vw, 96px); display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .login .l h1 { font-size: clamp(34px, 4.6vw, 56px); }
+  .login .r { background: var(--soft); display: grid; place-items: center; padding: 32px; text-align: center; }
+  .qr { background: #fff; border-radius: 20px; padding: 18px; width: 236px; height: 236px; margin: 0 auto; position: relative; }
+  .qr svg { width: 200px; height: 200px; display: block; }
+  .qr.off svg { opacity: 0.15; }
+  .qr .over { position: absolute; inset: 0; border-radius: 20px; background: rgba(255, 255, 255, 0.94); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #137333; font-weight: 700; }
+  .qr .over.gray { color: #555; background: rgba(255, 255, 255, 0.7); }
   /* 内容撑满一屏，底部操作栏在内容短的页面上也贴着窗口底边 */
   .main { height: 100%; overflow: auto; position: relative; display: flex; flex-direction: column; }
   .main > .wrap, .main > .center { flex: 1 0 auto; width: 100%; }
@@ -206,6 +220,10 @@
     .logo { padding: 0 8px 0 0; }
     .logo span { display: none; }
     .nv { padding: 8px 12px; font-size: 15px; }
+    .who { margin: 0 0 0 auto; padding: 4px 8px; }
+    .who .av, .who span { display: none; }
+    .login { grid-template-columns: minmax(0, 1fr); }
+    .login .l { padding: 32px 16px; }
     .wrap { padding: 24px 16px 48px; }
     .bar .in { padding-inline: 16px; }
     h1 { font-size: 28px; }

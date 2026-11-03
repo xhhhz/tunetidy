@@ -274,3 +274,19 @@ export interface UndoPreview {
   fingerprint: string;
   summary: string[];
 }
+
+// ---------------------------------------------------------------- 登录与开始整理
+
+export interface Me {
+  logged_in: boolean;
+  nickname: string | null;
+}
+
+export type LoginStatus = "idle" | "waiting" | "scanned" | "done" | "expired" | "failed";
+
+export interface LoginState {
+  status: LoginStatus;
+  qr: string[] | null; // 二维码点阵，每行由 0 和 1 组成，1 是黑格
+  nickname: string | null;
+  error: string | null;
+}

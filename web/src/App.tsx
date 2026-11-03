@@ -2,6 +2,7 @@ import { token } from "./api";
 import { Shell } from "./layout";
 import { History } from "./pages/History";
 import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
 import { Confirm } from "./pages/Confirm";
 import { Pending } from "./pages/Pending";
 import { Progress } from "./pages/Progress";
@@ -29,7 +30,10 @@ export function App() {
 function page(route: ReturnType<typeof useRoute>) {
   switch (route.name) {
     case "home":
+    case "new": // 选歌单页在下一步加上
       return <Home />;
+    case "login":
+      return <Login />;
     case "result":
       return <Result key={route.planId} planId={route.planId} />;
     case "songs":

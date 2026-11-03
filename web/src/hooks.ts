@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
-import { ApiError, get, type PlanState } from "./api";
+import { ApiError, get, type Me, type PlanState } from "./api";
 
 const POLL_MS = 5000;
 
@@ -54,4 +54,36 @@ export function usePlanState(planId: string, loadedHash: string | undefined, onC
     };
   }, [check]);
   return { state, check };
+}
+
+// ---------------------------------------------------------------- 当前网易云账号
+
+let me: Me | null = null;
+let meLoading: Promise<void> | null = null;
+const meListeners = new Set<() => void>();
+
+/** 重新读取登录状态（登录成功后调用），导航底部的昵称随之更新。 */
+export function refreshMe(): Promise<void> {
+  meLoading = get<Me>("/api/me")
+    .then((m) => {
+      me = m;
+      meListeners.forEach((f) => f());
+    })
+    .catch(() => undefined);
+  return meLoading;
+}
+
+/** 当前登录的网易云账号；还没读到时为 null。整个页面只读一次，登录后 refreshMe() 刷新。 */
+export function useMe(): Me | null {
+  const value = useSyncExternalStore(
+    (f) => {
+      meListeners.add(f);
+      return () => meListeners.delete(f);
+    },
+    () => me,
+  );
+  useEffect(() => {
+    if (!meLoading) void refreshMe();
+  }, []);
+  return value;
 }

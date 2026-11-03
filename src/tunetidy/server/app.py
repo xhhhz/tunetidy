@@ -33,6 +33,8 @@ from tunetidy.config import Config, ConfigError
 from tunetidy.server.api import router
 from tunetidy.server.confirm import Channel, ConfirmError, ConfirmGate
 from tunetidy.server.confirm_api import router as confirm_router
+from tunetidy.server.login import LoginFlow
+from tunetidy.server.start_api import router as start_router
 from tunetidy.storage import jobs
 from tunetidy.storage import plans as plan_store
 from tunetidy.storage.db import connect
@@ -90,6 +92,7 @@ def create_app(
     cfg = app.state.config
     app.state.gate = ConfirmGate(channel)
     app.state.backend_factory = backend_factory or (lambda: get_backend("web", cfg))
+    app.state.login = LoginFlow(app.state.backend_factory)
     hosts = {f"{h}:{port}" for h in LOCAL_HOSTS}
     origins = {f"http://{h}" for h in hosts}
     expected = token.encode()
@@ -153,6 +156,7 @@ def create_app(
 
     app.include_router(router)
     app.include_router(confirm_router)
+    app.include_router(start_router)
     if static_dir is not None:
         _serve_frontend(app, find_static(static_dir))
     return app

@@ -1,14 +1,26 @@
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 
 import { connection, get } from "./api";
+import { useMe } from "./hooks";
 import { to, type Route } from "./router";
 import { DialogHost, Icon, Link, ToastHost } from "./ui";
 
 const RETRY_MS = 5000;
 
-/** 页面框架：桌面左侧导航（整理、历史），窄屏变顶栏。 */
+/** 页面框架：桌面左侧导航（整理、历史、新整理，底部是网易云账号），窄屏变顶栏。登录页不带导航。 */
 export function Shell({ route, children }: { route: Route; children: ReactNode }) {
+  if (route.name === "login") {
+    return (
+      <div className="main">
+        {children}
+        <Disconnected />
+        <DialogHost />
+        <ToastHost />
+      </div>
+    );
+  }
   const inHistory = route.name === "history" || route.name === "undo";
+  const isNew = route.name === "new";
   return (
     <div className="app">
       <nav className="nav">
@@ -16,7 +28,7 @@ export function Shell({ route, children }: { route: Route; children: ReactNode }
           <i>理</i>
           <span>理音</span>
         </div>
-        <Link to={to.home()} className={`nv${inHistory ? "" : " on"}`}>
+        <Link to={to.home()} className={`nv${inHistory || isNew ? "" : " on"}`}>
           <Icon name="home" size={24} />
           整理
         </Link>
@@ -24,11 +36,41 @@ export function Shell({ route, children }: { route: Route; children: ReactNode }
           <Icon name="clock" size={24} />
           历史
         </Link>
+        <Link to={to.newPlan()} className={`nv${isNew ? " on" : ""}`}>
+          <Icon name="plus" size={24} />
+          新整理
+        </Link>
+        <Account />
       </nav>
       <main className="main">{children}</main>
       <Disconnected />
       <DialogHost />
       <ToastHost />
+    </div>
+  );
+}
+
+/** 导航底部：登录了显示网易云昵称，没登录给一个去登录的链接。 */
+function Account() {
+  const me = useMe();
+  if (!me) return null;
+  if (!me.logged_in) {
+    return (
+      <Link to={to.login()} className="who link">
+        登录网易云
+      </Link>
+    );
+  }
+  const name = me.nickname ?? "";
+  return (
+    <div className="who">
+      <div className="av" aria-hidden>
+        {[...name][0] ?? "?"}
+      </div>
+      <div className="min-w-0">
+        <b>{name}</b>
+        <span>网易云已登录</span>
+      </div>
     </div>
   );
 }

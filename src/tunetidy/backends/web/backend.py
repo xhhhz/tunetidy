@@ -11,7 +11,12 @@ from typing import Any
 
 import httpx
 
-from tunetidy.backends.base import BackendError, MusicBackend, NotLoggedInError
+from tunetidy.backends.base import (
+    BackendError,
+    LoginExpiredError,
+    MusicBackend,
+    NotLoggedInError,
+)
 from tunetidy.backends.web import parse
 from tunetidy.backends.web.client import Client
 from tunetidy.backends.web.session import Session, SessionStore
@@ -71,7 +76,9 @@ class NeteaseWebBackend:
 
     # ------------------------------------------------------------ 登录
 
-    def login(self, show_qr: Callable[[str], None]) -> User:
+    def login(
+        self, show_qr: Callable[[str], None], on_scanned: Callable[[], None] | None = None
+    ) -> User:
         self.client.session = Session(device_id=self.session.device_id)  # 丢弃旧 Cookie
         body = self.client.eapi("/api/login/qrcode/unikey", {"type": 3})
         unikey = body.get("unikey")
@@ -80,9 +87,13 @@ class NeteaseWebBackend:
         show_qr(f"https://music.163.com/login?codekey={unikey}")
 
         deadline = self._clock() + QR_TIMEOUT
+        scanned = False
         while self._clock() < deadline:
             body = self.client.eapi("/api/login/qrcode/client/login", {"key": unikey, "type": 3})
             code = body.get("code")
+            if code == QR_SCANNED and not scanned and on_scanned is not None:
+                on_scanned()
+            scanned = scanned or code == QR_SCANNED
             if code in (QR_WAITING, QR_SCANNED):
                 continue
             if code == QR_OK:
@@ -92,9 +103,9 @@ class NeteaseWebBackend:
                     raise BackendError("扫码成功，但没能取到账号信息，请重试")
                 return user
             if code == QR_EXPIRED:
-                raise BackendError("二维码已过期，请重新登录")
+                raise LoginExpiredError("二维码已过期，请重新登录")
             raise BackendError(f"登录失败：code={code} {body.get('message') or ''}".strip())
-        raise BackendError("等待扫码超时，请重新登录")
+        raise LoginExpiredError("等待扫码超时，请重新登录")
 
     def logout(self) -> None:
         self.store.clear()

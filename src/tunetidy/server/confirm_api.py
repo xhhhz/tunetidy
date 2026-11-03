@@ -32,7 +32,7 @@ from tunetidy.storage import runs as run_store
 
 router = APIRouter(prefix="/api")
 
-NOT_LOGGED_IN = "还没有登录网易云，或登录已失效：请先在终端运行 tunetidy login"
+NOT_LOGGED_IN = "还没有登录网易云，或登录已失效，请先登录"
 
 
 def gate(request: Request) -> ConfirmGate:

@@ -8,6 +8,8 @@ export type SongsView = { playlist: string } | { filter: SongsFilter };
 
 export type Route =
   | { name: "home" }
+  | { name: "login" }
+  | { name: "new" }
   | { name: "result"; planId: string }
   | { name: "songs"; planId: string; show: SongsView }
   | { name: "pending"; planId: string }
@@ -21,6 +23,8 @@ const FILTERS: SongsFilter[] = ["all", "manual", "unsure", "ungrouped", "unavail
 
 function parse(path: string, search: string): Route {
   if (/^\/history\/?$/.test(path)) return { name: "history" };
+  if (/^\/login\/?$/.test(path)) return { name: "login" };
+  if (/^\/new\/?$/.test(path)) return { name: "new" };
   const u = path.match(/^\/runs\/([^/]+)\/undo\/?$/);
   if (u) return { name: "undo", runId: decodeURIComponent(u[1]), job: new URLSearchParams(search).get("job") };
   const m = path.match(/^\/plans\/([^/]+)(?:\/([a-z]+))?\/?$/);
@@ -55,6 +59,8 @@ const plan = (id: string) => `/plans/${encodeURIComponent(id)}`;
 /** 各页面的网址。 */
 export const to = {
   home: () => "/",
+  login: () => "/login",
+  newPlan: () => "/new",
   result: (id: string) => plan(id),
   songs: (id: string, show: SongsView) =>
     `${plan(id)}/songs?${new URLSearchParams("playlist" in show ? { playlist: show.playlist } : { filter: show.filter })}`,

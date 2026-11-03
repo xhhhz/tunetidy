@@ -24,12 +24,19 @@ class NotLoggedInError(BackendError):
     pass
 
 
+class LoginExpiredError(BackendError):
+    """登录二维码过期，或等待扫码超时；重新开始登录即可。"""
+
+
 class MusicBackend(Protocol):
     platform: str
     max_batch_size: int  # 单次 add_tracks 允许的最大歌曲数
 
-    def login(self, show_qr: Callable[[str], None]) -> User:
-        """交互式登录。show_qr 收到二维码内容（URL），由调用方负责展示。"""
+    def login(
+        self, show_qr: Callable[[str], None], on_scanned: Callable[[], None] | None = None
+    ) -> User:
+        """交互式登录。show_qr 收到二维码内容（URL），由调用方负责展示；扫码后、手机上还没
+        确认时调用一次 on_scanned。二维码过期或等待超时抛 LoginExpiredError。"""
         ...
 
     def whoami(self) -> User | None:

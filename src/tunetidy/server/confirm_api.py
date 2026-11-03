@@ -15,12 +15,20 @@ from pydantic import BaseModel, Field
 
 from tunetidy import jobs
 from tunetidy.apply.approval import ApprovalError, approval_is_valid
+from tunetidy.apply.undo import UndoError, UndoPlan, plan_undo
 from tunetidy.backends.base import MusicBackend, NotLoggedInError
-from tunetidy.plan import Plan, PlanStatus
+from tunetidy.plan import Plan, PlanStatus, source_label
 from tunetidy.server.api import Cfg, Conn
-from tunetidy.server.confirm import Action, ConfirmGate, apply_summary, resume_summary
+from tunetidy.server.confirm import (
+    Action,
+    ConfirmGate,
+    apply_summary,
+    resume_summary,
+    undo_summary,
+)
 from tunetidy.storage import jobs as job_store
 from tunetidy.storage import plans as plan_store
+from tunetidy.storage import runs as run_store
 
 router = APIRouter(prefix="/api")
 
@@ -120,3 +128,102 @@ def submit_apply_code(
 @router.get("/jobs/{job_id}")
 def get_job(job_id: str, conn: Conn) -> dict[str, Any]:
     return jobs.job_summary(conn, job_store.load_job(conn, job_id))
+
+
+# ------------------------------------------------------------------ 历史与撤销
+
+
+@router.get("/runs")
+def list_runs(conn: Conn) -> list[dict[str, Any]]:
+    """每次写回一行（网页"历史"页）：来源、拆法、时间、状态、每个歌单加了多少首。"""
+    out = []
+    for run in run_store.list_runs(conn):
+        plan = plan_store.load_plan(conn, run.plan_id)
+        out.append(
+            {
+                "run_id": run.id,
+                "plan_id": run.plan_id,
+                "created_at": run.created_at,
+                "status": run.status,
+                "sources": [s.name for s in plan.sources],
+                "split": plan.settings.get("split", {}),
+                "other_name": plan.settings["other_name"],
+                "playlists": [
+                    {
+                        "name": rp.name,
+                        "category": rp.category,
+                        "added": sum(
+                            t.status == "added" for t in run_store.tracks(conn, run.id, rp.category)
+                        ),
+                    }
+                    for rp in run.playlists
+                ],
+            }
+        )
+    return out
+
+
+def _preview(conn: Conn, backend: MusicBackend, run_id: str) -> tuple[UndoPlan, str, list[str]]:
+    up = plan_undo(backend, conn, run_id)
+    plan = plan_store.load_plan(conn, up.run.plan_id)
+    return up, jobs.undo_fingerprint(up), undo_summary(up, source_label(plan.sources))
+
+
+@router.get("/runs/{run_id}/undo")
+def undo_preview(run_id: str, conn: Conn, factory: Backends) -> dict[str, Any]:
+    """回读这次写回建的歌单现在的样子（只读，会访问网易云），决定每个怎么撤销。"""
+    up, fingerprint, summary = _preview(conn, logged_in(factory), run_id)
+    return {
+        "run_id": run_id,
+        "created_at": up.run.created_at,
+        "items": [
+            {
+                "name": it.playlist.name,
+                "category": it.playlist.category,
+                "action": it.action,
+                "remove": len(it.remove),
+                "differences": list(it.differences),
+                "note": it.note,
+            }
+            for it in up.items
+        ],
+        "nothing_to_do": all(it.action == "skip" for it in up.items),
+        "fingerprint": fingerprint,
+        "summary": summary,
+    }
+
+
+class UndoConfirmIn(BaseModel):
+    fingerprint: str
+
+
+class UndoCodeIn(CodeIn):
+    fingerprint: str
+
+
+@router.post("/runs/{run_id}/undo/confirm")
+def request_undo_code(
+    run_id: str, body: UndoConfirmIn, conn: Conn, g: Gate, factory: Backends
+) -> dict[str, Any]:
+    up, fingerprint, summary = _preview(conn, logged_in(factory), run_id)
+    if fingerprint != body.fingerprint:
+        raise plan_store.PlanStateError("这些歌单在预览之后又变了，请重新预览")
+    if all(it.action == "skip" for it in up.items):
+        raise UndoError("没有需要撤销的内容")
+    ticket = g.request(run_id, "undo", fingerprint, summary)
+    return {
+        "summary": summary,
+        "expires_in": ticket.expires_in,
+        "attempts_left": ticket.attempts_left,
+    }
+
+
+@router.post("/runs/{run_id}/undo/submit")
+def submit_undo_code(
+    run_id: str, body: UndoCodeIn, request: Request, cfg: Cfg, g: Gate, factory: Backends
+) -> dict[str, Any]:
+    backend = logged_in(factory)
+    g.verify(run_id, "undo", body.fingerprint, body.code)
+    # 后台任务里重新回读，和这里确认的预览不一致就不执行
+    job_id, _ = jobs.start_undo(request.app.state.db_path, cfg, backend, run_id, body.fingerprint)
+    return {"job_id": job_id}

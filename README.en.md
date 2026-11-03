@@ -18,6 +18,8 @@ tunetidy analyze "我喜欢的音乐"       # read genres and build a plan (no a
 tunetidy ui                         # review in the browser, adjust, then confirm and create the playlists
 ```
 
+You can also just run `tunetidy ui` and do the rest on the web page: scan the QR code to log in, pick one or more playlists, watch the reading progress, and land on the result when it finishes.
+
 You can confirm and create the playlists on the web page: click "确认并开始建" (confirm and create), and a 6-digit code appears in the terminal running `tunetidy ui`; type it into the page to start. Or do it all from the command line:
 
 ```bash
@@ -45,11 +47,15 @@ Genre names are NetEase's Chinese genre names. For custom groups, see [taxonomie
 
 ## Web page
 
-`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). The home page has one card per playlist. Open one to see which new playlists will be created and how many songs each gets. There you can switch split modes, rename playlists, move misplaced songs, and pick a home for each song TuneTidy couldn't sort. All of this changes only the local plan and never contacts NetEase.
+`tunetidy ui` opens TuneTidy in your browser (listening on localhost only). If you aren't logged in, it shows a QR code to scan with the NetEase Cloud Music app; the session goes to the system keychain as usual, and the sidebar shows the current account. Click 新整理 (new tidy-up) to pick playlists; 我喜欢的音乐 is selected by default. Several playlists are merged in the order you tick them, and a song in more than one counts once. While reading, the page shows progress, the estimated time left and the genres found so far. Closing the page doesn't stop it, the home page picks it up again, and you can cancel; genres already read stay cached.
 
-After you confirm, the page shows the progress of creating the playlists; if it stops halfway you can continue, and no song is added twice. The History page lists every batch of playlists TuneTidy created. Before undoing, it checks what those playlists look like now; from any you have changed, it removes only the songs it added.
+The home page has one card per playlist. Open one to see which new playlists will be created and how many songs each gets. There you can switch split modes, rename playlists, move misplaced songs, and pick a home for each song TuneTidy couldn't sort. All of this changes only the local plan and never contacts NetEase.
 
-Confirming and undoing on the web both need a code. The code appears only in the terminal window that started TuneTidy and never passes through the web page. If TuneTidy was not started from a terminal window (for example, another program runs it in the background), web confirmation is unavailable and the page shows terminal commands instead.
+After you confirm, the page shows the progress of creating the playlists; if it stops halfway you can continue, and no song is added twice. The History page lists every batch of playlists TuneTidy created. Before undoing, it checks what those playlists look like now; from any you have changed, it removes only the songs it added. After you tidy the same playlist again and create the new batch, the page offers to undo the previous batch made by the same account; undoing it needs its own confirmation and never happens on its own.
+
+When a playlist has been tidied several times, the older plans are under 以前的整理 (earlier tidy-ups) at the top right of the result page. Plans that never created playlists aren't deleted automatically; click 现在清理 (clean up now) there. It deletes only records on this computer and keeps every plan that created playlists.
+
+Everything on the web page that changes your NetEase account (creating, continuing, undoing) needs a code; logging in, picking playlists, reading and cleaning up local records don't change the account and don't need one. The code appears only in the terminal window that started TuneTidy and never passes through the web page. If TuneTidy was not started from a terminal window (for example, another program runs it in the background), web confirmation is unavailable and the page shows terminal commands instead.
 
 The interface is in Chinese.
 
@@ -95,6 +101,8 @@ Unsorted songs are left out of the new playlists until you place them in the web
 ## FAQ
 
 **Why is the first analysis so slow?** Genre tags have to be fetched one song at a time, and TuneTidy goes slowly to avoid being rate-limited: about 25 minutes for 1000 songs. Tags are cached, so switching split modes or analyzing again takes seconds.
+
+**Can I close the page while it reads?** Yes. As long as the terminal window that started TuneTidy stays open, reading continues in the background and the home page shows its progress.
 
 **What does "unsorted" (没分好) mean?** NetEase gave the song no genre, or several genres tie and TuneTidy can't tell which comes first. Unsorted songs are left out of the new playlists unless you place them on the web page's unsorted-songs view.
 

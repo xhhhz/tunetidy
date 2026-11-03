@@ -77,6 +77,9 @@ def list_plans(conn: Conn) -> list[dict[str, Any]]:
     for r in plan_store.list_plans(conn, limit=100):
         statuses: Counter[str] = Counter()
         assigned: dict[str, int] = {}
+        (manual,) = conn.execute(
+            "SELECT COALESCE(SUM(manual), 0) FROM assignments WHERE plan_id = ?", (r["id"],)
+        ).fetchone()
         for status, category, n in conn.execute(
             "SELECT status, category, COUNT(*) FROM assignments WHERE plan_id = ?"
             " GROUP BY status, category",
@@ -103,6 +106,7 @@ def list_plans(conn: Conn) -> list[dict[str, Any]]:
                     {"name": c, "count": assigned[c]}
                     for c in playlist_order(assigned, settings["other_name"])
                 ],
+                "manual": manual,
             }
         )
     return out
@@ -340,3 +344,10 @@ def move(plan_id: str, body: MoveIn, conn: Conn) -> dict[str, Any]:
         confirm_reset=body.confirm_reset,
     )
     return _edit_result(r)
+
+
+@router.post("/plans/{plan_id}/cleanup")
+def cleanup(plan_id: str, conn: Conn) -> dict[str, int]:
+    """手动清理：删掉和这份同一来源、还没建歌单的其他整理（只删本机记录，不碰网易云）。"""
+    plan = plan_store.load_plan(conn, plan_id)
+    return {"deleted": plan_store.delete_drafts(conn, [s.id for s in plan.sources], keep=plan.id)}

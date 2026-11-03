@@ -28,8 +28,19 @@ def test_list_plans(client: TestClient, plan: Plan) -> None:
             "split": plan.settings["split"],
             "other_name": "其他",
             "categories": [{"name": "流行", "count": 7}, {"name": "R&B", "count": 5}],
+            "manual": 0,
         }
     ]
+
+
+def test_list_plans_counts_manual_moves(client: TestClient, plan: Plan) -> None:
+    songs = [["netease", "1"], ["netease", "2"]]
+    r = client.post(
+        f"/api/plans/{plan.id}/move",
+        json={"expected_hash": plan.content_hash, "songs": songs, "category": "R&B"},
+    )
+    assert r.status_code == 200, r.text
+    assert client.get("/api/plans").json()[0]["manual"] == 2
 
 
 def test_ping_requires_token(client: TestClient) -> None:

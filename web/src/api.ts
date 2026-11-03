@@ -106,6 +106,7 @@ export interface PlanRow {
   total: number;
   pending: number;
   categories: CategoryCount[]; // 将新建的歌单，顺序同写回（「其他」最后）
+  manual: number; // 你手动调整过的歌数
 }
 
 export interface PlanState {

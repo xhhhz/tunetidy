@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { ConfirmStatus, Genres, PlanDetail, PlanRow, RunRow, Split } from "../api";
+import { post, type ConfirmStatus, type Genres, type PlanDetail, type PlanRow, type RunRow, type Split } from "../api";
 import { PreviousBatch } from "../components/PreviousBatch";
 import { useEdit, type RunEdit } from "../edit";
 import { useLoad, usePlanState } from "../hooks";
 import { navigate, to } from "../router";
 import { describeShort, presetOf, useSimulate, type Preset } from "../split";
-import { Back, BottomBar, CopyCommand, Cover, Icon, Link, StatusBadge, formatWhen, toast } from "../ui";
+import { askConfirm, Back, BottomBar, CopyCommand, Cover, Icon, Link, StatusBadge, formatWhen, toast } from "../ui";
 import { sourceKey } from "./Home";
 
 const PRESETS: [Preset, string][] = [
@@ -305,12 +305,38 @@ function PlaylistName({
 
 /** "以前的整理"：同一来源的其他几份。 */
 function Earlier({ plan }: { plan: PlanDetail }) {
-  const rows = useLoad<PlanRow[]>("/api/plans").data;
+  const { data: rows, reload } = useLoad<PlanRow[]>("/api/plans");
   const [open, setOpen] = useState(false);
   if (!rows) return null;
   const me = [...plan.sources.map((s) => s.id)].sort().join("\u0000");
   const same = rows.filter((r) => sourceKey(r) === me);
   if (same.length < 2) return null;
+  const drafts = same.filter((r) => r.status === "draft" && r.id !== plan.id);
+
+  // 手动清理：只删同一来源还没建歌单的旧整理，建过的留着（历史和撤销要用）
+  const cleanUp = async () => {
+    setOpen(false);
+    const manual = drafts.filter((r) => r.manual > 0).length;
+    const ok = await askConfirm({
+      title: `删掉 ${drafts.length} 份没建歌单的旧整理？`,
+      body: (
+        <>
+          {manual > 0 && <b className="block text-warn">其中 {manual} 份有你手动调整过的分类</b>}
+          只删这台电脑上的记录，网易云里什么都不会变。建过歌单的整理会保留，历史和撤销要用到
+        </>
+      ),
+      ok: "删掉",
+      cancel: "取消",
+    });
+    if (!ok) return;
+    try {
+      const r = await post<{ deleted: number }>(`/api/plans/${encodeURIComponent(plan.id)}/cleanup`, {});
+      toast(`已删掉 ${r.deleted} 份旧整理`);
+    } catch (e) {
+      toast((e as Error).message, "error");
+    }
+    void reload();
+  };
   return (
     <div className="relative shrink-0">
       <button type="button" className="ghost" onClick={() => setOpen(!open)} aria-expanded={open}>
@@ -339,6 +365,14 @@ function Earlier({ plan }: { plan: PlanDetail }) {
                 {r.id === plan.id ? <span className="pill p-acc">正在看</span> : <StatusBadge status={r.status} />}
               </button>
             ))}
+            {drafts.length > 0 && (
+              <div className="small" style={{ padding: "8px 12px 6px" }}>
+                没建歌单的旧整理不会自动删除{" "}
+                <button type="button" className="link" onClick={() => void cleanUp()}>
+                  现在清理
+                </button>
+              </div>
+            )}
           </div>
         </>
       )}

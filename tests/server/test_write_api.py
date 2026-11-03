@@ -184,3 +184,43 @@ def test_parse_toml(client: TestClient) -> None:
     for bad in ("match = ", 'match = "x"', "[[groups]]\nname = 1"):
         r = client.post("/api/split/parse", json={"text": bad})
         assert r.status_code == 400 and r.json()["code"] == "invalid"
+
+
+def test_cleanup_old_drafts(client: TestClient, plan: Plan, conn: sqlite3.Connection) -> None:
+    from tests.apply.test_writer import build_library
+    from tests.test_analyze import CFG, Clock
+    from tunetidy.analyze import analyze
+
+    b = build_library()
+    older = analyze(b, conn, CFG, [b.list_playlists()[0]], now=Clock())
+    r = client.post(f"/api/plans/{plan.id}/cleanup", json={})
+    assert r.status_code == 200
+    assert r.json() == {"deleted": 1}
+    ids = [row["id"] for row in client.get("/api/plans").json()]
+    assert ids == [plan.id] and older.id not in ids
+    assert client.post(f"/api/plans/{plan.id}/cleanup", json={}).json() == {"deleted": 0}
+
+
+def test_cleanup_is_post_only(client: TestClient, plan: Plan) -> None:
+    assert client.get(f"/api/plans/{plan.id}/cleanup").status_code in (404, 405)
+    assert client.post("/api/plans/nope/cleanup", json={}).status_code == 404
+
+
+def test_job_of_deleted_plan_does_not_crash(
+    client: TestClient, plan: Plan, conn: sqlite3.Connection
+) -> None:
+    import os
+    from datetime import UTC, datetime
+
+    from tests.apply.test_writer import build_library
+    from tests.test_analyze import CFG, Clock
+    from tunetidy.analyze import analyze
+    from tunetidy.storage import jobs as job_store
+
+    b = build_library()
+    older = analyze(b, conn, CFG, [b.list_playlists()[0]], now=Clock())
+    job = job_store.create_job(conn, "analyze", pid=os.getpid(), now=datetime.now(UTC))
+    job_store.finish_job(conn, job.id, plan_id=older.id, now=datetime.now(UTC))
+    client.post(f"/api/plans/{plan.id}/cleanup", json={})
+    r = client.get(f"/api/jobs/{job.id}")
+    assert r.status_code == 404

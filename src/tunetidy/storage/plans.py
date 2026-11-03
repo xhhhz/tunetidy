@@ -127,6 +127,27 @@ def list_plans(conn: sqlite3.Connection, limit: int = 20) -> list[sqlite3.Row]:
     return rows
 
 
+def delete_drafts(conn: sqlite3.Connection, source_ids: Sequence[str], keep: str) -> int:
+    """手动清理：删掉同一来源（来源歌单 id 集合相同，顺序无关）还没建歌单的整理，保留 keep。
+
+    只删草稿：检查和删除在同一个写事务里，终端刚确认过的不会被删。返回删除的份数。
+    """
+    want = sorted(source_ids)
+    with transaction(conn):
+        rows = conn.execute(
+            "SELECT id, sources_json FROM plans WHERE status = 'draft' AND id != ?", (keep,)
+        ).fetchall()
+        gone = [
+            r["id"]
+            for r in rows
+            if sorted(i for i, _ in json.loads(r["sources_json"])["items"]) == want
+        ]
+        for plan_id in gone:
+            conn.execute("DELETE FROM assignments WHERE plan_id = ?", (plan_id,))
+            conn.execute("DELETE FROM plans WHERE id = ? AND status = 'draft'", (plan_id,))
+    return len(gone)
+
+
 class PlanStateError(RuntimeError):
     """方案当前状态不允许这个操作，或内容在确认期间被改动。"""
 

@@ -139,7 +139,7 @@
   .callout .go { margin-left: auto; font-weight: 600; white-space: nowrap; }
   .quiet { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 13px; color: var(--fg2); }
 
-  .bar { position: sticky; bottom: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .bar { position: sticky; bottom: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
   .bar .in { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding-inline: 24px; }
   .bar .in > div { flex: 1; min-width: 0; }
   .bar b { font-size: 16px; }
@@ -184,7 +184,10 @@
   .chip select option { color: #000; }
 
   .grp { border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-top: 12px; }
-  .grp input.gn { border: none; background: none; font-size: 17px; font-weight: 700; width: 100%; padding: 0; }
+  /* 歌单名输入框：平时像标题，悬停和输入时显出圆角框；负边距让文字和不带框时对齐 */
+  .grp input.gn { border: 1.5px solid transparent; border-radius: 10px; background: none; font-size: 17px; font-weight: 700; width: 100%; padding: 4px 10px; margin-left: -11.5px; }
+  .grp input.gn:hover { border-color: var(--line); }
+  .grp input.gn:focus { outline: none; border-color: var(--accent); background: var(--bg); }
   .tag { display: inline-flex; align-items: center; gap: 6px; background: var(--soft); border-radius: 999px; padding: 5px 8px 5px 12px; font-size: 13px; margin: 8px 6px 0 0; }
   .tag button { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; color: var(--fg2); }
   .sect { font-size: 13px; font-weight: 600; color: var(--fg2); margin: 34px 0 4px; }

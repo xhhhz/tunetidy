@@ -83,9 +83,8 @@ export function Home() {
 
   return (
     <div className="wrap">
-      {/* 加号圆钮的中线对准卡片里"查看""继续"按钮的中线：卡片内边距和边框 23，
-          加上按钮（约 66 宽）和圆钮（44 宽）差的一半 11 */}
-      <div className="flex items-center justify-between gap-4 pr-[34px]">
+      {/* 标题贴卡片左边框，加号圆钮贴卡片右边框 */}
+      <div className="flex items-center justify-between gap-4">
         <h1>整理</h1>
         <button
           type="button"

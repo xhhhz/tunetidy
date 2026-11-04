@@ -136,12 +136,18 @@ function Editor({
 
           <div className="sect">更多设置</div>
           <label className="flex items-center gap-3 py-2">
-            <span className="flex-1">太小的歌单并进「{plan.other_name}」：不到</span>
+            <span className="flex-1">
+              合并小歌单
+              <span className="small block">少于这个首数的并入「{plan.other_name}」</span>
+            </span>
             <input className="num" type="number" min={1} value={draft.minSize} onChange={(e) => patch({ minSize: e.target.value })} />
             首
           </label>
           <label className="flex items-center gap-3 py-2">
-            <span className="flex-1">最多建几个歌单（不算「{plan.other_name}」，空着表示不限）</span>
+            <span className="flex-1">
+              歌单数上限
+              <span className="small block">不含「{plan.other_name}」，留空表示不限</span>
+            </span>
             <input
               className="num"
               type="number"
@@ -150,15 +156,23 @@ function Editor({
               placeholder="不限"
               onChange={(e) => patch({ topN: e.target.value })}
             />
+            个
           </label>
           {custom && (
             <div className="flex flex-wrap items-center gap-3 py-2">
-              <span className="flex-1">哪些歌算命中</span>
-              <div className="seg" role="radiogroup" aria-label="哪些歌算命中">
+              <span className="flex-1">
+                匹配方式
+                <span className="small block">
+                  {draft.match === "primary"
+                    ? "按主要曲风归组，同时对应几个组的放进「没分好」"
+                    : "歌的任一标签命中就归组，排在前面的组优先"}
+                </span>
+              </span>
+              <div className="seg" role="radiogroup" aria-label="匹配方式">
                 {(
                   [
-                    ["primary", "看主要曲风"],
-                    ["any", "带标签就算"],
+                    ["primary", "主要曲风"],
+                    ["any", "任一标签"],
                   ] as const
                 ).map(([m, label]) => (
                   <button
@@ -193,6 +207,7 @@ function Editor({
             <button type="button" className="link" disabled={draft.groups.length === 0} onClick={exportToml}>
               导出成文件
             </button>
+            <span>.toml 格式，可以用文本编辑器修改</span>
             {importError && <span className="text-danger">{importError}</span>}
           </div>
         )}

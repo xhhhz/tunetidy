@@ -57,6 +57,24 @@ const ICONS = {
 
 export type IconName = keyof typeof ICONS;
 
+/** 理音的 App 图标"旋律 TT"：黑色圆角底板上两个连在一起的八分音符（定稿文件 tunetidy-app-icon.svg）。 */
+export function AppIcon({ size = 30 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 256 256" width={size} height={size} aria-hidden className="app-icon">
+      <rect width="256" height="256" rx="58" fill="#1D1D1F" />
+      <g transform="translate(28 22) scale(0.78)">
+        <g fill="#FFFFFF">
+          <rect x="32" y="56" width="192" height="28" rx="14" />
+          <rect x="80" y="70" width="24" height="106" />
+          <rect x="160" y="70" width="24" height="94" />
+        </g>
+        <ellipse cx="73" cy="181" rx="32" ry="23" transform="rotate(-20 73 181)" fill="#FF7AA2" />
+        <ellipse cx="153" cy="169" rx="32" ry="23" transform="rotate(-20 153 169)" fill="#6F9BFF" />
+      </g>
+    </svg>
+  );
+}
+
 export function Icon({ name, size = 18, className }: { name: IconName; size?: number; className?: string }) {
   return (
     <svg

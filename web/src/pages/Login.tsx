@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { get, post, type LoginState } from "../api";
 import { refreshMe, useMe, useMeError } from "../hooks";
 import { navigate, to } from "../router";
-import { Icon } from "../ui";
+import { AppIcon, Icon } from "../ui";
 
 const POLL_MS = 1000;
 
@@ -78,27 +78,28 @@ export function Login() {
     <div className="login">
       <div className="l">
         <div className="logo" style={{ padding: 0 }}>
-          <i>理</i>
+          <AppIcon />
           <span>
-            理音 <span className="font-medium text-fg2">TuneTidy</span>
+            理音<span className="font-medium text-fg2">TuneTidy</span>
           </span>
         </div>
-        <h1>
-          按曲风，
-          <br />
-          理好你的歌单
-        </h1>
-        <p className="sub" style={{ maxWidth: "30em" }}>
-          用网易云给每首歌标的曲风，把大歌单拆成「流行」「R&B」「摇滚」等小歌单，你看过并确认后才会动手
-        </p>
+        <div className="hero">
+          {/* "乐"读 yuè；先"理"后"音"，藏着产品名 */}
+          <h1>
+            理乐有方，
+            <br />
+            顺音成章
+          </h1>
+          <p className="hs">让每首歌，都找到属于它的地方</p>
+        </div>
         <div className="assure" style={{ maxWidth: 560 }}>
           <div>
             <Icon name="shield" />
-            <b>只新建</b>你原来的歌单一首都不会少
+            <b>只新建</b>不改动你原来的歌单
           </div>
           <div>
             <Icon name="lock" />
-            <b>只在这台电脑</b>没有服务器，登录信息存在系统钥匙串里
+            <b>只在这台电脑</b>不经过任何服务器
           </div>
         </div>
       </div>

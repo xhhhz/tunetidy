@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t"><title id="t">理音 TuneTidy App 图标</title>
+<rect width="256" height="256" rx="58" fill="#1D1D1F"/>
+<g transform="translate(28 22) scale(0.78)"><g id="symbol">
+<g fill="#FFFFFF">
+<rect x="32" y="56" width="192" height="28" rx="14"/>
+<rect x="80" y="70" width="24" height="106"/>
+<rect x="160" y="70" width="24" height="94"/>
+</g>
+<ellipse cx="73" cy="181" rx="32" ry="23" transform="rotate(-20 73 181)" fill="#FF7AA2"/>
+<ellipse cx="153" cy="169" rx="32" ry="23" transform="rotate(-20 153 169)" fill="#6F9BFF"/>
+</g></g>
+</svg>

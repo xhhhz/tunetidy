@@ -3,7 +3,7 @@ import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react
 import { connection, get, post, type ApiError } from "./api";
 import { refreshMe, useMe } from "./hooks";
 import { navigate, to, type Route } from "./router";
-import { askConfirm, DialogHost, Icon, Link, toast, ToastHost } from "./ui";
+import { AppIcon, askConfirm, DialogHost, Icon, Link, toast, ToastHost } from "./ui";
 
 const RETRY_MS = 5000;
 
@@ -25,7 +25,7 @@ export function Shell({ route, children }: { route: Route; children: ReactNode }
     <div className="app">
       <nav className="nav">
         <div className="logo">
-          <i>理</i>
+          <AppIcon />
           <span>理音</span>
         </div>
         <Link to={to.home()} className={`nv${inHistory || isNew ? "" : " on"}`}>

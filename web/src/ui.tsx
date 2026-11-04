@@ -116,7 +116,7 @@ export function Back({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link to={to} className="back">
       <Icon name="back" size={16} />
-      {children}
+      <span>{children}</span>
     </Link>
   );
 }

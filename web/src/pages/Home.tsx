@@ -88,7 +88,7 @@ export function Home() {
         <h1>整理</h1>
         <button
           type="button"
-          className="btn round"
+          className="add"
           onClick={() => navigate(to.newPlan())}
           aria-label="新整理"
           title="新整理"

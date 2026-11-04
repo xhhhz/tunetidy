@@ -103,14 +103,17 @@
 
   .sub { color: var(--fg2); font-size: 16px; margin-top: 8px; }
   .small { font-size: 13px; color: var(--fg2); }
-  .back { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-size: 15px; margin-bottom: 18px; }
+  .back { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-size: 15px; margin-bottom: 18px; max-width: 100%; }
+  .back span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } /* 来源歌单很多时只占一行 */
   .back svg { margin-left: -5px; } /* 箭头在图标框里偏右，拉回来和标题左边对齐 */
   /* 同色边框：和带边框的 .ghost 并排时一样高 */
   .btn { background: var(--btn); color: var(--on-btn); border: 1px solid var(--btn); border-radius: 999px; padding: 12px 26px; font-weight: 600; font-size: 15px; white-space: nowrap; }
   .btn:not(:disabled):hover { opacity: 0.88; }
   .btn.sm { padding: 9px 18px; font-size: 14px; }
-  .btn.round { width: 44px; height: 44px; padding: 0; display: grid; place-items: center; }
-  .btn.round svg { stroke-width: 2.8; }
+  /* 首页的加号圆钮：白底黑框 */
+  .add { width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--fg); background: var(--bg); color: var(--fg); display: grid; place-items: center; flex: none; }
+  .add:hover { background: var(--soft); }
+  .add svg { stroke-width: 2.4; }
   .ghost { border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; font-weight: 500; font-size: 14px; white-space: nowrap; }
   .ghost:not(:disabled):hover { background: var(--soft); }
   .link { color: var(--accent); font-weight: 500; }
@@ -139,7 +142,7 @@
   .callout .go { margin-left: auto; font-weight: 600; white-space: nowrap; }
   .quiet { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 13px; color: var(--fg2); }
 
-  .bar { position: sticky; bottom: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .bar { position: sticky; bottom: 0; z-index: 10; background: var(--bg); border-top: 1px solid var(--line); padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); }
   .bar .in { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding-inline: 24px; }
   .bar .in > div { flex: 1; min-width: 0; }
   .bar b { font-size: 16px; }
@@ -184,8 +187,8 @@
   .chip select option { color: #000; }
 
   .grp { border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-top: 12px; }
-  /* 歌单名输入框：平时像标题，悬停和输入时显出圆角框；负边距让文字和不带框时对齐 */
-  .grp input.gn { border: 1.5px solid transparent; border-radius: 10px; background: none; font-size: 17px; font-weight: 700; width: 100%; padding: 4px 10px; margin-left: -11.5px; }
+  /* 歌单名输入框：平时像标题，悬停和输入时显出圆角框 */
+  .grp input.gn { border: 1.5px solid transparent; border-radius: 10px; background: none; font-size: 17px; font-weight: 700; width: 100%; padding: 6px 12px; }
   .grp input.gn:hover { border-color: var(--line); }
   .grp input.gn:focus { outline: none; border-color: var(--accent); background: var(--bg); }
   .tag { display: inline-flex; align-items: center; gap: 6px; background: var(--soft); border-radius: 999px; padding: 5px 8px 5px 12px; font-size: 13px; margin: 8px 6px 0 0; }

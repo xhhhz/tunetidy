@@ -93,7 +93,7 @@ export function Home() {
           aria-label="新整理"
           title="新整理"
         >
-          <Icon name="plus" size={22} />
+          <Icon name="plus" size={18} />
         </button>
       </div>
       {reading && <ReadingBanner job={reading} />}

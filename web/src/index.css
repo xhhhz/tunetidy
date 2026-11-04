@@ -111,7 +111,7 @@
   .btn:not(:disabled):hover { opacity: 0.88; }
   .btn.sm { padding: 9px 18px; font-size: 14px; }
   /* 首页的加号圆钮：白底黑框 */
-  .add { width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--fg); background: var(--bg); color: var(--fg); display: grid; place-items: center; flex: none; }
+  .add { width: 44px; height: 44px; border-radius: 999px; border: 2px solid var(--fg); background: var(--bg); color: var(--fg); display: grid; place-items: center; flex: none; }
   .add:hover { background: var(--soft); }
   .add svg { stroke-width: 2.4; }
   .ghost { border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; font-weight: 500; font-size: 14px; white-space: nowrap; }

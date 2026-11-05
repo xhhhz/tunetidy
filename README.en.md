@@ -2,11 +2,11 @@
 
 [中文](README.md) | English
 
-Split a NetEase Cloud Music playlist into several new playlists by genre. TuneTidy builds the result locally first; new playlists are created in your account only after you have reviewed it, adjusted it and confirmed it yourself.
+Split a NetEase Cloud Music playlist into several new playlists by genre. TuneTidy builds the result locally first; new playlists are created in your account only after you have adjusted it and confirmed it yourself.
 
 > **Unofficial project.** Not affiliated with, endorsed by or authorized by NetEase Cloud Music or its operator. TuneTidy only reads and writes playlist information in your own account and never downloads audio. See the [disclaimer](#disclaimer).
 
-<!-- Demo GIF -->
+<img width="960" height="540" alt="TuneTidy demo" src="https://github.com/user-attachments/assets/0cae92c6-360c-4491-823c-2cde0bb0ea3f" />
 
 ## Quick start
 

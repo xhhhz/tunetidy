@@ -1,6 +1,6 @@
 [project]
 name = "tunetidy"
-version = "1.0.0"
+version = "1.1.0"
 description = "理音：把网易云歌单按曲风拆成多个新歌单，本地生成整理结果，人工确认后再写回（非官方项目）。"
 readme = "README.md"
 requires-python = ">=3.11"
